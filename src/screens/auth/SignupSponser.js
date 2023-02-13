@@ -10,8 +10,8 @@ function SignupSponser() {
     ];
 
     return (
-        <div classNameName='signup-sponsor-div'>
-            <section className="h-100 h-custom" style={{ backgroundColor: '#8fc4b7' }}>
+        <div className='signup-both-div'>
+            <section className="h-custom" style={{ backgroundColor: '#8fc4b7' }}>
                 <div className="container py-5 h-100">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-lg-8">
@@ -21,7 +21,7 @@ function SignupSponser() {
                                     style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '0.3rem' }}
                                     alt="Sample photo" />
                                 <div className="card-body p-4 p-md-5">
-                                    <h3 className="mb-4">Registration Info</h3>
+                                    <h3 className="mb-4">Sign up to hire talent</h3>
 
                                     <form>
                                         <div className="filter-form-MUI-input-text">
@@ -135,27 +135,27 @@ function SignupSponser() {
                                                 placeholder='Select Hobby'
                                             />
 
-                                            <div className='filter-form-MUI-radio-btn custom-MUI-radio-btn mt-2 col-md-6'>
+                                            {/* <div className='filter-form-MUI-radio-btn custom-MUI-radio-btn mt-2 col-md-6'>
                                                 <label className='form-check-label'>Select Gender:</label>
-                                                <div className='d-flex align-items-center ml-4'>
+                                                <div className='d-flex align-items-center ms-4'>
                                                     <input
                                                         name="group1"
                                                         type='radio'
                                                         id='inline-radio-2'
                                                     />
-                                                    <label className='mb-0 ml-2'>Male</label>
+                                                    <label className='mb-0 ms-2'>Male</label>
                                                 </div>
 
-                                                <div className='d-flex align-items-center ml-4'>
+                                                <div className='d-flex align-items-center ms-4'>
                                                     <input
                                                         name="group1"
                                                         type='radio'
                                                         id='inline-radio-2'
                                                     />
-                                                    <label className='mb-0 ml-2'>Female</label>
+                                                    <label className='mb-0 ms-2'>Female</label>
                                                 </div>
-                                                {/* <span className='error'>span tag</span> */}
-                                            </div>
+                                                 <span className='error'>span tag</span>
+                                            </div> */}
                                         </div>
 
                                         <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Create my account</button>

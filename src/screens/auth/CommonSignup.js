@@ -13,7 +13,7 @@ function CommonSignup() {
                             <h3 className='text-center'>I am sponsor, looking for hiring</h3>
                         </div>
 
-                        <a className='a-btn' href="">Signup as sponsor <i class="fa fa-long-arrow-right ml-3" aria-hidden="true"></i></a>
+                        <a className='a-btn' href="">Signup as sponsor <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></a>
                     </div>
 
                     <div className='col-md-6'>
@@ -22,7 +22,7 @@ function CommonSignup() {
                             <h3 className='text-center'>I am a refugee, looking for job</h3>
                         </div>
 
-                        <a className='a-btn' href="">Signup as refugee <i class="fa fa-long-arrow-right ml-3" aria-hidden="true"></i></a>
+                        <a className='a-btn' href="">Signup as refugee <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
