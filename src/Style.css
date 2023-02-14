@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    scroll-behavior: smooth;
+    font-family: 'Roboto', sans-serif;
+}
+ 
+      /*  CSS start for account profile */
+
+.img-size {
+    width: 250px;
+    height: 250px;
+}
+
+.styling_name {
+    font-family: 'Roboto', sans-serif;
+    color: rgb(126, 149, 159);
+    font-weight: '500';
+
+}
+
+.styling_country {
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    align-self: center;
+}
+
+.ml_countryname {
+    margin-left: 15px;
+    color: rgb(146, 145, 144);
+
+}
+
+.font_color {
+    font-size: 17px;
+    margin-left: 10px;
+    font-family: 'Roboto', sans-serif;
+
+
+}
+
+.heading {
+    color: rgb(146, 145, 144);
+
+}
+
+  /* CSS end for account profile  */
+
+
+
+
