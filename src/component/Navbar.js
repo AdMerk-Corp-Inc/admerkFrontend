@@ -1,7 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { userContext } from '../context/UserContext';
 
 function Navbar() {
+  const {setUser} = useContext(userContext)
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
@@ -29,7 +30,9 @@ function Navbar() {
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
+              <a href='javascript:void(0)' onClick={()=>{
+                setUser(null)
+              }} class="nav-link ">Logout</a>
             </li>
           </ul>
         </div>

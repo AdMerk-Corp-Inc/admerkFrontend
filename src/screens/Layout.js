@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Footer from '../component/Footer'
 import Navbar from '../component/Navbar'
+import { userContext } from '../context/UserContext'
 
 function Layout(props) {
+    const { user } = useContext(userContext)
     return (
         <>
-            {(window.location.pathname != '/signup-sponser' && window.location.pathname != '/signup-refugee' && window.location.pathname != '/signup') && <Navbar />}
-            {props.children}
-            {(window.location.pathname != '/signup-sponser' && window.location.pathname != '/signup-refugee' && window.location.pathname != '/signup') && <Footer />}
+            {user ? <>
+
+                <Navbar />
+                {props.children}
+                <Footer />
+            </> : window.location = window.location.origin + "/login"}
         </>
     )
 }

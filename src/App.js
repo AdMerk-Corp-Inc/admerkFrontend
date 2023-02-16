@@ -14,25 +14,37 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from 'react';
 import { userContext } from './context/UserContext';
+import Login from './screens/auth/Login';
 
 function App() {
-  const {user} = useContext(userContext)
+  const { user } = useContext(userContext)
   return (
-    <Layout>
+    <>
       <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route path='/' exact={true} element={<Home />} />
+          <Route path='/login' exact={true} element={<Login />} />
           <Route path='/signup' exact={true} element={<CommonSignup />} />
           <Route path='/signup-sponser' exact={true} element={<SignupSponser />} />
           <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
-          <Route path='/sponsor-dashboard' exact={true} element={<SponsorDashboard />} />
-          <Route path='/refugee-dashboard' exact={true} element={<RefugeeDashboard />} />
-          <Route path='/profile' exact={true} element={<AccountProfile />} />
-          <Route path='/raise-ticket' exact={true} element={<RaiseTicket />} />
+
+
+          <Route path='/sponsor-dashboard' exact={true} element={<Layout>
+            <SponsorDashboard />
+          </Layout>} />
+          <Route path='/refugee-dashboard' exact={true} element={<Layout>
+            <RefugeeDashboard />
+          </Layout>} />
+          <Route path='/profile' exact={true} element={<Layout>
+            <AccountProfile />
+          </Layout>} />
+          <Route path='/raise-ticket' exact={true} element={<Layout>
+            <RaiseTicket />
+          </Layout>} />
         </Routes>
       </BrowserRouter>
-    </Layout>
+    </>
   );
 }
 
