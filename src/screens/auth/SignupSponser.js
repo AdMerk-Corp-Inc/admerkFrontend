@@ -21,7 +21,7 @@ function SignupSponser() {
                                     style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '0.3rem' }}
                                     alt="Sample photo" />
                                 <div className="card-body p-4 p-md-5">
-                                    <h3 className="mb-4">Sign up to hire talent</h3>
+                                    <h3 className="mb-4">Sign up to help refugee</h3>
 
                                     <form>
                                         <div className="filter-form-MUI-input-text">

@@ -5,9 +5,9 @@ import Navbar from '../component/Navbar'
 function Layout(props) {
     return (
         <>
-            {/* {(window.location.pathname != '/signup-sponser') && <Navbar />} */}
+            {(window.location.pathname != '/signup-sponser' && window.location.pathname != '/signup-refugee' && window.location.pathname != '/signup') && <Navbar />}
             {props.children}
-            {/* <Footer /> */}
+            {(window.location.pathname != '/signup-sponser' && window.location.pathname != '/signup-refugee' && window.location.pathname != '/signup') && <Footer />}
         </>
     )
 }

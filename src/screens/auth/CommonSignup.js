@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function CommonSignup() {
     return (
@@ -13,7 +14,7 @@ function CommonSignup() {
                             <h3 className='text-center'>I am sponsor, looking for hiring</h3>
                         </div>
 
-                        <a className='a-btn' href="">Signup as sponsor <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></a>
+                        <Link className='a-btn' to="/signup-sponser">Signup as sponsor <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
                     </div>
 
                     <div className='col-md-6'>
@@ -22,7 +23,7 @@ function CommonSignup() {
                             <h3 className='text-center'>I am a refugee, looking for job</h3>
                         </div>
 
-                        <a className='a-btn' href="">Signup as refugee <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></a>
+                        <Link className='a-btn' to="/signup-refugee">Signup as refugee <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
                     </div>
                 </div>
 
