@@ -9,10 +9,17 @@ import Home from './screens/Home';
 import Layout from './screens/Layout';
 import SponsorDashboard from './screens/sponser/SponsorDashboard';
 import RaiseTicket from './screens/refugee/RaiseTicket';
+import RefugeeDashboard from './screens/refugee/RefugeeDashboard';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from 'react';
+import { userContext } from './context/UserContext';
 
 function App() {
+  const {user} = useContext(userContext)
   return (
     <Layout>
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route path='/' exact={true} element={<Home />} />
@@ -20,6 +27,7 @@ function App() {
           <Route path='/signup-sponser' exact={true} element={<SignupSponser />} />
           <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
           <Route path='/sponsor-dashboard' exact={true} element={<SponsorDashboard />} />
+          <Route path='/refugee-dashboard' exact={true} element={<RefugeeDashboard />} />
           <Route path='/profile' exact={true} element={<AccountProfile />} />
           <Route path='/raise-ticket' exact={true} element={<RaiseTicket />} />
         </Routes>

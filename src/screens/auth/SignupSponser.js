@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Select from 'react-select';
 import { toast } from 'react-toastify';
+import { userContext } from '../../context/UserContext';
 import { url } from '../../Helper/Helper';
 
 function SignupSponser() {
-
+    const {user,setUser} = useContext(userContext)
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -27,7 +28,8 @@ function SignupSponser() {
                 for (var i = 0; i < data.list.length; i++) {
                     arr.push({
                         'value': data.list[i].id,
-                        'label': data.list[i].name
+                        'label': data.list[i].name,
+                        "phoneCode": data.list[i].phoneCode
                     })
                 }
                 setCountryList(arr)
@@ -47,6 +49,46 @@ function SignupSponser() {
 
     }, [])
 
+    async function handleSubmit(e) {
+        e.preventDefault()
+        let error = 0
+
+        const formData = new FormData()
+        formData.append("name", name)
+        formData.append("email", email)
+        formData.append("password", password)
+        formData.append("role", 3)
+        formData.append("whatsapp_number", whatsappnum)
+        if (country?.value) {
+            formData.append("country_id", country?.value)
+            formData.append("country_name", country?.label)
+            formData.append("country_code", country?.phoneCode)
+        }else{
+            error = error + 1
+        }
+
+        if (error == 0){
+            const response = await fetch(url + 'register-sponsor', {
+                method: 'POST',
+                body: formData
+            });
+    
+            if (response.ok == true) {
+                const data = await response.json();
+                console.log(data)
+                if (data.status == 200) {
+                    setUser(data?.user_data)
+                    window.location = window.location.origin + "/sponsor-dashboard"
+                } else {
+                    toast.error(data?.message)
+                }
+            }
+        }else{
+            toast.error("Please fill country")
+        }
+
+    }
+
     return (
         <div className='signup-both-div'>
             <section className="h-custom" style={{ backgroundColor: '#8fc4b7' }}>
@@ -61,7 +103,7 @@ function SignupSponser() {
                                 <div className="card-body p-4 p-md-5">
                                     <h3 className="mb-4">Sign up to help refugee</h3>
 
-                                    <form>
+                                    <form onSubmit={e => handleSubmit(e)}>
 
                                         <div className='row'>
 
@@ -70,9 +112,11 @@ function SignupSponser() {
                                                     <input
                                                         class="inner-input"
                                                         type="text"
-                                                        placeholder=" "
                                                         id='name'
                                                         autoComplete="off"
+                                                        required
+                                                        value={name}
+                                                        onChange={e => setName(e.target.value)}
                                                     />
                                                     <label for="name" class="inner-label">Name</label>
                                                     {/* <span className='required'>*Required</span> */}
@@ -88,6 +132,9 @@ function SignupSponser() {
                                                         placeholder=" "
                                                         id='password'
                                                         autoComplete="off"
+                                                        required
+                                                        value={password}
+                                                        onChange={e => setPassword(e.target.value)}
                                                     />
                                                     <label for="name" class="inner-label">Password</label>
                                                     {/* <span className='required'>*Required</span> */}
@@ -100,10 +147,13 @@ function SignupSponser() {
                                                 <main class="input-div">
                                                     <input
                                                         class="inner-input"
-                                                        type="text"
+                                                        type="email"
                                                         placeholder=" "
                                                         id='name'
                                                         autoComplete="off"
+                                                        required
+                                                        value={email}
+                                                        onChange={e => setEmail(e.target.value)}
                                                     />
                                                     <label for="name" class="inner-label">Email</label>
                                                     {/* <span className='required'>*Required</span> */}
@@ -112,24 +162,10 @@ function SignupSponser() {
                                                 {/* <span className='error'>it is span tag</span> */}
                                             </div>
 
-
-
-                                            {/* <div class="filter-form-MUI-input-text col-md-6">
-                                                <main className='input-div'>
-                                                    <select class="form-control inner-input" id="exampleFormControlSelect1">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </select>
-                                                    <label class="inner-label">Select Country</label>
-                                                </main>
-                                            </div> */}
-
                                             <Select className='col-md-6'
                                                 options={countrylist}
                                                 placeholder='Select Country'
+                                                required
                                                 value={country} onChange={setCountry}
                                             />
 
@@ -141,6 +177,9 @@ function SignupSponser() {
                                                         placeholder=" "
                                                         id='name'
                                                         autoComplete="off"
+                                                        required
+                                                        value={whatsappnum}
+                                                        onChange={e => setWhatsappNum(e.target.value)}
                                                     />
                                                     <label for="name" class="inner-label">WhatsApp Number</label>
                                                     {/* <span className='required'>*Required</span> */}
@@ -148,30 +187,6 @@ function SignupSponser() {
 
                                                 {/* <span className='error'>it is span tag</span> */}
                                             </div>
-
-
-
-                                            {/* <div className='filter-form-MUI-radio-btn custom-MUI-radio-btn mt-2 col-md-6'>
-                                                <label className='form-check-label'>Select Gender:</label>
-                                                <div className='d-flex align-items-center ms-4'>
-                                                    <input
-                                                        name="group1"
-                                                        type='radio'
-                                                        id='inline-radio-2'
-                                                    />
-                                                    <label className='mb-0 ms-2'>Male</label>
-                                                </div>
-
-                                                <div className='d-flex align-items-center ms-4'>
-                                                    <input
-                                                        name="group1"
-                                                        type='radio'
-                                                        id='inline-radio-2'
-                                                    />
-                                                    <label className='mb-0 ms-2'>Female</label>
-                                                </div>
-                                                 <span className='error'>span tag</span>
-                                            </div> */}
                                         </div>
 
                                         <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Create my account</button>
