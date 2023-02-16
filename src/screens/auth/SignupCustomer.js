@@ -1,13 +1,131 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select';
+import { toast } from 'react-toastify';
+import { url } from '../../Helper/Helper';
 
 function SignupCustomer() {
 
-    const options = [
-        { value: 'web development', label: 'web development' },
-        { value: 'app development', label: 'app development' },
-        { value: 'copy writing', label: 'copy writing' },
-    ];
+    const [name, setName] = useState('')
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [country, setCountry] = useState('')
+    const [countrylist, setCountryList] = useState([])
+    const [dob, setDob] = useState('')
+    const [whatsappnum, setWhatsappNum] = useState('')
+    const [graduation, setGraduation] = useState('')
+    const [skills, setSklls] = useState('')
+    const [skillslist, setSkillsList] = useState([])
+    const [hobby, setHobby] = useState('')
+    const [hobbyslist, setHobbyList] = useState([])
+    const [photo, setPhoto] = useState('')
+    const [description, setDescription] = useState('')
+
+
+    async function fetchSkill() {
+        var requestOptions = {
+            redirect: 'follow'
+        };
+
+        const response = await fetch(url + "skills-list", requestOptions)
+        if (response.ok === true) {
+
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name
+                    })
+                }
+                setSkillsList(arr)
+            } else {
+                toast.error("Please Create Skills First")
+            }
+        } else {
+
+            toast.error("Internal Server Error")
+        }
+    }
+
+    useEffect(() => {
+        fetchSkill().catch(err => {
+            toast.error(err.message)
+        })
+
+    }, [])
+
+
+    async function fetchHobby() {
+        var requestOptions = {
+            redirect: 'follow'
+        };
+
+        const response = await fetch(url + "hobby-list", requestOptions)
+        if (response.ok === true) {
+
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name
+                    })
+                }
+                setHobbyList(arr)
+            } else {
+                toast.error("Please Create HObby First")
+            }
+        } else {
+
+            toast.error("Internal Server Error")
+        }
+    }
+
+    useEffect(() => {
+        fetchHobby().catch(err => {
+            toast.error(err.message)
+        })
+
+    }, [])
+
+    async function fetchCountry() {
+        var requestOptions = {
+            redirect: 'follow'
+        };
+
+        const response = await fetch(url + "country-list", requestOptions)
+        if (response.ok === true) {
+
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name
+                    })
+                }
+                setCountryList(arr)
+            } else {
+                toast.error("")
+            }
+        } else {
+
+            toast.error("Internal Server Error")
+        }
+    }
+
+    useEffect(() => {
+        fetchCountry().catch(err => {
+            toast.error(err.message)
+        })
+
+    }, [])
 
     return (
         <div>
@@ -25,22 +143,38 @@ function SignupCustomer() {
                                         <h3 className="mb-4">Sign up to find work you love</h3>
 
                                         <form>
-                                            <div className="filter-form-MUI-input-text">
-                                                <main class="input-div">
-                                                    <input
-                                                        class="inner-input"
-                                                        type="text"
-                                                        placeholder=" "
-                                                        id='name'
-                                                        autoComplete="off"
-                                                    />
-                                                    <label for="name" class="inner-label">Name</label>
-                                                    {/* <span className='required'>*Required</span> */}
-                                                </main>
 
-                                                {/* <span className='error'>it is span tag</span> */}
-                                            </div>
                                             <div className='row'>
+                                                <div className="filter-form-MUI-input-text col-md-6">
+                                                    <main class="input-div">
+                                                        <input
+                                                            class="inner-input"
+                                                            type="text"
+                                                            placeholder=" "
+                                                            id='name'
+                                                            autoComplete="off"
+                                                        />
+                                                        <label for="name" class="inner-label">Name</label>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
+                                                <div className="filter-form-MUI-input-text col-md-6">
+                                                    <main class="input-div">
+                                                        <input
+                                                            class="inner-input"
+                                                            type="password"
+                                                            placeholder=" "
+                                                            id='password'
+                                                            autoComplete="off"
+                                                        />
+                                                        <label for="name" class="inner-label">Password</label>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
 
                                                 <div className="filter-form-MUI-input-text col-md-6">
                                                     <main class="input-div">
@@ -74,19 +208,25 @@ function SignupCustomer() {
                                                     <span className='error'>it is span tag</span>
                                                 </div> */}
 
-                                                <div class="filter-form-MUI-input-text col-md-6">
+                                                {/* <div class="filter-form-MUI-input-text col-md-6">
                                                     <main className='input-div'>
-                                                        <select class="form-control inner-input" id="exampleFormControlSelect1">
+                                                        <select options={countrylist} class="form-control inner-input" id="exampleFormControlSelect" value={country} onChange={setCountry}>
                                                             <option>1</option>
                                                             <option>2</option>
                                                             <option>3</option>
                                                             <option>4</option>
                                                             <option>5</option>
+
                                                         </select>
                                                         <label class="inner-label">Select Country</label>
                                                     </main>
-                                                </div>
+                                                </div> */}
 
+                                                <Select className='col-md-6'
+                                                    options={countrylist}
+                                                    placeholder='Select Country'
+                                                    value={country} onChange={setCountry}
+                                                />
                                                 <div className='filter-form-MUI-calendar col-md-6'>
                                                     <main className='input-div'>
                                                         <input className='inner-input' type="date" id='calendar' placeholder="DOB" />
@@ -128,15 +268,18 @@ function SignupCustomer() {
                                                 </div>
 
                                                 <Select className='col-md-6'
-                                                    options={options}
+                                                    options={skillslist}
                                                     isMulti={true}
                                                     placeholder='Select Skills'
+
+                                                    value={skills} onChange={setSklls}
                                                 />
 
                                                 <Select className='col-md-6'
-                                                    options={options}
+                                                    options={hobbyslist}
                                                     isMulti={true}
                                                     placeholder='Select Hobby'
+                                                    value={hobby} onChange={setHobby}
                                                 />
 
                                                 <div className="filter-form-MUI-input-text col-md-6">
@@ -154,6 +297,24 @@ function SignupCustomer() {
 
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
+                                                <div className="filter-form-MUI-input-text">
+                                                    <main class="input-div">
+                                                        <textarea
+
+                                                            class="inner-input"
+                                                            type="text"
+                                                            placeholder=" "
+                                                            id='name'
+                                                            autoComplete="off"
+                                                            rows='5'
+                                                        />
+                                                        <label for="name" class="inner-label">Description</label>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
+
 
                                                 <div className='filter-form-MUI-radio-btn custom-MUI-radio-btn col-md-6'>
                                                     <label className='form-check-label'>Select Gender:</label>
