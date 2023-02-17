@@ -7,20 +7,17 @@ function RaiseTicket() {
 
   return (
 
-    <section className="" style={{ backgroundColor: '#8fc4b7' }}>
+    <section className="my-tickets-div" style={{ backgroundColor: '#0061df08' }}>
       <div className="container py-5 h-100">
         <div className="card rounded-3">
 
-          <div className='p-4'>
-            <div className="heading d-flex justify-content-end ">
-              <a href='javascript:void(0);' onClick={() => setModalShow(true)} className='btn btn-success'>Create  Ticket</a>
-              <CreateTicket 
+          <div className='p-4 table-div'>
+            <CreateTicket
               show={modalShow}
               onHide={() => setModalShow(false)}
-              />
-            </div>
-           
-            <table class="table mt-5">
+            />
+
+            <table class="table">
               <thead>
                 <tr>
                   <th scope="col">Sr No.</th>

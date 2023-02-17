@@ -7,6 +7,54 @@
     font-family: 'Roboto', sans-serif;
 }
 
+// navbar
+.navbar-div {
+    .navbar-brand {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 2.2rem;
+        letter-spacing: -1.5px;
+        color: #2948ff;
+        transition: .3s ease-in-out;
+        line-height: 0.8;
+        margin-top: 8px;
+    }
+
+    .navbar-nav a {
+        color: #2948ff !important;
+
+        &:hover {
+            color: #000000b3 !important;
+        }
+    }
+
+    .nav-link,
+    li a {
+        font-size: 14px;
+    }
+
+    .user-photo {
+        img {
+            width: 2.5rem;
+            border-radius: 100%;
+        }
+
+        p,
+        .nav-link {
+            color: #2948ff;
+            font-size: 14px;
+
+            &:hover {
+                color: #000000b3;
+            }
+        }
+
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+    }
+}
+
 // common signup page
 .common-signup-div {
     min-height: 100vh;
@@ -227,6 +275,10 @@
         font-size: 36px;
     }
 
+    .card {
+        box-shadow: rgba(149, 157, 165, .2) 0px 8px 24px;
+    }
+
     @media (min-width: 1025px) {
         .h-custom {
             min-height: 100vh;
@@ -252,6 +304,80 @@
         .accordion-button:not(.collapsed) {
             color: inherit;
             background-color: inherit;
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            filter: brightness(0);
+        }
+
+        label {
+            font-size: 14px;
+        }
+    }
+
+    .refugee-cards {
+        border: 1px solid #d5e0d5;
+        border-radius: 10px;
+    }
+}
+
+// my tickets div
+.my-tickets-div{
+    .table-div{
+        min-height: 70vh;
+        box-shadow: rgba(149, 157, 165, .2) 0px 8px 24px;
+    }
+}
+
+// footer section
+.footer-div {
+    h2 {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 3rem;
+        letter-spacing: -1.5px;
+        transition: .3s ease-in-out;
+        line-height: 0.8;
+        margin-top: 8px;
+    }
+
+    h3 {
+        font-size: 22px;
+        letter-spacing: 1.3px;
+        margin-block: 1rem;
+        font-weight: bold;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        a {
+            color: white;
+            text-decoration: none;
+            line-height: 2;
+        }
+    }
+
+    .social-icons {
+        img {
+            width: 1.2rem;
+            border: 1px solid white;
+            border-radius: 10px;
+            padding: 0.4rem;
+            box-sizing: content-box;
+            margin-right: 0.5rem;
+        }
+    }
+
+    .copy-right-div{
+        border-top: 1px solid white;
+        padding: 1rem 0;
+        p{
+            margin-bottom: 0;
+        }
+        a{
+            color: white;
+            text-decoration: none;
         }
     }
 }

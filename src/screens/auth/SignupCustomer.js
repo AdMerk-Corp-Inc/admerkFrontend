@@ -187,7 +187,7 @@ function SignupCustomer() {
     return (
         <div>
             <div className='signup-both-div'>
-                <section className="h-custom" style={{ backgroundColor: '#8fc4b7' }}>
+                <section className="h-custom" style={{ backgroundColor: '#0061df08' }}>
                     <div className="container py-5 h-100">
                         <div className="row d-flex justify-content-center align-items-center h-100">
                             <div className="col-lg-8">

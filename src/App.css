@@ -9,6 +9,51 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.navbar-div .navbar-brand {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: -1.5px;
+  color: #2948ff;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+  line-height: 0.8;
+  margin-top: 8px;
+}
+
+.navbar-div .navbar-nav a {
+  color: #2948ff !important;
+}
+
+.navbar-div .navbar-nav a:hover {
+  color: #000000b3 !important;
+}
+
+.navbar-div .nav-link,
+.navbar-div li a {
+  font-size: 14px;
+}
+
+.navbar-div .user-photo img {
+  width: 2.5rem;
+  border-radius: 100%;
+}
+
+.navbar-div .user-photo p,
+.navbar-div .user-photo .nav-link {
+  color: #2948ff;
+  font-size: 14px;
+}
+
+.navbar-div .user-photo p:hover,
+.navbar-div .user-photo .nav-link:hover {
+  color: #000000b3;
+}
+
+.navbar-div .user-photo .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
 .common-signup-div {
   min-height: 100vh;
 }
@@ -230,6 +275,11 @@
   font-size: 36px;
 }
 
+.signup-both-div .card {
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
 @media (min-width: 1025px) {
   .signup-both-div .h-custom {
     min-height: 100vh;
@@ -255,5 +305,77 @@
 .sponsor-dashboard-div .accordion-item .accordion-button:not(.collapsed) {
   color: inherit;
   background-color: inherit;
+}
+
+.sponsor-dashboard-div .accordion-item .accordion-button:not(.collapsed)::after {
+  -webkit-filter: brightness(0);
+          filter: brightness(0);
+}
+
+.sponsor-dashboard-div .accordion-item label {
+  font-size: 14px;
+}
+
+.sponsor-dashboard-div .refugee-cards {
+  border: 1px solid #d5e0d5;
+  border-radius: 10px;
+}
+
+.my-tickets-div .table-div {
+  min-height: 70vh;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.footer-div h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 3rem;
+  letter-spacing: -1.5px;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+  line-height: 0.8;
+  margin-top: 8px;
+}
+
+.footer-div h3 {
+  font-size: 22px;
+  letter-spacing: 1.3px;
+  margin-block: 1rem;
+  font-weight: bold;
+}
+
+.footer-div ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-div ul a {
+  color: white;
+  text-decoration: none;
+  line-height: 2;
+}
+
+.footer-div .social-icons img {
+  width: 1.2rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 0.4rem;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  margin-right: 0.5rem;
+}
+
+.footer-div .copy-right-div {
+  border-top: 1px solid white;
+  padding: 1rem 0;
+}
+
+.footer-div .copy-right-div p {
+  margin-bottom: 0;
+}
+
+.footer-div .copy-right-div a {
+  color: white;
+  text-decoration: none;
 }
 /*# sourceMappingURL=App.css.map */

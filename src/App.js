@@ -15,6 +15,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from 'react';
 import { userContext } from './context/UserContext';
 import Login from './screens/auth/Login';
+import Terms from './screens/Terms';
+import Privacy from './screens/Privacy';
 
 function App() {
   const { user } = useContext(userContext)
@@ -29,18 +31,28 @@ function App() {
           <Route path='/signup-sponser' exact={true} element={<SignupSponser />} />
           <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
 
-
           <Route path='/sponsor-dashboard' exact={true} element={<Layout>
             <SponsorDashboard />
           </Layout>} />
+
           <Route path='/refugee-dashboard' exact={true} element={<Layout>
             <RefugeeDashboard />
           </Layout>} />
+
           <Route path='/profile' exact={true} element={<Layout>
             <AccountProfile />
           </Layout>} />
-          <Route path='/raise-ticket' exact={true} element={<Layout>
+
+          <Route path='/tickets' exact={true} element={<Layout>
             <RaiseTicket />
+          </Layout>} />
+
+          <Route path='/terms-and-conditions' exact={true} element={<Layout>
+            <Terms />
+          </Layout>} />
+
+          <Route path='/privacy-policy' exact={true} element={<Layout>
+            <Privacy />
           </Layout>} />
         </Routes>
       </BrowserRouter>

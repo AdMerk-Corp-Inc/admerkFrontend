@@ -12,7 +12,14 @@ function Layout(props) {
                 <Navbar />
                 {props.children}
                 <Footer />
-            </> : window.location = window.location.origin + "/login"}
+            </> :
+                // window.location = window.location.origin + "/login"
+                <>
+                    <Navbar />
+                    {props.children}
+                    <Footer />
+                </>
+            }
         </>
     )
 }

@@ -10,7 +10,7 @@ function CommonSignup() {
                 <div className='row'>
                     <div className='col-md-6'>
                         <div className="col-md-12 inner-card">
-                            <img src="/assets/hiring.png" alt="" />
+                            <img src="/assets/images/hiring.png" alt="" />
                             <h3 className='text-center'>I am sponsor, looking for hiring</h3>
                         </div>
 
@@ -19,7 +19,7 @@ function CommonSignup() {
 
                     <div className='col-md-6'>
                         <div className="col-md-12 inner-card">
-                            <img src="/assets/cv.png" alt="" />
+                            <img src="/assets/images/cv.png" alt="" />
                             <h3 className='text-center'>I am a refugee, looking for job</h3>
                         </div>
 
