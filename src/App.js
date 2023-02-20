@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css';
 import './Style.css';
+import './index.css'
 import AccountProfile from './screens/AccountProfile';
 import CommonSignup from './screens/auth/CommonSignup';
 import SignupCustomer from './screens/auth/SignupCustomer';

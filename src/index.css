@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.carousel-job-card{
+  height: 50vh
+}
+
+.count-card{
+  background-color : #79C553;
+  color : white;
+  position: relative;
+  padding: 10px 20px;
+}
+
+.count-card p:first-child{
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.count-card i {
+  font-size: 80px;
+  position: absolute;
+  top: 28%;
+  right: 20px;
+  opacity: 0.4;
+}

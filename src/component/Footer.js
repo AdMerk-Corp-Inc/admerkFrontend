@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { userContext } from '../context/UserContext'
 
 function Footer() {
+  const {user} = useContext(userContext)
   return (
     <div className='footer-div bg-dark text-white pt-5'>
       <div className='container'>
@@ -15,7 +17,7 @@ function Footer() {
               <h3>Company</h3>
               <ul>
                 <li><a href="">Home</a></li>
-                <li><a href="">Dashboard</a></li>
+                <li><a href={user?.role < 3 ? '/admin-dashboard' : user?.role == 3 ? '/sponsor-dashboard' : '/refugee-dashboard' }>Dashboard</a></li>
                 <li><a href="/tickets">My Tickets</a></li>
               </ul>
             </div>
