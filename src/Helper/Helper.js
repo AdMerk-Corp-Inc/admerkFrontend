@@ -1,5 +1,5 @@
-export const node_url = "http://localhost:3008/";
-// export const node_url = "http://192.168.1.102:3008/";
+// export const node_url = "http://localhost:3008/";
+export const node_url = "http://192.168.1.102:3008/";
 export const url = node_url + 'api/';
 
 export function dateTransformer(date){

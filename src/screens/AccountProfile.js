@@ -77,14 +77,14 @@ function AccountProfile() {
             <div className='d-flex flex-column mt-4 skill-hobby'>
               <h5 className='heading mb-3'>My Skills</h5>
               <div className='d-flex'>
-                {user?.skills.split(',').map((item, index) => <span key={index}>{item}</span>)}
+                {user?.skills?.split(',')?.map((item, index) => <span key={index}>{item}</span>)}
               </div>
             </div>
 
             <div className='d-flex flex-column mt-4 skill-hobby'>
               <h5 className=' heading'>Hobbies</h5>
               <div className='d-flex'>
-                {user?.hobby.split(',').map((item, index) => <span>{item}</span>)}
+                {user?.hobby?.split(',')?.map((item, index) => <span>{item}</span>)}
               </div>
             </div>
 

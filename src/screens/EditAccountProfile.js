@@ -1,26 +1,34 @@
 import React, { useContext, useEffect } from 'react'
 import { toast } from 'react-toastify';
 import { userContext } from '../context/UserContext';
+import { url } from '../Helper/Helper';
 
 function EditAccountProfile() {
 
-    const {user} = useContext(userContext)
+    const { user } = useContext(userContext)
 
     useEffect(() => {
-        async function fetchDetail(){
+        async function fetchDetail() {
             const response = await fetch(url + 'user-detail' + user?.id, {
-                headers:{
+                headers: {
                     'Authorization': `Bearer ${user?.token}`
                 }
             });
 
-            if(response.ok == true){
+            if (response.ok == true) {
                 const data = await response.json()
 
-            }else{
-                toast.error('')
+                console.log(data)
+                if (data.status == 200) {
+
+                } else {
+                    toast.error(data.message)
+                }
+
+            } else {
+                toast.error('Internal Server Error')
             }
-            
+
         }
 
         fetchDetail();
