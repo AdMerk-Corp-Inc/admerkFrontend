@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { toast } from 'react-toastify'
-import { url } from '../Helper/Helper'
+import { userContext } from '../context/UserContext';
+import { url } from '../Helper/Helper';
 
 function Hobby() {
 
     const [allhobbies, setAllHobbies] = useState([])
+    const [name,] = useState('')
+    const { user } = useContext(userContext)
 
     useEffect(() => {
         async function fetchHobby() {
@@ -25,6 +28,70 @@ function Hobby() {
 
         fetchHobby();
     }, [])
+
+    async function createHobby(e) {
+        e.preventDefault()
+        const res = window.prompt('Enter Hobby Name')
+        if (res.length > 0) {
+            const formData = new FormData()
+            formData.append('name', res)
+            const response = await fetch(url + 'create-hobby', {
+                headers: {
+                    "Authorization": `Bearer ${user?.token}`
+                },
+                method: 'POST',
+                body: formData
+
+            });
+            if (response.ok == true) {
+                const data = await response.json();
+                console.log(data);
+                if (data.status == 200) {
+                    toast.success(data?.message)
+
+                } else {
+                    toast.error(data.message)
+                }
+            } else {
+                toast.error("Internal Server Error")
+            }
+
+        }
+
+
+    }
+
+    async function editHobby(item) {
+
+        const res = window.prompt('Update Hobby Name',item.name)
+        if (res.length > 0) {
+            const formData = new FormData()
+            formData.append('name', res)
+            const response = await fetch(url + 'update-hobby', {
+                headers: {
+                    "Authorization": `Bearer ${user?.token}`
+                },
+                method: 'POST',
+                body: formData
+
+            });
+            if (response.ok == true) {
+                const data = await response.json();
+                console.log(data);
+                if (data.status == 200) {
+                    toast.success(data?.message)
+
+                } else {
+                    toast.error(data.message)
+                }
+            } else {
+                toast.error("Internal Server Error")
+            }
+
+
+        }
+    }
+
     return (
         <section className="skills-page-div" style={{ backgroundColor: '#0061df08' }}>
             <div className="container py-5 h-100">
@@ -32,14 +99,14 @@ function Hobby() {
 
                     <div className='p-4 table-div'>
                         <div className='d-flex justify-content-end'>
-                            <button type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Hobby</button>
+                            <button onClick={createHobby} value={name} required type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Hobby</button>
                         </div>
 
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Sr No.</th>
-                                    <th scope="col">Skill Name</th>
+                                    <th scope="col">Hobby Name</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -49,7 +116,7 @@ function Hobby() {
                                         <td>{index + 1}</td>
                                         <td>{item?.name}</td>
                                         <td>
-                                            <a href=''><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href='javascript:void(0);' onClick={() => editHobby(item)}><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href=""><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
