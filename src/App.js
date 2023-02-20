@@ -19,6 +19,7 @@ import Terms from './screens/Terms';
 import Privacy from './screens/Privacy';
 import Skills from './screens/Skills';
 import Hobby from './screens/Hobby';
+import EditAccountProfile from './screens/EditAccountProfile';
 
 function App() {
   const { user } = useContext(userContext)
@@ -43,6 +44,10 @@ function App() {
 
           <Route path='/profile' exact={true} element={<Layout>
             <AccountProfile />
+          </Layout>} />
+
+          <Route path='/edit-profile' exact={true} element={<Layout>
+            <EditAccountProfile />
           </Layout>} />
 
           <Route path='/tickets' exact={true} element={<Layout>
