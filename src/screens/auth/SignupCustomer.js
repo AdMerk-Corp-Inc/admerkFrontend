@@ -16,7 +16,7 @@ function SignupCustomer() {
     const [dob, setDob] = useState('')
     const [whatsappnum, setWhatsappNum] = useState('')
     const [graduation, setGraduation] = useState('')
-    const [skills, setSklls] = useState('')
+    const [skills, setSkills] = useState('')
     const [skillslist, setSkillsList] = useState([])
     const [hobby, setHobby] = useState('')
     const [hobbyslist, setHobbyList] = useState([])
@@ -36,7 +36,7 @@ function SignupCustomer() {
 
             const data = await response.json()
             console.log(data);
-            if (data.list.length > 0) {
+            if (data.status == 200) {
                 let arr = []
                 for (var i = 0; i < data.list.length; i++) {
                     arr.push({
@@ -46,10 +46,9 @@ function SignupCustomer() {
                 }
                 setSkillsList(arr)
             } else {
-                toast.error("Please Create Skills First")
+                toast.error(data.message)
             }
         } else {
-
             toast.error("Internal Server Error")
         }
     }
@@ -64,7 +63,7 @@ function SignupCustomer() {
 
             const data = await response.json()
             console.log(data);
-            if (data.list.length > 0) {
+            if (data.status == 200) {
                 let arr = []
                 for (var i = 0; i < data.list.length; i++) {
                     arr.push({
@@ -74,7 +73,7 @@ function SignupCustomer() {
                 }
                 setHobbyList(arr)
             } else {
-                toast.error("Please Create HObby First")
+                toast.error(data.message)
             }
         } else {
 
@@ -313,7 +312,7 @@ function SignupCustomer() {
                                                     isMulti={true}
                                                     placeholder='Select Skills'
                                                     required
-                                                    value={skills} onChange={setSklls}
+                                                    value={skills} onChange={setSkills}
                                                 />
 
                                                 <Select className='col-md-6'
@@ -340,11 +339,11 @@ function SignupCustomer() {
 
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
-                                                <div className="filter-form-MUI-input-text">
-                                                    <main class="input-div">
-                                                        <textarea
 
-                                                            class="inner-input"
+                                                <div className="filter-form-MUI-input-text">
+                                                    <main class="input-div h-100">
+                                                        <textarea
+                                                            class="inner-input position-relative"
                                                             type="text"
                                                             placeholder=" "
                                                             id='name'

@@ -1,15 +1,102 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
+import Select from 'react-select';
 import { userContext } from '../context/UserContext';
 import { url } from '../Helper/Helper';
 
 function EditAccountProfile() {
 
     const { user } = useContext(userContext)
+    const [name, setName] = useState('')
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [country, setCountry] = useState('')
+    const [countrylist, setCountryList] = useState([])
+    const [dob, setDob] = useState('')
+    const [whatsappnum, setWhatsappNum] = useState('')
+    const [graduation, setGraduation] = useState('')
+    const [skills, setSkills] = useState('')
+    const [skillslist, setSkillsList] = useState([])
+    const [hobby, setHobby] = useState('')
+    const [hobbyslist, setHobbyList] = useState([])
+    const [photo, setPhoto] = useState('')
+    const [description, setDescription] = useState('')
+    const [gender, setGender] = useState("male")
+    const [fromUsa, setFromUsa] = useState(1)
 
     useEffect(() => {
+        async function fetchHobby() {
+            const response = await fetch(url + "hobby-list")
+            if (response.ok == true) {
+                const data = await response.json()
+
+                if (data.status == 200) {
+                    let arr = []
+                    for (var i = 0; i < data.list.length; i++) {
+                        arr.push({
+                            'value': data.list[i].name,
+                            'label': data.list[i].name
+                        })
+                    }
+                    setHobbyList(arr)
+                } else {
+                    toast.error(data.message)
+                }
+            } else {
+
+                toast.error("Internal Server Error")
+            }
+        }
+
+        async function fetchSkill() {
+            const response = await fetch(url + "skills-list")
+            if (response.ok == true) {
+
+                const data = await response.json()
+
+                if (data.status == 200) {
+                    let arr = []
+                    for (var i = 0; i < data.list.length; i++) {
+                        arr.push({
+                            'value': data.list[i].name,
+                            'label': data.list[i].name
+                        })
+                    }
+                    setSkillsList(arr)
+                } else {
+                    toast.error(data.message)
+                }
+            } else {
+                toast.error("Internal Server Error")
+            }
+        }
+
+        async function fetchCountry() {
+            const response = await fetch(url + "country-list")
+            if (response.ok == true) {
+
+                const data = await response.json()
+
+                if (data.status == 200) {
+                    let arr = []
+                    for (var i = 0; i < data.list.length; i++) {
+                        arr.push({
+                            'value': data.list[i].id,
+                            'label': data.list[i].name,
+                            "phoneCode": data.list[i].phoneCode
+                        })
+                    }
+                    setCountryList(arr)
+                } else {
+                    toast.error(data.message)
+                }
+            } else {
+                toast.error("Internal Server Error")
+            }
+        }
+
         async function fetchDetail() {
-            const response = await fetch(url + 'user-detail' + user?.id, {
+            const response = await fetch(url + 'user-detail/' + user?.id, {
                 headers: {
                     'Authorization': `Bearer ${user?.token}`
                 }
@@ -18,8 +105,39 @@ function EditAccountProfile() {
             if (response.ok == true) {
                 const data = await response.json()
 
-                console.log(data)
                 if (data.status == 200) {
+                    let userData = data?.detail
+                    
+                    console.log(data?.detail)
+                    setName(userData?.name)
+                    setEmail(userData?.email)
+                    setCountry({
+                        value: userData?.country_id,
+                        label: userData?.country_name,
+                        phoneCode: userData?.country_code
+                    })
+                    setDob(userData?.dob)
+                    setWhatsappNum(userData?.whatsapp_number)
+                    setGraduation(userData?.graduation)
+                    setSkills(
+                        userData?.skills?.split(',')?.map(item => {
+                            return {
+                                value: item,
+                                label: item,
+                            }
+                        })
+                    )
+                    setHobby(
+                        userData?.hobby?.split(',')?.map(item => {
+                            return {
+                                value: item,
+                                label: item,
+                            }
+                        })
+                    )
+                    setDescription(userData?.description)
+                    setGender(userData?.gender)
+                    setFromUsa(userData?.from_usa)
 
                 } else {
                     toast.error(data.message)
@@ -28,9 +146,11 @@ function EditAccountProfile() {
             } else {
                 toast.error('Internal Server Error')
             }
-
         }
 
+        fetchHobby();
+        fetchSkill();
+        fetchCountry();
         fetchDetail();
     }, [])
 
@@ -41,14 +161,12 @@ function EditAccountProfile() {
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-lg-8">
                             <div className="card rounded-3">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-                                    className="w-100"
-                                    style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '0.3rem' }}
-                                    alt="Sample photo" />
-                                <div className="card-body p-4 p-md-5">
-                                    <h3 className="mb-4">Sign up to find work you love</h3>
 
-                                    <form onSubmit={(e) => handleSubmit(e)}>
+                                <div className="card-body p-4 p-md-5">
+                                    <h3 className="mb-4">Edit Profile Detail</h3>
+
+                                    {/* <form onSubmit={(e) => handleSubmit(e)}> */}
+                                    <form>
 
                                         <div className='row'>
                                             <div className="filter-form-MUI-input-text col-md-6">
@@ -62,32 +180,11 @@ function EditAccountProfile() {
                                                         onChange={e => setName(e.target.value)}
                                                     />
                                                     <label for="name" class="inner-label">Name</label>
-                                                    {/* <span className='required'>*Required</span> */}
                                                 </main>
-
-                                                {/* <span className='error'>it is span tag</span> */}
-                                            </div>
-                                            <div className="filter-form-MUI-input-text col-md-6">
-                                                <main class="input-div">
-                                                    <input
-                                                        class="inner-input"
-                                                        type="password"
-                                                        placeholder=" "
-                                                        id='password'
-                                                        autoComplete="off"
-                                                        value={password}
-                                                        required
-                                                        onChange={e => setPassword(e.target.value)}
-                                                    />
-                                                    <label for="name" class="inner-label">Password</label>
-                                                    {/* <span className='required'>*Required</span> */}
-                                                </main>
-
-                                                {/* <span className='error'>it is span tag</span> */}
                                             </div>
 
                                             <div className="filter-form-MUI-input-text col-md-6">
-                                                <main class="input-div">
+                                                <main class="input-div bg-light">
                                                     <input
                                                         class="inner-input"
                                                         type="email"
@@ -97,20 +194,19 @@ function EditAccountProfile() {
                                                         value={email}
                                                         required
                                                         onChange={e => setEmail(e.target.value)}
+                                                        readOnly
                                                     />
                                                     <label for="name" class="inner-label">Email</label>
-                                                    {/* <span className='required'>*Required</span> */}
                                                 </main>
-
-                                                {/* <span className='error'>it is span tag</span> */}
                                             </div>
 
-                                            <Select className='col-md-6'
+                                            <Select className='col-md-6 mb-3'
                                                 options={countrylist}
                                                 placeholder='Select Country'
                                                 value={country} required onChange={setCountry}
                                             />
-                                            <div className='filter-form-MUI-calendar col-md-6'>
+
+                                            <div className='filter-form-MUI-calendar mb-3 col-md-6'>
                                                 <main className='input-div'>
                                                     <input className='inner-input' type="date" value={dob}
                                                         required
@@ -162,7 +258,7 @@ function EditAccountProfile() {
                                                 isMulti={true}
                                                 placeholder='Select Skills'
                                                 required
-                                                value={skills} onChange={setSklls}
+                                                value={skills} onChange={setSkills}
                                             />
 
                                             <Select className='col-md-6'
@@ -173,27 +269,10 @@ function EditAccountProfile() {
                                                 value={hobby} onChange={setHobby}
                                             />
 
-                                            <div className="filter-form-MUI-input-text col-md-6">
-                                                <main class="input-div">
-                                                    <input
-                                                        class="inner-input"
-                                                        type="file"
-                                                        placeholder=" "
-                                                        id='name'
-                                                        autoComplete="off"
-                                                        onChange={e => setPhoto(e.target.files[0])}
-                                                    />
-                                                    <label for="name" class="inner-label">Upload Profile Photo</label>
-                                                    {/* <span className='required'>*Required</span> */}
-                                                </main>
-
-                                                {/* <span className='error'>it is span tag</span> */}
-                                            </div>
                                             <div className="filter-form-MUI-input-text">
-                                                <main class="input-div">
+                                                <main class="input-div h-100">
                                                     <textarea
-
-                                                        class="inner-input"
+                                                        class="inner-input position-relative"
                                                         type="text"
                                                         placeholder=" "
                                                         id='name'
