@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
+import { userContext } from '../context/UserContext';
 import { url } from '../Helper/Helper';
 
 function Skills() {
 
     const [allSkills, setAllSkills] = useState([])
+    const [name, setName] = useState('')
+    const { user } = useContext(userContext)
 
     useEffect(() => {
         async function fetchSkill() {
@@ -12,7 +15,7 @@ function Skills() {
             const response = await fetch(url + "skills-list")
             if (response.ok == true) {
                 const data = await response.json()
-
+                console.log(data)
                 if (data.status == 200) {
                     setAllSkills(data?.list)
 
@@ -27,17 +30,41 @@ function Skills() {
         fetchSkill();
     }, [])
 
-    async function createSkill(){
+    async function createSkill() {
         const res = window.prompt('Enter Skill Name')
-        if(res.length > 0){
-            
+        if (res.length > 0) {
+            const formData = new FormData()
+            formData.append('name', name)
+            const response = await fetch(url + 'create-skill', {
+                headers: {
+                    "Authorization": `Bearer ${user?.token}`
+                },
+                method: 'POST',
+                body: formData
+
+            });
+            if (response.ok == true) {
+                const data = await response.json();
+                console.log(data);
+                if (data.status == 200) {
+                    toast.success(data?.message)
+                    setName('')
+                } else {
+                    toast.error(data.message)
+                }
+            } else {
+                toast.error("Internal Server Error")
+            }
+
         }
+
+
     }
 
-    async function editSkill(item){
+    async function editSkill(item) {
         const res = window.prompt('Enter Skill Name', item.name)
-        if(res.length > 0){
-            
+        if (res.length > 0) {
+
         }
     }
 
@@ -48,7 +75,7 @@ function Skills() {
 
                     <div className='p-4 table-div'>
                         <div className='d-flex justify-content-end'>
-                            <button onClick={createSkill} type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Skill</button>
+                            <button onClick={createSkill} value={name} required onChange={e => setName(e.target.value)} type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Skill</button>
                         </div>
 
                         <table class="table">
