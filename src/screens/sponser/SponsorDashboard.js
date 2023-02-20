@@ -1,14 +1,120 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 import Pagination from '../../component/Pagination';
+import { url } from '../../Helper/Helper';
 
 function SponsorDashboard() {
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
+    const [skills, setSklls] = useState('')
+    const [skillslist, setSkillsList] = useState([])
+    const [hobby, setHobby] = useState('')
+    const [hobbyslist, setHobbyList] = useState([])
+    const [country, setCountry] = useState('')
+    const [countrylist, setCountryList] = useState([])
+
+
+    async function fetchSkill() {
+        var requestOptions = {
+            redirect: 'follow'
+        };
+
+        const response = await fetch(url + "skills-list", requestOptions)
+        if (response.ok === true) {
+
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name
+                    })
+                }
+                setSkillsList(arr)
+            } else {
+                toast.error("Please Create Skills First")
+            }
+        } else {
+
+            toast.error("Internal Server Error")
+        }
+    }
+
+    async function fetchHobby() {
+        var requestOptions = {
+            redirect: 'follow'
+        };
+
+        const response = await fetch(url + "hobby-list", requestOptions)
+        if (response.ok === true) {
+
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name
+                    })
+                }
+                setHobbyList(arr)
+            } else {
+                toast.error("Please Create Hobby First")
+            }
+        } else {
+
+            toast.error("Internal Server Error")
+        }
+    }
+
+    async function fetchCountry() {
+        var requestOptions = {
+            redirect: 'follow'
+        };
+
+        const response = await fetch(url + "country-list", requestOptions)
+        if (response.ok === true) {
+
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name,
+                        "phoneCode": data.list[i].phoneCode
+                    })
+                }
+                setCountryList(arr)
+            } else {
+                toast.error("")
+            }
+        } else {
+
+            toast.error("Internal Server Error")
+        }
+    }
+
+    useEffect(() => {
+        fetchCountry().catch(err => {
+            toast.error(err.message)
+        })
+        fetchHobby().catch(err => {
+            toast.error(err.message)
+        })
+        fetchSkill().catch(err => {
+            toast.error(err.message)
+        })
+
+
+    }, [])
+
+
+
 
     return (
         <div className='sponsor-dashboard-div container my-5'>
@@ -26,9 +132,10 @@ function SponsorDashboard() {
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                                 <div class="accordion-body">
                                     <Select
-                                        options={options}
+                                        options={skillslist}
                                         isMulti={true}
                                         placeholder='Select Skills'
+                                        value={skills} onChange={setSklls}
                                     />
                                 </div>
                             </div>
@@ -43,9 +150,10 @@ function SponsorDashboard() {
                             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                                 <div class="accordion-body">
                                     <Select
-                                        options={options}
+                                        options={hobbyslist}
                                         isMulti={true}
                                         placeholder='Select Hobby'
+                                        value={hobby} onChange={setHobby}
                                     />
                                 </div>
                             </div>
@@ -80,7 +188,13 @@ function SponsorDashboard() {
                             </h2>
                             <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
                                 <div class="accordion-body">
-                                    <div class="form-check">
+                                    <Select
+                                        options={countrylist}
+                                        isMulti={true}
+                                        placeholder='Select Country'
+                                        value={country} onChange={setCountry}
+                                    />
+                                    {/* <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="insider" />
                                         <label class="form-check-label" for="insider">From USA</label>
                                     </div>
@@ -88,7 +202,7 @@ function SponsorDashboard() {
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="outside" />
                                         <label class="form-check-label" for="outside">Outside Of USA</label>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
