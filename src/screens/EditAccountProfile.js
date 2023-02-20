@@ -253,7 +253,7 @@ function EditAccountProfile() {
                                                 {/* <span className='error'>it is span tag</span> */}
                                             </div>
 
-                                            <Select className='col-md-6'
+                                            <Select className='col-md-6 mb-3'
                                                 options={skillslist}
                                                 isMulti={true}
                                                 placeholder='Select Skills'
@@ -261,7 +261,7 @@ function EditAccountProfile() {
                                                 value={skills} onChange={setSkills}
                                             />
 
-                                            <Select className='col-md-6'
+                                            <Select className='col-md-6 mb-3'
                                                 options={hobbyslist}
                                                 isMulti={true}
                                                 placeholder='Select Hobby'

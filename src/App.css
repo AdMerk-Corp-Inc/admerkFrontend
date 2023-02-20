@@ -20,6 +20,10 @@
   margin-top: 8px;
 }
 
+.navbar-div .navbar-brand img {
+  width: 18rem;
+}
+
 .navbar-div .navbar-nav a {
   color: #2948ff !important;
 }
