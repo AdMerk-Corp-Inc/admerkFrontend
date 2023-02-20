@@ -46,6 +46,10 @@ function App() {
             <AccountProfile />
           </Layout>} />
 
+          <Route path='/refugee-profile' exact={true} element={<Layout>
+            <AccountProfile />
+          </Layout>} />
+
           <Route path='/edit-profile' exact={true} element={<Layout>
             <EditAccountProfile />
           </Layout>} />
