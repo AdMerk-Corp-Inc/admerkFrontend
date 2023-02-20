@@ -31,7 +31,7 @@ function Login() {
         } else if (data.user_data.role == 3) {
           window.location = window.location.origin + "/sponsor-dashboard"
         } else {
-          window.location = window.location.origin + "/sponsor-dashboard"
+          window.location = window.location.origin + "/admin-dashboard"
         }
       } else {
         toast.error(data?.message)
