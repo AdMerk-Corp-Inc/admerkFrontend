@@ -104,6 +104,31 @@
   border-radius: 0px;
 }
 
+.login-div h2 a {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: -1.5px;
+  color: #2948ff;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+  line-height: 0.8;
+  margin-top: 8px;
+  text-decoration: none;
+}
+
+.login-div h2 a:hover {
+  color: #000000;
+}
+
+.login-div .forgot-pass-div a {
+  color: #7e7e7e;
+  text-decoration: none;
+}
+
+.login-div .forgot-pass-div a:hover {
+  color: #2948ff;
+}
+
 .filter-form-MUI-input-text {
   margin-bottom: 1rem;
 }
@@ -261,6 +286,23 @@
   color: white;
 }
 
+.not-found {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #818181;
+}
+
+.fa-pencil {
+  color: #2948ff;
+}
+
+.fa-trash-o {
+  color: red;
+}
+
 @media (max-width: 1199.9px) {
   .filter-form-MUI-input-text .input-div {
     height: 48px;
@@ -278,12 +320,6 @@
 .signup-both-div .card {
   -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
           box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
-@media (min-width: 1025px) {
-  .signup-both-div .h-custom {
-    min-height: 100vh;
-  }
 }
 
 .sponsor-dashboard-div .accordion-item {
@@ -316,12 +352,89 @@
   font-size: 14px;
 }
 
-.sponsor-dashboard-div .refugee-cards {
+.refugee-cards {
   border: 1px solid #d5e0d5;
   border-radius: 10px;
 }
 
-.my-tickets-div .table-div {
+.refugee-cards .refugee-single-card {
+  font-size: 15px;
+}
+
+.refugee-cards .refugee-single-card:hover {
+  background-color: ghostwhite;
+}
+
+.refugee-cards .refugee-single-card .avatar-div img {
+  width: 5rem;
+  border-radius: 100px;
+  margin-right: 20px;
+}
+
+.refugee-cards .refugee-single-card .avatar-div h5 {
+  font-size: 15px;
+  color: #2948ff;
+  text-transform: capitalize;
+  margin-bottom: 0;
+}
+
+.refugee-cards .refugee-single-card .avatar-div p {
+  font-size: 15px;
+  margin: 0;
+  font-weight: 500;
+  color: #1e1e1e;
+}
+
+.refugee-cards .refugee-single-card .avatar-div span {
+  color: #5e6d55;
+  font-size: 15px;
+}
+
+.refugee-cards .refugee-single-card p {
+  color: #1e1e1e;
+}
+
+.refugee-single-card:not(:last-child) {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.refugee-single-card:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.pagination-div a {
+  color: #2948ff;
+  text-decoration: none;
+}
+
+.pagination-div span {
+  background-color: #2948ff;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 100px;
+  line-height: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 1rem;
+}
+
+.my-tickets-div .status-filter-div label {
+  font-size: 14px;
+}
+
+.my-tickets-div .status-filter-div select {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  max-width: 8rem;
+}
+
+.table-div {
   min-height: 70vh;
   -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
           box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -377,5 +490,12 @@
 .footer-div .copy-right-div a {
   color: white;
   text-decoration: none;
+}
+
+@media (min-width: 1025px) {
+  .signup-both-div .h-custom,
+  .login-div .h-custom {
+    min-height: 100vh;
+  }
 }
 /*# sourceMappingURL=App.css.map */

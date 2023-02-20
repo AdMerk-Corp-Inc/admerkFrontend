@@ -17,6 +17,8 @@ import { userContext } from './context/UserContext';
 import Login from './screens/auth/Login';
 import Terms from './screens/Terms';
 import Privacy from './screens/Privacy';
+import Skills from './screens/Skills';
+import Hobby from './screens/Hobby';
 
 function App() {
   const { user } = useContext(userContext)
@@ -53,6 +55,14 @@ function App() {
 
           <Route path='/privacy-policy' exact={true} element={<Layout>
             <Privacy />
+          </Layout>} />
+
+          <Route path='/skills' exact={true} element={<Layout>
+            <Skills />
+          </Layout>} />
+
+          <Route path='/hobby' exact={true} element={<Layout>
+            <Hobby />
           </Layout>} />
         </Routes>
       </BrowserRouter>

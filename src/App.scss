@@ -99,6 +99,33 @@
     }
 }
 
+// login page section
+.login-div {
+    h2 a {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 2.5rem;
+        letter-spacing: -1.5px;
+        color: #2948ff;
+        transition: .3s ease-in-out;
+        line-height: 0.8;
+        margin-top: 8px;
+        text-decoration: none;
+
+        &:hover {
+            color: #000000;
+        }
+    }
+
+    .forgot-pass-div a {
+        color: #7e7e7e;
+        text-decoration: none;
+
+        &:hover {
+            color: #2948ff;
+        }
+    }
+}
+
 // MUI input style
 .filter-form-MUI-input-text {
     margin-bottom: 1rem;
@@ -256,6 +283,24 @@
     }
 }
 
+.not-found {
+    text-align: center;
+    padding: 4rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #818181;
+}
+
+.fa-pencil {
+    color: #2948ff;
+}
+
+.fa-trash-o {
+    color: red;
+}
+
+
 @media (max-width: 1199.9px) {
     .filter-form-MUI-input-text {
         .input-div {
@@ -277,12 +322,6 @@
 
     .card {
         box-shadow: rgba(149, 157, 165, .2) 0px 8px 24px;
-    }
-
-    @media (min-width: 1025px) {
-        .h-custom {
-            min-height: 100vh;
-        }
     }
 }
 
@@ -314,19 +353,101 @@
             font-size: 14px;
         }
     }
+}
 
-    .refugee-cards {
-        border: 1px solid #d5e0d5;
-        border-radius: 10px;
+.refugee-cards {
+    border: 1px solid #d5e0d5;
+    border-radius: 10px;
+
+    .refugee-single-card {
+        font-size: 15px;
+
+        &:hover {
+            background-color: ghostwhite;
+        }
+
+        .avatar-div {
+            img {
+                width: 5rem;
+                border-radius: 100px;
+                margin-right: 20px;
+            }
+
+            h5 {
+                font-size: 15px;
+                color: #2948ff;
+                text-transform: capitalize;
+                margin-bottom: 0;
+            }
+
+            p {
+                font-size: 15px;
+                margin: 0;
+                font-weight: 500;
+                color: #1e1e1e;
+            }
+
+            span {
+                color: #5e6d55;
+                font-size: 15px;
+            }
+        }
+
+        p {
+            color: #1e1e1e;
+        }
     }
 }
 
-// my tickets div
-.my-tickets-div{
-    .table-div{
-        min-height: 70vh;
-        box-shadow: rgba(149, 157, 165, .2) 0px 8px 24px;
+.refugee-single-card:not(:last-child){
+    border-bottom: 1px solid #dee2e6;
+}
+
+.refugee-single-card:last-child{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+// pagination div
+.pagination-div {
+    a {
+        color: #2948ff;
+        text-decoration: none;
     }
+
+    span {
+        background-color: #2948ff;
+        color: white;
+        padding: 0.5rem;
+        border-radius: 100px;
+        line-height: 0;
+        display: flex;
+        align-items: center;
+        margin: 0 1rem;
+    }
+
+
+}
+
+// my tickets div
+.my-tickets-div {
+
+    .status-filter-div {
+
+        label {
+            font-size: 14px;
+        }
+
+        select {
+            flex: 1;
+            max-width: 8rem;
+        }
+    }
+}
+
+.table-div {
+    min-height: 70vh;
+    box-shadow: rgba(149, 157, 165, .2) 0px 8px 24px;
 }
 
 // footer section
@@ -369,15 +490,26 @@
         }
     }
 
-    .copy-right-div{
+    .copy-right-div {
         border-top: 1px solid white;
         padding: 1rem 0;
-        p{
+
+        p {
             margin-bottom: 0;
         }
-        a{
+
+        a {
             color: white;
             text-decoration: none;
+        }
+    }
+}
+
+.signup-both-div,
+.login-div {
+    @media (min-width: 1025px) {
+        .h-custom {
+            min-height: 100vh;
         }
     }
 }

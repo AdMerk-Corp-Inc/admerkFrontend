@@ -1,53 +1,76 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
-    scroll-behavior: smooth;
-    font-family: 'Roboto', sans-serif;
-}
- 
-      /*  CSS start for account profile */
+/*  CSS start for account profile */
 
-.img-size {
-    width: 250px;
-    height: 250px;
+.account-detail-page .card-body {
+    box-shadow: rgba(149, 157, 165, .2) 0px 8px 24px;
 }
 
-.styling_name {
+.account-detail-page .img-size {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+}
+
+.account-detail-page .styling_name {
     font-family: 'Roboto', sans-serif;
     color: rgb(126, 149, 159);
     font-weight: '500';
 
 }
 
-.styling_country {
+.account-detail-page .styling_country {
     font-size: 12px;
     font-family: 'Roboto', sans-serif;
     align-self: center;
 }
 
-.ml_countryname {
+.account-detail-page .ml_countryname {
     margin-left: 15px;
     color: rgb(146, 145, 144);
 
 }
 
-.font_color {
+.account-detail-page .font_color {
     font-size: 17px;
     margin-left: 10px;
     font-family: 'Roboto', sans-serif;
-
-
 }
 
-.heading {
+.account-detail-page .heading {
     color: rgb(146, 145, 144);
+}
+
+.account-detail-page i {
+    color: #929190;
+}
+
+.account-detail-page .fa-check {
+    color: green;
+    background-color: lightgreen;
+    padding: 0.3rem;
+    border-radius: 50px;
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+}
+
+.account-detail-page .fa-times{
+    color: red;
+    background-color: rgba(255, 0, 0, 0.152);
+    padding: 0.3rem .5rem;
+    border-radius: 50px;
+    margin-left: 0.3rem;
+    font-size: 0.9rem;
 
 }
 
-  /* CSS end for account profile  */
+.skill-hobby span {
+    background-color: #0061df0d;
+    width: max-content;
+    color: #2948ff;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    margin: 0 0.7rem .5rem 0;
+}
 
-
-
-
+/* CSS end for account profile  */

@@ -13,12 +13,14 @@ function Layout(props) {
                 {props.children}
                 <Footer />
             </> :
-                // window.location = window.location.origin + "/login"
-                <>
-                    <Navbar />
-                    {props.children}
-                    <Footer />
-                </>
+                <span className='d-none'>
+                    {window.location = window.location.origin + "/login"}
+                </span>
+                // <>
+                //     <Navbar />
+                //     {props.children}
+                //     <Footer />
+                // </>
             }
         </>
     )

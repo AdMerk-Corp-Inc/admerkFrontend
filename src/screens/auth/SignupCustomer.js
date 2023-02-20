@@ -207,7 +207,7 @@ function SignupCustomer() {
                                                         <input
                                                             class="inner-input"
                                                             type="text"
-                                                            placeholder="Enter Name"
+                                                            placeholder=" "
                                                             value={name}
                                                             required
                                                             onChange={e => setName(e.target.value)}

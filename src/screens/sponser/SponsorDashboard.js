@@ -1,5 +1,6 @@
 import React from 'react'
 import Select from 'react-select';
+import Pagination from '../../component/Pagination';
 
 function SponsorDashboard() {
 
@@ -10,7 +11,7 @@ function SponsorDashboard() {
     ];
 
     return (
-        <div className='sponsor-dashboard-div container'>
+        <div className='sponsor-dashboard-div container my-5'>
             <div className='row'>
                 <div className='col-md-3'>
                     <h5>Filter By</h5>
@@ -96,8 +97,26 @@ function SponsorDashboard() {
 
                 <div className='col-md-9'>
                     <div className='refugee-cards'>
+                        <div class="input-group px-4 py-3 border-bottom search-div">
+                            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        </div>
 
+                        <a className='refugee-single-card px-4 py-4 text-decoration-none d-block' href=''>
+                            <div className='d-flex align-items-center avatar-div'>
+                                <img src="/assets/images/no-user.png" alt="" />
+                                <div>
+                                    <h5>Yahya japan</h5>
+                                    <p>yahyajapan.yj@gmail.com</p>
+                                    <span>India</span>
+                                </div>
+                            </div>
+
+                            <p className='mb-0 mt-4'>Lorem ipsum  quia repellat quis dolores, doloribus error consequuntur reprehenderit aut facere natus, impedit laboriosam temporibus similique alias eos eaque fugiat, asperiores necessitatibus quas inventore dolorum dolore. At quidem ullam deserunt architecto.</p>
+                        </a>
                     </div>
+
+                    <Pagination />
                 </div>
             </div>
         </div>
