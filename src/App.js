@@ -20,6 +20,7 @@ import Privacy from './screens/Privacy';
 import Skills from './screens/Skills';
 import Hobby from './screens/Hobby';
 import EditAccountProfile from './screens/EditAccountProfile';
+import VolunteerAdminDashboard from './screens/VolunteerAdminDashboard';
 
 function App() {
   const { user } = useContext(userContext)
@@ -40,6 +41,10 @@ function App() {
 
           <Route path='/refugee-dashboard' exact={true} element={<Layout>
             <RefugeeDashboard />
+          </Layout>} />
+
+          <Route path='/admin-dashboard' exact={true} element={<Layout>
+            <VolunteerAdminDashboard />
           </Layout>} />
 
           <Route path='/profile' exact={true} element={<Layout>
