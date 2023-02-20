@@ -1,14 +1,52 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 import { userContext } from '../context/UserContext';
-import { node_url } from '../Helper/Helper';
+import { node_url, url } from '../Helper/Helper';
 
 function AccountProfile() {
+  const [user, setUser] = useState('')
 
-  const { user } = useContext(userContext)
+  const contextData = useContext(userContext)
+
+  function useQuery() {
+    const { search } = useLocation();
+
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }
+
+  const id = useQuery().get('id');
 
   useEffect(() => {
-    console.log(user)
+    if (id) {
+      async function fetchDetail() {
+        const response = await fetch(url + 'user-detail/' + id, {
+          headers: {
+            'Authorization': `Bearer ${contextData?.user?.token}`
+          }
+        });
+
+        if (response.ok == true) {
+          const data = await response.json()
+
+          console.log(data)
+          if (data.status == 200) {
+            setUser(data?.detail)
+          } else {
+            toast.error(data.message)
+          }
+
+        } else {
+          toast.error('Internal Server Error')
+        }
+
+      }
+
+      fetchDetail();
+    } else {
+      setUser(contextData.user)
+    }
   }, [])
 
   return (
@@ -43,12 +81,13 @@ function AccountProfile() {
 
                   <div className=' py-2'>
                     <i class="fa-brands fa-whatsapp"></i>
-                    <span className='styling_country font_color'>{user?.country_code} {user?.whatsapp_number}</span>
+                    <span className='styling_country font_color'>{user?.whatsapp_number ? `+${user?.country_code} ${user?.whatsapp_number}`  : 'NA'}</span>
                   </div>
                 </div>
               </div>
 
-              <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>
+              {!id && <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>}
+              {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/+${user?.country_code}${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact Whatsapp</a>}
             </div>
 
             <div className='row mt-5'>
