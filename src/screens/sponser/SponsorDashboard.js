@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import Pagination from '../../component/Pagination';
-import { url } from '../../Helper/Helper';
+import { node_url, url } from '../../Helper/Helper';
+import { userContext } from '../../context/UserContext'
 
 function SponsorDashboard() {
-
-    const [skills, setSklls] = useState('')
+    const { user } = useContext(userContext)
     const [skillslist, setSkillsList] = useState([])
     const [hobby, setHobby] = useState('')
     const [hobbyslist, setHobbyList] = useState([])
     const [country, setCountry] = useState('')
     const [countrylist, setCountryList] = useState([])
+    const [feeds, setFeeds] = useState([])
 
+    const [page, setPage] = useState(1)
+    const [cskill, setCSkill] = useState("")
+    const [chobby, setCHobby] = useState("")
+    const [cCountry, setCCountry] = useState("")
+    const [search, setSearch] = useState("")
+    const [gender, setGender] = useState("")
 
     async function fetchSkill() {
         var requestOptions = {
@@ -71,11 +78,7 @@ function SponsorDashboard() {
     }
 
     async function fetchCountry() {
-        var requestOptions = {
-            redirect: 'follow'
-        };
-
-        const response = await fetch(url + "country-list", requestOptions)
+        const response = await fetch(url + "country-list")
         if (response.ok === true) {
 
             const data = await response.json()
@@ -110,9 +113,41 @@ function SponsorDashboard() {
             toast.error(err.message)
         })
 
-
     }, [])
 
+    async function fetchFeeds() {
+        const formData = new FormData()
+        formData.append("skill", cskill?.label ? cskill?.label : '')
+        formData.append("hobby", chobby?.label ? chobby?.label : '')
+        formData.append("country_id", cCountry?.value ? cCountry?.value : '')
+        formData.append("page", page)
+        formData.append("search", search)
+        formData.append("gender", gender)
+
+        const response = await fetch(url + 'fetch-home-feeds', {
+            method: 'POST',
+            headers: {
+                "Authorization": `Bearer ${user?.token}`
+            },
+            body: formData
+        });
+
+        if (response.ok == true) {
+            const data = await response.json();
+            console.log(data)
+            if (data.status == 200) {
+                setFeeds(data?.list)
+            } else {
+                toast.error(data?.message)
+            }
+        } else {
+            toast.error("Internal server error!")
+        }
+    }
+
+    useEffect(() => {
+        fetchFeeds()
+    }, [page, search, gender, cskill, chobby, cCountry])
 
 
 
@@ -133,9 +168,8 @@ function SponsorDashboard() {
                                 <div class="accordion-body">
                                     <Select
                                         options={skillslist}
-                                        isMulti={true}
                                         placeholder='Select Skills'
-                                        value={skills} onChange={setSklls}
+                                        value={cskill} onChange={setCSkill}
                                     />
                                 </div>
                             </div>
@@ -151,9 +185,8 @@ function SponsorDashboard() {
                                 <div class="accordion-body">
                                     <Select
                                         options={hobbyslist}
-                                        isMulti={true}
                                         placeholder='Select Hobby'
-                                        value={hobby} onChange={setHobby}
+                                        value={chobby} onChange={setCHobby}
                                     />
                                 </div>
                             </div>
@@ -168,12 +201,17 @@ function SponsorDashboard() {
                             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
                                 <div class="accordion-body">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="male" />
+                                        <input checked={gender == '' && true} onChange={()=>setGender("")} type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="male">All</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input checked={gender == 'male' && true} onChange={()=>setGender("male")} type="checkbox" class="form-check-input" id="male" />
                                         <label class="form-check-label" for="male">Male</label>
                                     </div>
 
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="female" />
+                                        <input checked={gender == 'female' && true} onChange={()=>setGender("female")} type="checkbox" class="form-check-input" id="female" />
                                         <label class="form-check-label" for="female">Female</label>
                                     </div>
                                 </div>
@@ -190,19 +228,9 @@ function SponsorDashboard() {
                                 <div class="accordion-body">
                                     <Select
                                         options={countrylist}
-                                        isMulti={true}
                                         placeholder='Select Country'
-                                        value={country} onChange={setCountry}
+                                        value={cCountry} onChange={setCCountry}
                                     />
-                                    {/* <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="insider" />
-                                        <label class="form-check-label" for="insider">From USA</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="outside" />
-                                        <label class="form-check-label" for="outside">Outside Of USA</label>
-                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -212,25 +240,30 @@ function SponsorDashboard() {
                 <div className='col-md-9'>
                     <div className='refugee-cards'>
                         <div class="input-group px-4 py-3 border-bottom search-div">
-                            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
+                            <input value={search} onChange={e=>setSearch(e.target.value)} type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
                         </div>
 
-                        <a className='refugee-single-card px-4 py-4 text-decoration-none d-block' href=''>
-                            <div className='d-flex align-items-center avatar-div'>
-                                <img src="/assets/images/no-user.png" alt="" />
-                                <div>
-                                    <h5>Yahya japan</h5>
-                                    <p>yahyajapan.yj@gmail.com</p>
-                                    <span>India</span>
+                        {feeds?.length > 0 ? feeds.map((item, index) => (
+                            <a key={index} className='refugee-single-card px-4 py-4 text-decoration-none d-block' href=''>
+                                <div className='d-flex align-items-center avatar-div'>
+                                    {item?.profile_photo ? <img src={`${node_url}${item?.profile_photo}`} alt="" /> : <img src="/assets/images/no-user.png" alt="" />}
+                                    
+                                    <div>
+                                        <h5>{item?.name}</h5>
+                                        <p>{item?.email}</p>
+                                        <span>{item?.country_name}</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <p className='mb-0 mt-4'>Lorem ipsum  quia repellat quis dolores, doloribus error consequuntur reprehenderit aut facere natus, impedit laboriosam temporibus similique alias eos eaque fugiat, asperiores necessitatibus quas inventore dolorum dolore. At quidem ullam deserunt architecto.</p>
-                        </a>
+                                <p className='mb-0 mt-4'>
+                                    {item?.description}
+                                </p>
+                            </a>
+                        )) : <p>No record found</p>}
                     </div>
 
-                    <Pagination />
+                    <Pagination page={page} setPage={setPage} />
                 </div>
             </div>
         </div>
