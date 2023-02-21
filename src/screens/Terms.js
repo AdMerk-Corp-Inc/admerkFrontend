@@ -2,7 +2,7 @@ import React from 'react'
 
 function Terms() {
   return (
-    <div className='container'>
+    <div className='container my-5'>
       <h2><strong>Terms and Conditions</strong></h2>
 
       <p>Welcome to admerkcorp.com!</p>

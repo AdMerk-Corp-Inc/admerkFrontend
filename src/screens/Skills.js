@@ -70,7 +70,7 @@ function Skills() {
 
             const formData = new FormData()
             formData.append('name', res)
-            const response = await fetch(url + 'update-skill'  , {
+            const response = await fetch(url + 'update-skill/' + item.id  , {
                 headers: {
                     "Authorization": `Bearer ${user?.token}`
                 },
@@ -103,7 +103,7 @@ function Skills() {
                             <button onClick={createSkill} value={name} type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Skill</button>
                         </div>
 
-                        <table class="table">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Sr No.</th>

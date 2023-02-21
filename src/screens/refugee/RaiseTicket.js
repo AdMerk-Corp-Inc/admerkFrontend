@@ -9,32 +9,38 @@ function RaiseTicket() {
   const { user } = useContext(userContext)
   const [modalShow, setModalShow] = useState(false);
   const [allTickets, setAllTickets] = useState([])
+  const [ticketStatus, setTicketStatus] = useState('All')
 
-  useEffect(() => {
-    async function fetchTickets() {
-      const response = await fetch(url + 'all-tickets', {
-        headers: {
-          'Authorization': `Bearer ${user?.token}`
-        },
-      })
-
-      if (response.ok == true) {
-        const data = await response.json()
-
-        console.log(data)
-        if (data.status == 200) {
-          setAllTickets(data?.list)
-
-        } else {
-          toast.error(data.message)
-        }
-      } else {
-        toast.error('Internal Server Error')
-      }
+  async function fetchTickets() {
+    let mainURL = 'all-tickets'
+    if(ticketStatus != "All"){
+      mainURL = mainURL + `?status=${ticketStatus}`
     }
 
+    const response = await fetch(url + mainURL, {
+      headers: {
+        'Authorization': `Bearer ${user?.token}`
+      },
+    })
+
+    if (response.ok == true) {
+      const data = await response.json()
+
+      console.log(data)
+      if (data.status == 200) {
+        setAllTickets(data?.list)
+
+      } else {
+        toast.error(data.message)
+      }
+    } else {
+      toast.error('Internal Server Error')
+    }
+  }
+
+  useEffect(() => {
     fetchTickets()
-  }, [])
+  }, [ticketStatus])
 
   return (
 
@@ -50,14 +56,14 @@ function RaiseTicket() {
 
             <div className='d-flex align-items-center justify-content-end status-filter-div mb-4'>
               <label className='me-3' htmlFor="">Ticket Status:</label>
-              <select class="form-select form-select-sm" aria-label="Default select example">
-                <option selected>All</option>
+              <select value={ticketStatus} onChange={(e) => setTicketStatus(e.target.value)} class="form-select form-select-sm" aria-label="Default select example">
+                <option value='All'>All</option>
                 <option value="1">Open</option>
                 <option value="2">Closed</option>
               </select>
             </div>
 
-            <table class="table">
+            <table class="table table-hover">
               <thead>
                 <tr>
                   <th scope="col">Sr No.</th>

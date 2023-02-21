@@ -26,10 +26,12 @@ function RefugeeDashboard() {
           {/* cards */}
           <div className='p-5'>
             <div className='row w-100'>
-              <div className='col-md-4 count-card'>
-                <p>01</p>
-                <p className='fw-bold'>Active Jobs</p>
-                <i className='fa fa-map-o dashboard__cardIcon'></i>
+              <div className='col-md-4'>
+                <div className='count-card'>
+                  <p>01</p>
+                  <p className='fw-bold'>Active Jobs</p>
+                  <i className='fa fa-map-o dashboard__cardIcon'></i>
+                </div>
               </div>
             </div>
 
@@ -39,7 +41,7 @@ function RefugeeDashboard() {
 
             <div className='row'>
               <div className='col-md-6'>
-                <table className='table table-bordered'>
+                <table className='table table-hover table-bordered'>
                   <thead>
                     <th>#</th>
                     <th>Date</th>

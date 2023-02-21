@@ -107,7 +107,7 @@ function EditAccountProfile() {
 
                 if (data.status == 200) {
                     let userData = data?.detail
-                    
+
                     console.log(data?.detail)
                     setName(userData?.name)
                     setEmail(userData?.email)
@@ -272,7 +272,7 @@ function EditAccountProfile() {
                                             <div className="filter-form-MUI-input-text">
                                                 <main class="input-div h-100">
                                                     <textarea
-                                                        class="inner-input position-relative"
+                                                        class="inner-input position-relative pt-3"
                                                         type="text"
                                                         placeholder=" "
                                                         id='name'
@@ -294,20 +294,22 @@ function EditAccountProfile() {
                                                 <div className='d-flex mt-2'>
                                                     <div className='d-flex align-items-center'>
                                                         <input
+                                                            id='male'
                                                             type='radio'
                                                             checked={gender == "male" ? true : false}
                                                             onChange={() => setGender("male")}
                                                         />
-                                                        <label className='mb-0 ms-2'>Male</label>
+                                                        <label className='mb-0 ms-2' for='male'>Male</label>
                                                     </div>
 
                                                     <div className='d-flex align-items-center ms-4'>
                                                         <input
+                                                            id='female'
                                                             type='radio'
                                                             checked={gender == "female" ? true : false}
                                                             onChange={() => setGender("female")}
                                                         />
-                                                        <label className='mb-0 ms-2'>Female</label>
+                                                        <label className='mb-0 ms-2' for='female'>Female</label>
                                                     </div>
                                                 </div>
                                                 {/* <span className='error'>span tag</span> */}
@@ -318,27 +320,29 @@ function EditAccountProfile() {
                                                 <div className='d-flex mt-2'>
                                                     <div className='d-flex align-items-center'>
                                                         <input
+                                                            id='yes'
                                                             type='radio'
                                                             checked={fromUsa == 1 ? true : false}
                                                             onChange={() => setFromUsa(1)}
                                                         />
-                                                        <label className='mb-0 ms-2'>Yes</label>
+                                                        <label className='mb-0 ms-2' for='yes'>Yes</label>
                                                     </div>
 
                                                     <div className='d-flex align-items-center ms-4'>
                                                         <input
+                                                            id='no'
                                                             type='radio'
                                                             checked={fromUsa == 2 ? true : false}
                                                             onChange={() => setFromUsa(2)}
                                                         />
-                                                        <label className='mb-0 ms-2'>No</label>
+                                                        <label className='mb-0 ms-2' for='no'>No</label>
                                                     </div>
                                                 </div>
                                                 {/* <span className='error'>span tag</span> */}
                                             </div>
                                         </div>
 
-                                        <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Create my account</button>
+                                        <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Update Detail</button>
 
                                     </form>
 

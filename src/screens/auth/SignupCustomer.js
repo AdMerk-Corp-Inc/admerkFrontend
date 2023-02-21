@@ -343,7 +343,7 @@ function SignupCustomer() {
                                                 <div className="filter-form-MUI-input-text">
                                                     <main class="input-div h-100">
                                                         <textarea
-                                                            class="inner-input position-relative"
+                                                            class="inner-input position-relative pt-3"
                                                             type="text"
                                                             placeholder=" "
                                                             id='name'

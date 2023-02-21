@@ -202,8 +202,8 @@ function SponsorDashboard() {
                             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
                                 <div class="accordion-body">
                                     <div class="form-check">
-                                        <input checked={gender == '' && true} onChange={()=>setGender("")} type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label" for="male">All</label>
+                                        <input checked={gender == '' && true} onChange={()=>setGender("")} type="checkbox" class="form-check-input" id='all'/>
+                                        <label class="form-check-label" for="all">All</label>
                                     </div>
 
                                     <div class="form-check">
