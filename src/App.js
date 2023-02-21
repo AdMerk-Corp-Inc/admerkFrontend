@@ -20,6 +20,8 @@ import Terms from './screens/Terms';
 import Privacy from './screens/Privacy';
 import Skills from './screens/Skills';
 import Hobby from './screens/Hobby';
+import AllUser from './screens/AllUser';
+import Volunteer from './screens/Volunteer';
 import EditAccountProfile from './screens/EditAccountProfile';
 import VolunteerAdminDashboard from './screens/VolunteerAdminDashboard';
 
@@ -35,6 +37,7 @@ function App() {
           <Route path='/signup' exact={true} element={<CommonSignup />} />
           <Route path='/signup-sponser' exact={true} element={<SignupSponser />} />
           <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
+          <Route path='/create-volunteer' exact={true} element={<Volunteer />} />
 
           <Route path='/sponsor-dashboard' exact={true} element={<Layout>
             <SponsorDashboard />
@@ -78,6 +81,10 @@ function App() {
 
           <Route path='/hobby' exact={true} element={<Layout>
             <Hobby />
+          </Layout>} />
+
+          <Route path='/all-user' exact={true} element={<Layout>
+            <AllUser />
           </Layout>} />
         </Routes>
       </BrowserRouter>

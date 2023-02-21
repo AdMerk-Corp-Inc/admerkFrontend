@@ -80,7 +80,7 @@ function RaiseTicket() {
                     <td>{dateTransformer(item?.created_date)}</td>
                     <td>{item?.title}</td>
                     <td>{item?.status == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Open</span> : <span className='bg-danger px-2 py-1 rounded text-white'>Closed</span>}</td>
-                    <td><a href='javascript:void(0);' onClick={() => setModalShow(true)}><i class="fa-solid fa-eye text-primary"></i></a></td>
+                    <td><a href='javascript:void(0);' onClick={() => setModalShow(true,item?.id)}><i class="fa-solid fa-eye text-primary"></i></a></td>
                   </tr>
                 )) : <tr>
                   <td colSpan={5}>
