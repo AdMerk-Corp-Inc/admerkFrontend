@@ -11,7 +11,7 @@ function Skills() {
     const [name,] = useState('')
     const { user } = useContext(userContext)
 
-    useEffect(() => {
+   
         async function fetchSkill() {
 
             const response = await fetch(url + "skills-list")
@@ -29,8 +29,7 @@ function Skills() {
             }
         }
 
-        fetchSkill();
-    }, [])
+
 
     async function createSkill(e) {
         e.preventDefault()
@@ -51,7 +50,9 @@ function Skills() {
                 console.log(data);
                 if (data.status == 200) {
                     toast.success(data?.message)
-                    
+                    fetchSkill().catch(err => {
+                        toast.error(err.message)
+                    })
                 } else {
                     toast.error(data.message)
                 }
@@ -93,6 +94,44 @@ function Skills() {
         }
     }
 
+    useEffect(() => {
+        createSkill().catch(err => {
+            toast.error(err.message)
+        })
+        editSkill().catch(err => {
+            toast.error(err.message)
+        })
+        fetchSkill().catch(err => {
+            toast.error(err.message)
+        })
+
+    }, [])
+
+    async function deleteSkill(id) {
+        const confirm = window.confirm('Are You Sure You Want To Delete This Skill')
+        if (confirm === true) {
+          const response = await fetch(url + 'delete-skill/' + id, {
+            headers: {
+              "Authorization": `Bearer ${user?.token}`
+            }
+          })
+          if (response.ok == true) {
+            const data = await response.json()
+            if (data?.status == 200) {
+              toast.success(data?.message)
+              fetchSkill().catch(err => {
+                toast.error(err.message)
+              })
+            } else {
+              toast.error(data?.message)
+            }
+          } else {
+            toast.error('Internal Server Error')
+          }
+        }
+      }
+
+
     return (
         <section className="skills-page-div" style={{ backgroundColor: '#0061df08' }}>
             <div className="container py-5 h-100">
@@ -118,7 +157,7 @@ function Skills() {
                                         <td>{item?.name}</td>
                                         <td>
                                             <a href='javascript:void(0);' onClick={() => editSkill(item)}><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href=""><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a>
+                                            <a href='javascript:void(0)' onClick={() => deleteSkill(item?.id)}><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 )) : <tr>

@@ -29,7 +29,7 @@ function Navbar() {
                   <a class="nav-link" href="/tickets">View Tickets</a>
                 </li>
                 <li class="nav-item px-4">
-                  <a class="nav-link" href="/tickets">All Users</a>
+                  <a class="nav-link" href="/all-user">All Users</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link" href="/skills">Skills</a>

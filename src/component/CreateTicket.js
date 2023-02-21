@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
@@ -10,6 +10,37 @@ const CreateTicket = (props) => {
     const{ user } = useContext(userContext)
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+  
+
+
+
+    useEffect(() => {
+        async function fetchData() {
+          const response = await fetch(url + 'ticket-detail/1', {
+            headers: {
+              'Authorization': `Bearer ${user?.token}`
+            },
+          })
+    
+          if (response.ok == true) {
+            const data = await response.json()
+    
+            console.log(data)
+            if (data.status == 200) {
+              
+                setTitle(data.detail.title)
+                setDescription(data.detail.description)
+    
+            } else {
+              toast.error(data.message)
+            }
+          } else {
+            toast.error('Internal Server Error')
+          }
+        }
+    
+        fetchData()
+      }, [])
 
     async function Submit() {
         if (title && description) {

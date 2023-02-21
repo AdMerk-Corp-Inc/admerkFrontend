@@ -9,7 +9,6 @@ function Hobby() {
     const [name,] = useState('')
     const { user } = useContext(userContext)
 
-    useEffect(() => {
         async function fetchHobby() {
 
             const response = await fetch(url + "hobby-list")
@@ -26,8 +25,8 @@ function Hobby() {
             }
         }
 
-        fetchHobby();
-    }, [])
+   
+
 
     async function createHobby(e) {
         e.preventDefault()
@@ -48,7 +47,9 @@ function Hobby() {
                 console.log(data);
                 if (data.status == 200) {
                     toast.success(data?.message)
-
+                    fetchHobby().catch(err => {
+                        toast.error(err.message)
+                    })
                 } else {
                     toast.error(data.message)
                 }
@@ -61,9 +62,10 @@ function Hobby() {
 
     }
 
+
     async function editHobby(item) {
 
-        const res = window.prompt('Update Hobby Name',item.name)
+        const res = window.prompt('Update Hobby Name', item.name)
         if (res.length > 0) {
             const formData = new FormData()
             formData.append('name', res)
@@ -92,6 +94,44 @@ function Hobby() {
         }
     }
 
+    useEffect(() => {
+        createHobby().catch(err => {
+            toast.error(err.message)
+        })
+        editHobby().catch(err => {
+            toast.error(err.message)
+        })
+        fetchHobby().catch(err => {
+            toast.error(err.message)
+        })
+
+    }, [])
+
+    async function deleteHobby(id) {
+        const confirm = window.confirm('Are You Sure You Want To Delete This Hobby')
+        if (confirm === true) {
+          const response = await fetch(url + 'delete-hobby/' + id, {
+            headers: {
+              "Authorization": `Bearer ${user?.token}`
+            }
+          })
+          if (response.ok == true) {
+            const data = await response.json()
+            if (data?.status == 200) {
+              toast.success(data?.message)
+              fetchHobby().catch(err => {
+                toast.error(err.message)
+              })
+            } else {
+              toast.error(data?.message)
+            }
+          } else {
+            toast.error('Internal Server Error')
+          }
+        }
+      }
+
+
     return (
         <section className="skills-page-div" style={{ backgroundColor: '#0061df08' }}>
             <div className="container py-5 h-100">
@@ -117,7 +157,7 @@ function Hobby() {
                                         <td>{item?.name}</td>
                                         <td>
                                             <a href='javascript:void(0);' onClick={() => editHobby(item)}><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href=""><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a>
+                                            <a href='javascript:void(0)' onClick={() => deleteHobby(item?.id)}><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 )) : <tr>
