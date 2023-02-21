@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Pagination } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { userContext } from '../context/UserContext';
 import { url } from '../Helper/Helper';
@@ -89,7 +90,11 @@ function AllUser() {
                                 {allUsers?.length > 0 ? allUsers.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{item?.name}</td>
+                                        <td>
+                                            <Link to={`/profile?id=${item?.id}`}>
+                                            {item?.name}
+                                            </Link>
+                                        </td>
                                         <td>{item?.role == 2 ? <span className='bg-primary px-2 py-1 rounded text-white'>Volunteer</span> : item?.role == 3 ? <span className='bg-primary px-2 py-1 rounded text-white'>Sponsor</span> : <span className='bg-primary px-2 py-1 rounded text-white'>Refugee</span>}</td>
                                         <td>+{item?.country_code} {item?.whatsapp_number}</td>
                                         <td>{item?.email}</td>
