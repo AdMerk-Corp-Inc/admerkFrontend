@@ -18,7 +18,7 @@
         line-height: 0.8;
         margin-top: 8px;
 
-        img{
+        img {
             width: 18rem;
         }
     }
@@ -363,6 +363,13 @@
     border: 1px solid #d5e0d5;
     border-radius: 10px;
 
+    .filter-btn {
+        padding: 0.5rem;
+        align-self: center;
+        background-color: #2948ff;
+        color: white;
+    }
+
     .refugee-single-card {
         font-size: 15px;
 
@@ -391,6 +398,7 @@
                 margin: 0;
                 font-weight: 500;
                 color: #1e1e1e;
+                word-break: break-word;
             }
 
             span {
@@ -405,11 +413,11 @@
     }
 }
 
-.refugee-single-card:not(:last-child){
+.refugee-single-card:not(:last-child) {
     border-bottom: 1px solid #dee2e6;
 }
 
-.refugee-single-card:last-child{
+.refugee-single-card:last-child {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -516,6 +524,14 @@
     @media (min-width: 1025px) {
         .h-custom {
             min-height: 100vh;
+        }
+    }
+}
+
+@media (max-width: 430px){
+    .navbar-div{
+        .navbar-brand img{
+            width: 14rem;
         }
     }
 }

@@ -153,9 +153,9 @@ function SponsorDashboard() {
 
 
     return (
-        <div className='sponsor-dashboard-div container my-5'>
+        <div className='sponsor-dashboard-div container-lg px-3 my-5'>
             <div className='row'>
-                <div className='col-md-3'>
+                <div className='col-md-3 d-none d-md-block'>
                     <h5>Filter By</h5>
 
                     <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -204,17 +204,17 @@ function SponsorDashboard() {
                             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
                                 <div class="accordion-body">
                                     <div class="form-check">
-                                        <input checked={gender == '' && true} onChange={()=>setGender("")} type="checkbox" class="form-check-input" id='all'/>
+                                        <input checked={gender == '' && true} onChange={() => setGender("")} type="checkbox" class="form-check-input" id='all' />
                                         <label class="form-check-label" for="all">All</label>
                                     </div>
 
                                     <div class="form-check">
-                                        <input checked={gender == 'male' && true} onChange={()=>setGender("male")} type="checkbox" class="form-check-input" id="male" />
+                                        <input checked={gender == 'male' && true} onChange={() => setGender("male")} type="checkbox" class="form-check-input" id="male" />
                                         <label class="form-check-label" for="male">Male</label>
                                     </div>
 
                                     <div class="form-check">
-                                        <input checked={gender == 'female' && true} onChange={()=>setGender("female")} type="checkbox" class="form-check-input" id="female" />
+                                        <input checked={gender == 'female' && true} onChange={() => setGender("female")} type="checkbox" class="form-check-input" id="female" />
                                         <label class="form-check-label" for="female">Female</label>
                                     </div>
                                 </div>
@@ -244,15 +244,115 @@ function SponsorDashboard() {
                 <div className='col-md-9'>
                     <div className='refugee-cards'>
                         <div class="input-group px-4 py-3 border-bottom search-div">
-                            <input value={search} onChange={e=>setSearch(e.target.value)} type="text" class="form-control shadow-none" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
+                            <input value={search} onChange={e => setSearch(e.target.value)} type="text" class="form-control shadow-none" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
                             {/* <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
+                            <a className='filter-btn d-block d-md-none' href="" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fa fa-filter" aria-hidden="true"></i>
+                            </a>
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header border-0">
+                                            <h5 class="modal-title" id="exampleModalLabel">Filters</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="accordion" id="accordionPanelsStayOpenExample">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                                            Skills
+                                                        </button>
+                                                    </h2>
+                                                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                                        <div class="accordion-body">
+                                                            <Select
+                                                                options={skillslist}
+                                                                placeholder='Select Skills'
+                                                                value={cskill} onChange={setCSkill}
+                                                                isClearable
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                                            Hobby
+                                                        </button>
+                                                    </h2>
+                                                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                                                        <div class="accordion-body">
+                                                            <Select
+                                                                options={hobbyslist}
+                                                                placeholder='Select Hobby'
+                                                                value={chobby} onChange={setCHobby}
+                                                                isClearable
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                                            Gender
+                                                        </button>
+                                                    </h2>
+                                                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                                                        <div class="accordion-body">
+                                                            <div class="form-check">
+                                                                <input checked={gender == '' && true} onChange={() => setGender("")} type="checkbox" class="form-check-input" id='all' />
+                                                                <label class="form-check-label" for="all">All</label>
+                                                            </div>
+
+                                                            <div class="form-check">
+                                                                <input checked={gender == 'male' && true} onChange={() => setGender("male")} type="checkbox" class="form-check-input" id="male" />
+                                                                <label class="form-check-label" for="male">Male</label>
+                                                            </div>
+
+                                                            <div class="form-check">
+                                                                <input checked={gender == 'female' && true} onChange={() => setGender("female")} type="checkbox" class="form-check-input" id="female" />
+                                                                <label class="form-check-label" for="female">Female</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                                                            Location
+                                                        </button>
+                                                    </h2>
+                                                    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+                                                        <div class="accordion-body">
+                                                            <Select
+                                                                options={countrylist}
+                                                                placeholder='Select Country'
+                                                                value={cCountry} onChange={setCCountry}
+                                                                isClearable
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         {feeds?.length > 0 ? feeds.map((item, index) => (
                             <Link key={index} className='refugee-single-card px-4 py-4 text-decoration-none d-block' to={`/refugee-profile?id=${item?.id}`}>
                                 <div className='d-flex align-items-center avatar-div'>
                                     {item?.profile_photo ? <img src={`${node_url}${item?.profile_photo}`} alt="" /> : <img src="/assets/images/no-user.png" alt="" />}
-                                    
+
                                     <div>
                                         <h5>{item?.name}</h5>
                                         <p>{item?.email}</p>
