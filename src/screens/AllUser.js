@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Pagination } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { userContext } from '../context/UserContext';
 import { url } from '../Helper/Helper';
@@ -7,33 +8,43 @@ import { url } from '../Helper/Helper';
 function AllUser() {
 
     const { user } = useContext(userContext)
-    const [allTickets, setAllTickets] = useState([])
+    const [allUsers, setAllUsers] = useState([])
+    const [search, setSearch] = useState('')
+    const [page, setPage] = useState(1)
+    const [role, setRole] = useState("All")
 
-    //   useEffect(() => {
-    //     async function fetchTickets() {
-    //       const response = await fetch(url + 'all-tickets', {
-    //         headers: {
-    //           'Authorization': `Bearer ${user?.token}`
-    //         },
-    //       })
 
-    //       if (response.ok == true) { 
-    //         const data = await response.json()
+    async function fetchUsers() {
+        let main_url = `getAllUsers?page=${page}&search=${search}`
+        if (role != "All") {
+            main_url = main_url + `&role=${role}`
+        }
+        const response = await fetch(url + main_url, {
+            headers: {
+                'Authorization': `Bearer ${user?.token}`
+            },
+        })
 
-    //         console.log(data)
-    //         if (data.status == 200) {
-    //           setAllTickets(data?.list)
+        if (response.ok == true) {
+            const data = await response.json()
 
-    //         } else {
-    //           toast.error(data.message)
-    //         }
-    //       } else {
-    //         toast.error('Internal Server Error')
-    //       }
-    //     }
+            console.log(data)
+            if (data.status == 200) {
+                setAllUsers(data?.list)
 
-    //     fetchTickets()
-    //   }, [])
+            } else {
+                toast.error(data.message)
+            }
+        } else {
+            toast.error('Internal Server Error')
+        }
+    }
+
+
+
+    useEffect(() => {
+        fetchUsers()
+    }, [page, search, role])
 
     return (
 
@@ -46,16 +57,20 @@ function AllUser() {
 
                         <div className='d-flex align-items-center justify-content-end status-filter-div mb-4'>
 
-                           <div className='mx-4'>
-                           <a type="button" href='/create-volunteer' class="btn btn-primary custom-sm-btn mb-4">Create Volunteer</a>
-                           </div>
+                            <div className='mx-4'>
+                                <a type="button" href='/create-volunteer' class="btn btn-primary custom-sm-btn mb-4">Create Volunteer</a>
+                            </div>
+
+                            <div className='mx-4'>
+                                <input placeholder='Search' value={search} onChange={e=>setSearch(e.target.value)} className="form-control" />
+                            </div>
 
                             <label className='me-3' htmlFor="">User Role:</label>
-                            <select class="form-select form-select-sm" aria-label="Default select example">
-                                <option selected>All</option>
-                                <option value="1">Refugee</option>
-                                <option value="2">Sponsor</option>
-                                <option value="3">Volunteer</option>
+                            <select value={role} onChange={e => setRole(e.target.value)} class="form-select form-select-sm" aria-label="Default select example">
+                                <option value="All">All</option>
+                                <option value="4">Refugee</option>
+                                <option value="3">Sponsor</option>
+                                <option value="2">Volunteer</option>
                             </select>
                         </div>
 
@@ -71,12 +86,13 @@ function AllUser() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {allTickets?.length > 0 ? allTickets.map((item, index) => (
+                                {allUsers?.length > 0 ? allUsers.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{item?.created_date}</td>
-                                        <td>{item?.title}</td>
-                                        <td>{item?.status == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Open</span> : <span className='bg-danger px-2 py-1 rounded text-white'>Closed</span>}</td>
+                                        <td>{item?.name}</td>
+                                        <td>{item?.role == 2 ? <span className='bg-primary px-2 py-1 rounded text-white'>Volunteer</span> : item?.role == 3 ? <span className='bg-primary px-2 py-1 rounded text-white'>Sponsor</span> : <span className='bg-primary px-2 py-1 rounded text-white'>Refugee</span>}</td>
+                                        <td>+{item?.country_code} {item?.whatsapp_number}</td>
+                                        <td>{item?.email}</td>
                                         <td><a href='javascript:void(0);' ><i class="fa-solid fa-eye text-primary"></i></a></td>
                                     </tr>
                                 )) : <tr>
@@ -94,6 +110,7 @@ function AllUser() {
 
                 </div>
             </div>
+            <Pagination page={page} setPage={setPage} />
         </section>
     )
 }
