@@ -24,6 +24,7 @@ import AllUser from './screens/AllUser';
 import Volunteer from './screens/Volunteer';
 import EditAccountProfile from './screens/EditAccountProfile';
 import VolunteerAdminDashboard from './screens/VolunteerAdminDashboard';
+import AllJobs from './screens/AllJobs';
 
 function App() {
   const { user } = useContext(userContext)
@@ -85,6 +86,10 @@ function App() {
 
           <Route path='/all-user' exact={true} element={<Layout>
             <AllUser />
+          </Layout>} />
+
+          <Route path='/all-jobs' exact={true} element={<Layout>
+            <AllJobs />
           </Layout>} />
         </Routes>
       </BrowserRouter>
