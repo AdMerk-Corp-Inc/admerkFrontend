@@ -171,6 +171,7 @@ function SponsorDashboard() {
                                         options={skillslist}
                                         placeholder='Select Skills'
                                         value={cskill} onChange={setCSkill}
+                                        isClearable
                                     />
                                 </div>
                             </div>
@@ -188,6 +189,7 @@ function SponsorDashboard() {
                                         options={hobbyslist}
                                         placeholder='Select Hobby'
                                         value={chobby} onChange={setCHobby}
+                                        isClearable
                                     />
                                 </div>
                             </div>
@@ -231,6 +233,7 @@ function SponsorDashboard() {
                                         options={countrylist}
                                         placeholder='Select Country'
                                         value={cCountry} onChange={setCCountry}
+                                        isClearable
                                     />
                                 </div>
                             </div>
@@ -241,8 +244,8 @@ function SponsorDashboard() {
                 <div className='col-md-9'>
                     <div className='refugee-cards'>
                         <div class="input-group px-4 py-3 border-bottom search-div">
-                            <input value={search} onChange={e=>setSearch(e.target.value)} type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
-                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                            <input value={search} onChange={e=>setSearch(e.target.value)} type="text" class="form-control shadow-none" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
+                            {/* <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
                         </div>
 
                         {feeds?.length > 0 ? feeds.map((item, index) => (
@@ -261,7 +264,7 @@ function SponsorDashboard() {
                                     {item?.description}
                                 </p>
                             </Link>
-                        )) : <p>No record found</p>}
+                        )) : <div className='not-found'>No Record Found</div>}
                     </div>
 
                     <Pagination page={page} setPage={setPage} />

@@ -373,8 +373,10 @@
         .avatar-div {
             img {
                 width: 5rem;
-                border-radius: 100px;
+                border-radius: 100%;
                 margin-right: 20px;
+                height: 5rem;
+                object-fit: cover;
             }
 
             h5 {
