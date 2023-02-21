@@ -10,10 +10,11 @@ function RaiseTicket() {
   const [modalShow, setModalShow] = useState(false);
   const [allTickets, setAllTickets] = useState([])
   const [ticketStatus, setTicketStatus] = useState('All')
+  const [id, setId] = useState()
 
   async function fetchTickets() {
     let mainURL = 'all-tickets'
-    if(ticketStatus != "All"){
+    if (ticketStatus != "All") {
       mainURL = mainURL + `?status=${ticketStatus}`
     }
 
@@ -52,6 +53,7 @@ function RaiseTicket() {
             <CreateTicket
               show={modalShow}
               onHide={() => setModalShow(false)}
+              id={id}
             />
 
             <div className='d-flex align-items-center justify-content-end status-filter-div mb-4'>
@@ -80,7 +82,10 @@ function RaiseTicket() {
                     <td>{dateTransformer(item?.created_date)}</td>
                     <td>{item?.title}</td>
                     <td>{item?.status == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Open</span> : <span className='bg-danger px-2 py-1 rounded text-white'>Closed</span>}</td>
-                    <td><a href='javascript:void(0);' onClick={() => setModalShow(true,item?.id)}><i class="fa-solid fa-eye text-primary"></i></a></td>
+                    <td><a href='javascript:void(0);' onClick={() => {
+                      setId(item?.id)
+                      setModalShow(true)
+                    }}><i class="fa-solid fa-eye text-primary"></i></a></td>
                   </tr>
                 )) : <tr>
                   <td colSpan={5}>

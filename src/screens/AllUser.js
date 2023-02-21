@@ -46,9 +46,9 @@ function AllUser() {
 
                         <div className='d-flex align-items-center justify-content-end status-filter-div mb-4'>
 
-                           <div className='mx-4'>
-                           <a type="button" href='/create-volunteer' class="btn btn-primary custom-sm-btn mb-4">Create Volunteer</a>
-                           </div>
+                            <div className='mx-4'>
+                                <a type="button" href='/create-volunteer' class="btn btn-primary custom-sm-btn mb-4">Create Volunteer</a>
+                            </div>
 
                             <label className='me-3' htmlFor="">User Role:</label>
                             <select class="form-select form-select-sm" aria-label="Default select example">
