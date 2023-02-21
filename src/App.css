@@ -20,6 +20,10 @@
   margin-top: 8px;
 }
 
+.navbar-div .navbar-brand img {
+  width: 18rem;
+}
+
 .navbar-div .navbar-nav a {
   color: #2948ff !important;
 }
@@ -357,6 +361,15 @@
   border-radius: 10px;
 }
 
+.refugee-cards .filter-btn {
+  padding: 0.5rem;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  background-color: #2948ff;
+  color: white;
+}
+
 .refugee-cards .refugee-single-card {
   font-size: 15px;
 }
@@ -367,8 +380,11 @@
 
 .refugee-cards .refugee-single-card .avatar-div img {
   width: 5rem;
-  border-radius: 100px;
+  border-radius: 100%;
   margin-right: 20px;
+  height: 5rem;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .refugee-cards .refugee-single-card .avatar-div h5 {
@@ -383,6 +399,7 @@
   margin: 0;
   font-weight: 500;
   color: #1e1e1e;
+  word-break: break-word;
 }
 
 .refugee-cards .refugee-single-card .avatar-div span {
@@ -496,6 +513,12 @@
   .signup-both-div .h-custom,
   .login-div .h-custom {
     min-height: 100vh;
+  }
+}
+
+@media (max-width: 430px) {
+  .navbar-div .navbar-brand img {
+    width: 14rem;
   }
 }
 /*# sourceMappingURL=App.css.map */

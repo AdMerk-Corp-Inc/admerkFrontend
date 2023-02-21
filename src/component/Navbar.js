@@ -15,7 +15,10 @@ function Navbar() {
 
       <nav class="navbar-div navbar navbar-expand-lg navbar-light bg-light shadow" aria-label="Fifth navbar example">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">ADMERK</a>
+          {/* <a class="navbar-brand" href="#">ADMERK</a> */}
+          <a class="navbar-brand" href="#">
+            <img src="/assets/images/logo-5.png" alt="" />
+          </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -25,19 +28,19 @@ function Navbar() {
 
 
               {user?.role < 3 ? <>
-                <li class="nav-item">
+                <li class="nav-item pe-4">
                   <a class="nav-link" href="/tickets">View Tickets</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link" href="/all-user">All Users</a>
                 </li>
-                <li class="nav-item px-4">
+                <li class="nav-item pe-4">
                   <a class="nav-link" href="/skills">Skills</a>
                 </li>
-                <li class="nav-item px-4">
+                <li class="nav-item pe-4">
                   <a class="nav-link" href="/hobby">Hobbies</a>
                 </li>
-                <li class="nav-item px-4">
+                <li class="nav-item pe-4">
                   <a class="nav-link" href="/tickets">All Jobs</a>
                 </li>
               </> : <>

@@ -142,7 +142,7 @@ function Hobby() {
                             <button onClick={createHobby} value={name} required type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Hobby</button>
                         </div>
 
-                        <table class="table">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Sr No.</th>

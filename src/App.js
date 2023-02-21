@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css';
 import './Style.css';
+import './index.css'
 import AccountProfile from './screens/AccountProfile';
 import CommonSignup from './screens/auth/CommonSignup';
 import SignupCustomer from './screens/auth/SignupCustomer';
@@ -21,6 +22,8 @@ import Skills from './screens/Skills';
 import Hobby from './screens/Hobby';
 import AllUser from './screens/AllUser';
 import Volunteer from './screens/Volunteer';
+import EditAccountProfile from './screens/EditAccountProfile';
+import VolunteerAdminDashboard from './screens/VolunteerAdminDashboard';
 
 function App() {
   const { user } = useContext(userContext)
@@ -44,8 +47,20 @@ function App() {
             <RefugeeDashboard />
           </Layout>} />
 
+          <Route path='/admin-dashboard' exact={true} element={<Layout>
+            <VolunteerAdminDashboard />
+          </Layout>} />
+
           <Route path='/profile' exact={true} element={<Layout>
             <AccountProfile />
+          </Layout>} />
+
+          <Route path='/refugee-profile' exact={true} element={<Layout>
+            <AccountProfile />
+          </Layout>} />
+
+          <Route path='/edit-profile' exact={true} element={<Layout>
+            <EditAccountProfile />
           </Layout>} />
 
           <Route path='/tickets' exact={true} element={<Layout>
