@@ -60,7 +60,7 @@ function Navbar() {
               </a>
               <ul class="dropdown-menu" aria-labelledby="dropdown1">
                 <li><a class="dropdown-item" href="/profile">My Account</a></li>
-                <li><a class="dropdown-item" href="#">Change Password</a></li>
+                <li><a class="dropdown-item" href="/change-password">Change Password</a></li>
                 <li className='mt-1'><a class="dropdown-item" href='javascript:void(0)' onClick={() => {
                   setUser(null)
                 }}>Logout</a></li>

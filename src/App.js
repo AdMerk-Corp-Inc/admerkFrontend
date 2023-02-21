@@ -24,6 +24,7 @@ import AllUser from './screens/AllUser';
 import Volunteer from './screens/Volunteer';
 import EditAccountProfile from './screens/EditAccountProfile';
 import VolunteerAdminDashboard from './screens/VolunteerAdminDashboard';
+import ChangePassword from './screens/auth/ChangePassword';
 
 function App() {
   const { user } = useContext(userContext)
@@ -38,6 +39,7 @@ function App() {
           <Route path='/signup-sponser' exact={true} element={<SignupSponser />} />
           <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
           <Route path='/create-volunteer' exact={true} element={<Volunteer />} />
+          <Route path='/change-password' exact={true} element={<ChangePassword />} />
 
           <Route path='/sponsor-dashboard' exact={true} element={<Layout>
             <SponsorDashboard />
