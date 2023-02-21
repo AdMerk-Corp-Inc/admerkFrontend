@@ -27,7 +27,7 @@ function CommonSignup() {
                     </div>
                 </div>
 
-                <h6 className='font-weight-normal mt-4 text-center'>Already have an account? <a style={{textDecoration: 'underline'}} href="">Sign in</a></h6>
+                <h6 className='font-weight-normal mt-4 text-center'>Already have an account? <a style={{textDecoration: 'underline'}} href="/login">Sign in</a></h6>
             </div>
         </div>
     )

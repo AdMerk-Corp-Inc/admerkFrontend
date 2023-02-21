@@ -1,23 +1,19 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { userContext } from '../../context/UserContext'
 import { url } from '../../Helper/Helper'
 
-function Login() {
+function ForgotPassword() {
 
-  const { setUser } = useContext(userContext)
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault()
 
     const formData = new FormData()
     formData.append("email", email)
-    formData.append("password", password)
 
-    const response = await fetch(url + 'login', {
+    const response = await fetch(url + 'resetPassword', {
       method: 'POST',
       body: formData
     });
@@ -26,14 +22,8 @@ function Login() {
       const data = await response.json();
 
       if (data.status == 200) {
-        setUser(data?.user_data)
-        if (data.user_data.role == 4) {
-          window.location = window.location.origin + "/refugee-dashboard"
-        } else if (data.user_data.role == 3) {
-          window.location = window.location.origin + "/sponsor-dashboard"
-        } else {
-          window.location = window.location.origin + "/admin-dashboard"
-        }
+        toast.success(data.message)
+        window.location = window.location.origin + '/login'
       } else {
         toast.error(data?.message)
       }
@@ -70,34 +60,17 @@ function Login() {
                           <label for="name" class="inner-label">Email</label>
                         </main>
                       </div>
-
-                      <div className="filter-form-MUI-input-text col-md-12">
-                        <main class="input-div">
-                          <input
-                            class="inner-input"
-                            type="password"
-                            placeholder=" "
-                            id='password'
-                            autoComplete="off"
-                            required
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                          />
-                          <label for="name" class="inner-label">Password</label>
-                        </main>
-                      </div>
                     </div>
 
                     <div className='d-flex justify-content-between align-items-center mt-3 forgot-pass-div'>
-                      <button type="submit" className="btn custom-sm-btn btn-lg my-0">Login</button>
-                      <Link to="/forgot-password">Forgot Password?</Link>
+                      <button type="submit" className="btn custom-sm-btn btn-lg my-0">Reset My Password</button>
                     </div>
                   </form>
 
 
 
                   <div className='d-flex justify-content-center mb-3 mt-4 pt-2'>
-                    <p className='mb-0'>Don't have an account? <a href="/signup">Signup</a></p>
+                    <p className='mb-0'>Already have an account? <a href="/login">Login</a></p>
                   </div>
                 </div>
               </div>
@@ -109,4 +82,4 @@ function Login() {
   )
 }
 
-export default Login
+export default ForgotPassword
