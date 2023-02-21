@@ -80,7 +80,7 @@ function AllUser() {
                                         <td><a href='javascript:void(0);' ><i class="fa-solid fa-eye text-primary"></i></a></td>
                                     </tr>
                                 )) : <tr>
-                                    <td colSpan={5}>
+                                    <td colSpan={6}>
                                         <div className='not-found'>No User Found</div>
                                     </td>
                                 </tr>

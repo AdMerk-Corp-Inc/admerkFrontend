@@ -7,40 +7,9 @@ import { url } from '../Helper/Helper';
 
 const CreateTicket = (props) => {
 
-    const{ user } = useContext(userContext)
+    const { user } = useContext(userContext)
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-  
-
-
-
-    useEffect(() => {
-        async function fetchData() {
-          const response = await fetch(url + 'ticket-detail/1', {
-            headers: {
-              'Authorization': `Bearer ${user?.token}`
-            },
-          })
-    
-          if (response.ok == true) {
-            const data = await response.json()
-    
-            console.log(data)
-            if (data.status == 200) {
-              
-                setTitle(data.detail.title)
-                setDescription(data.detail.description)
-    
-            } else {
-              toast.error(data.message)
-            }
-          } else {
-            toast.error('Internal Server Error')
-          }
-        }
-    
-        fetchData()
-      }, [])
 
     async function Submit() {
         if (title && description) {
@@ -56,18 +25,18 @@ const CreateTicket = (props) => {
                 body: formData,
             })
 
-            if(response.ok == true){
+            if (response.ok == true) {
                 const data = await response.json()
-                
-                if(data.status == 200){
+
+                if (data.status == 200) {
                     props.onHide()
                     setTitle('')
                     setDescription('')
                     toast.success(data.mesage)
-                }else{
+                } else {
                     toast.error(data.message)
                 }
-            }else{
+            } else {
                 toast.error('Internal server error')
             }
         } else {

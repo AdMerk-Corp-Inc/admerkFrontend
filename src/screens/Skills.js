@@ -5,34 +5,28 @@ import { url } from '../Helper/Helper';
 
 function Skills() {
 
-  
-
     const [allSkills, setAllSkills] = useState([])
-    const [name,] = useState('')
     const { user } = useContext(userContext)
 
-   
-        async function fetchSkill() {
+    async function fetchSkill() {
+        const response = await fetch(url + "skills-list")
+        if (response.ok == true) {
+            const data = await response.json()
+            console.log(data)
+            if (data.status == 200) {
+                setAllSkills(data?.list)
 
-            const response = await fetch(url + "skills-list")
-            if (response.ok == true) {
-                const data = await response.json()
-                console.log(data)
-                if (data.status == 200) {
-                    setAllSkills(data?.list)
-
-                } else {
-                    toast.error(data.message)
-                }
             } else {
-                toast.error("Internal Server Error")
+                toast.error(data.message)
             }
+        } else {
+            toast.error("Internal Server Error")
         }
+    }
 
 
 
-    async function createSkill(e) {
-        e.preventDefault()
+    async function createSkill() {
         const res = window.prompt('Enter Skill Name')
         if (res.length > 0) {
             const formData = new FormData()
@@ -71,7 +65,7 @@ function Skills() {
 
             const formData = new FormData()
             formData.append('name', res)
-            const response = await fetch(url + 'update-skill/' + item.id  , {
+            const response = await fetch(url + 'update-skill/' + item.id, {
                 headers: {
                     "Authorization": `Bearer ${user?.token}`
                 },
@@ -84,7 +78,9 @@ function Skills() {
                 console.log(data);
                 if (data.status == 200) {
                     toast.success(data?.message)
-                    
+                    fetchSkill().catch(err => {
+                        toast.error(err.message)
+                    })
                 } else {
                     toast.error(data.message)
                 }
@@ -95,12 +91,6 @@ function Skills() {
     }
 
     useEffect(() => {
-        createSkill().catch(err => {
-            toast.error(err.message)
-        })
-        editSkill().catch(err => {
-            toast.error(err.message)
-        })
         fetchSkill().catch(err => {
             toast.error(err.message)
         })
@@ -110,26 +100,26 @@ function Skills() {
     async function deleteSkill(id) {
         const confirm = window.confirm('Are You Sure You Want To Delete This Skill')
         if (confirm === true) {
-          const response = await fetch(url + 'delete-skill/' + id, {
-            headers: {
-              "Authorization": `Bearer ${user?.token}`
-            }
-          })
-          if (response.ok == true) {
-            const data = await response.json()
-            if (data?.status == 200) {
-              toast.success(data?.message)
-              fetchSkill().catch(err => {
-                toast.error(err.message)
-              })
+            const response = await fetch(url + 'delete-skill/' + id, {
+                headers: {
+                    "Authorization": `Bearer ${user?.token}`
+                }
+            })
+            if (response.ok == true) {
+                const data = await response.json()
+                if (data?.status == 200) {
+                    toast.success(data?.message)
+                    fetchSkill().catch(err => {
+                        toast.error(err.message)
+                    })
+                } else {
+                    toast.error(data?.message)
+                }
             } else {
-              toast.error(data?.message)
+                toast.error('Internal Server Error')
             }
-          } else {
-            toast.error('Internal Server Error')
-          }
         }
-      }
+    }
 
 
     return (
@@ -139,7 +129,7 @@ function Skills() {
 
                     <div className='p-4 table-div'>
                         <div className='d-flex justify-content-end'>
-                            <button onClick={createSkill} value={name} type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Skill</button>
+                            <button onClick={createSkill} type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Skill</button>
                         </div>
 
                         <table class="table table-hover">

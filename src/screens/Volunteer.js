@@ -11,7 +11,6 @@ function Volunteer() {
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [country, setCountry] = useState('')
-    const [role, setRole] = useState('')
     const [countrylist, setCountryList] = useState([])
     const [whatsappnum, setWhatsappNum] = useState('')
 
@@ -79,8 +78,7 @@ function Volunteer() {
                 const data = await response.json();
                 console.log(data)
                 if (data.status == 200) {
-                    setUser(data?.user_data)
-                    window.location = window.location.origin + "/sponsor-dashboard"
+                    window.location = window.location.origin + "/all-user"
                 } else {
                     toast.error(data?.message)
                 }
@@ -144,26 +142,6 @@ function Volunteer() {
 
                                                 {/* <span className='error'>it is span tag</span> */}
                                             </div>
-
-                                            <div className="filter-form-MUI-input-text col-md-6">
-                                                <main class="input-div">
-                                                    <input
-                                                        class="inner-input"
-                                                        type="number"
-                                                        placeholder=" "
-                                                        id='name'
-                                                        autoComplete="off"
-                                                        required
-                                                        value={role}
-                                                        onChange={e => setRole(e.target.value)}
-                                                    />
-                                                    <label for="name" class="inner-label">Role</label>
-                                                    {/* <span className='required'>*Required</span> */}
-                                                </main>
-
-                                                {/* <span className='error'>it is span tag</span> */}
-                                            </div>
-
                                             <div className="filter-form-MUI-input-text col-md-6">
                                                 <main class="input-div">
                                                     <input

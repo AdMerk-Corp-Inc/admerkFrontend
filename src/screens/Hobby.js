@@ -9,27 +9,26 @@ function Hobby() {
     const [name,] = useState('')
     const { user } = useContext(userContext)
 
-        async function fetchHobby() {
+    async function fetchHobby() {
 
-            const response = await fetch(url + "hobby-list")
-            if (response.ok == true) {
-                const data = await response.json()
+        const response = await fetch(url + "hobby-list")
+        if (response.ok == true) {
+            const data = await response.json()
 
-                if (data.status == 200) {
-                    setAllHobbies(data?.list)
-                } else {
-                    toast.error(data.message)
-                }
+            if (data.status == 200) {
+                setAllHobbies(data?.list)
             } else {
-                toast.error("Internal Server Error")
+                toast.error(data.message)
             }
+        } else {
+            toast.error("Internal Server Error")
         }
+    }
 
-   
 
 
-    async function createHobby(e) {
-        e.preventDefault()
+
+    async function createHobby() {
         const res = window.prompt('Enter Hobby Name')
         if (res.length > 0) {
             const formData = new FormData()
@@ -56,10 +55,7 @@ function Hobby() {
             } else {
                 toast.error("Internal Server Error")
             }
-
         }
-
-
     }
 
 
@@ -69,7 +65,7 @@ function Hobby() {
         if (res.length > 0) {
             const formData = new FormData()
             formData.append('name', res)
-            const response = await fetch(url + 'update-hobby', {
+            const response = await fetch(url + 'update-hobby/' + item?.id, {
                 headers: {
                     "Authorization": `Bearer ${user?.token}`
                 },
@@ -82,7 +78,9 @@ function Hobby() {
                 console.log(data);
                 if (data.status == 200) {
                     toast.success(data?.message)
-
+                    fetchHobby().catch(err => {
+                        toast.error(err.message)
+                    })
                 } else {
                     toast.error(data.message)
                 }
@@ -95,12 +93,6 @@ function Hobby() {
     }
 
     useEffect(() => {
-        createHobby().catch(err => {
-            toast.error(err.message)
-        })
-        editHobby().catch(err => {
-            toast.error(err.message)
-        })
         fetchHobby().catch(err => {
             toast.error(err.message)
         })
@@ -110,26 +102,26 @@ function Hobby() {
     async function deleteHobby(id) {
         const confirm = window.confirm('Are You Sure You Want To Delete This Hobby')
         if (confirm === true) {
-          const response = await fetch(url + 'delete-hobby/' + id, {
-            headers: {
-              "Authorization": `Bearer ${user?.token}`
-            }
-          })
-          if (response.ok == true) {
-            const data = await response.json()
-            if (data?.status == 200) {
-              toast.success(data?.message)
-              fetchHobby().catch(err => {
-                toast.error(err.message)
-              })
+            const response = await fetch(url + 'delete-hobby/' + id, {
+                headers: {
+                    "Authorization": `Bearer ${user?.token}`
+                }
+            })
+            if (response.ok == true) {
+                const data = await response.json()
+                if (data?.status == 200) {
+                    toast.success(data?.message)
+                    fetchHobby().catch(err => {
+                        toast.error(err.message)
+                    })
+                } else {
+                    toast.error(data?.message)
+                }
             } else {
-              toast.error(data?.message)
+                toast.error('Internal Server Error')
             }
-          } else {
-            toast.error('Internal Server Error')
-          }
         }
-      }
+    }
 
 
     return (
