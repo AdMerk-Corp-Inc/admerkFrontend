@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Pagination } from 'react-bootstrap';
+import Pagination from '../component/Pagination';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { userContext } from '../context/UserContext';
@@ -111,11 +111,12 @@ function AllUser() {
                             </tbody>
                         </table>
 
+                        <Pagination page={page} setPage={setPage} />
+
                     </div>
 
                 </div>
             </div>
-            <Pagination page={page} setPage={setPage} />
         </section>
     )
 }
