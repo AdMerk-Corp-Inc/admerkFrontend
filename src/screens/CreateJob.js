@@ -150,7 +150,10 @@ function CreateJob() {
         if (error == 0) {
             const response = await fetch(url + 'create-job', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'Authorization': `Bearer ${user?.token}`
+                },
             });
 
             if (response.ok == true) {
