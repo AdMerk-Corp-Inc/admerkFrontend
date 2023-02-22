@@ -29,6 +29,7 @@ import AllJobs from './screens/AllJobs';
 import ForgotPassword from './screens/auth/ForgotPassword';
 import CreateJob from './screens/CreateJob';
 import EditJOb from './screens/EditJob';
+import JobDetailPage from './screens/JobDetailPage';
 
 function App() {
   const { user } = useContext(userContext)
@@ -103,6 +104,9 @@ function App() {
           </Layout>} />
           <Route path='/edit-job' exact={true} element={<Layout>
             <EditJOb />
+          </Layout>} />
+          <Route path='/apply-job' exact={true} element={<Layout>
+            <JobDetailPage />
           </Layout>} />
 
         </Routes>
