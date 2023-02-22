@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Select from 'react-select';
 import { toast } from 'react-toastify';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { url } from '../Helper/Helper';
 import { userContext } from '../context/UserContext';
 
 function EditJOb() {
 
-    const navigation = useNavigate()
     const { user, setUser } = useContext(userContext)
     const [title, setTitle] = useState('')
     const [country, setCountry] = useState('')
@@ -42,7 +41,7 @@ function EditJOb() {
                 let arr = []
                 for (var i = 0; i < data.list.length; i++) {
                     arr.push({
-                        'value': data.list[i].id,
+                        'value': data.list[i].name,
                         'label': data.list[i].name
                     })
                 }
@@ -69,7 +68,7 @@ function EditJOb() {
                 let arr = []
                 for (var i = 0; i < data.list.length; i++) {
                     arr.push({
-                        'value': data.list[i].id,
+                        'value': data.list[i].name,
                         'label': data.list[i].name
                     })
                 }
@@ -123,7 +122,9 @@ function EditJOb() {
             toast.error(err.message)
         })
 
-
+        fetchJobs().catch(err => {
+            toast.error(err.message)
+        })
     }, [])
 
     async function handleSubmit(e) {
@@ -181,7 +182,7 @@ function EditJOb() {
     }
 
     async function fetchJobs() {
-        const response = await fetch(url + "getAllJobs/" + id , {
+        const response = await fetch(url + "job-details/" + id , {
             headers: {
                 'Authorization': `Bearer ${user?.token}`
             },
@@ -190,21 +191,28 @@ function EditJOb() {
             const data = await response.json()
             console.log(data)
             if (data.status == 200) {
-                setTitle(data?.list[0]?.title)
+                setTitle(data?.detail?.title)
                 setCountry({
-                    'value': data?.list[0]?.country_id,
-                    'label': data?.list[0]?.country_name,
+                    'value': data?.detail?.country_id,
+                    'label': data?.detail?.country_name,
                     // "phoneCode": data?.list[0].phoneCode
                 })
-                setSkills({
-                    'value': data?.list[0]?.id,
-                    'label': data?.list[0]?.skills,
-                })
-                setHobby({
-                    'value': data?.list[0]?.id,
-                    'label': data?.list[0]?.hobby,
-                })
-                setDescription(data?.list[0]?.description)
+
+                
+
+                setSkills(data?.detail?.skills?.split(",").map(item => {
+                    return {
+                        label : item,
+                        value : item
+                    }
+                }))
+                setHobby(data?.detail?.hobby?.split(",").map(item => {
+                    return {
+                        label : item,
+                        value : item
+                    }
+                }))
+                setDescription(data?.detail?.description)
 
             } else {
                 toast.error(data.message)
@@ -213,14 +221,6 @@ function EditJOb() {
             toast.error("Internal Server Error")
         }
     }
-
-
-    useEffect(() => {
-        fetchJobs().catch(err => {
-            toast.error(err.message)
-        })
-
-    }, [])
 
 
     return (

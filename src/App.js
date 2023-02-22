@@ -45,8 +45,6 @@ function App() {
           <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
           <Route path='/create-volunteer' exact={true} element={<Volunteer />} />
           <Route path='/change-password' exact={true} element={<ChangePassword />} />
-          <Route path='/create-job' exact={true} element={<CreateJob />} />
-          <Route path='/edit-job' exact={true} element={<EditJOb />} />
 
           <Route path='/sponsor-dashboard' exact={true} element={<Layout>
             <SponsorDashboard />
@@ -99,6 +97,14 @@ function App() {
           <Route path='/all-jobs' exact={true} element={<Layout>
             <AllJobs />
           </Layout>} />
+
+          <Route path='/create-job' exact={true} element={<Layout>
+            <CreateJob />
+          </Layout>} />
+          <Route path='/edit-job' exact={true} element={<Layout>
+            <EditJOb />
+          </Layout>} />
+
         </Routes>
       </BrowserRouter>
     </>

@@ -38,6 +38,38 @@ function AllJobs() {
 
     }, [])
 
+    async function changeStatus(item){
+        const res = window.confirm("Are you sure you want to change the status of the job ?")
+
+        if (res == true){
+            let new_status = 1
+            if (item?.status == 1){
+                new_status = 2
+            }else{
+                new_status = 1
+            }
+            const response = await fetch(url + `change-job-status/${item?.id}/${new_status}`,{
+                headers : {
+                    "Authorization" : `Bearer ${user?.token}`
+                }
+            });
+
+            if (response.ok == true){
+                const data = await response.json();
+
+                if (data.status == 200){
+                    toast.success("Status updated successfully!")
+                    fetchJobs().catch(err => {
+                        toast.error(err.message)
+                    })
+                }else{
+                    toast.error(data?.message)
+                }
+            }
+
+        }
+    }
+
     return (
         <section className="all-jobs-div" style={{ backgroundColor: '#0061df08' }}>
             <div className="container py-5 h-100">
@@ -77,12 +109,14 @@ function AllJobs() {
                                         <td>{item?.country_name}</td>
                                         <td>{item?.created_date}</td>
                                         <td>{item?.applied_count}</td>
-                                        <td>{item?.status == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Open</span> : <span className='bg-danger px-2 py-1 rounded text-white'>Closed</span>}</td>
-                                        <td><a href='javascript:void(0);' onClick={() => {
-                                            // setId(item?.id)
-                                            // setModalShow(true)
-                                        }}><a  href={`edit-job?id=${item?.id}`}><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href='javascript:void(0)'><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a></a></td>
+                                        <td onClick={()=>changeStatus(item)}>{item?.status == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Open</span> : <span className='bg-danger px-2 py-1 rounded text-white'>Closed</span>}</td>
+                                        <td>
+                                            <a href={`edit-job?id=${item?.id}`}>
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            </a>
+
+                                            <i class="fa fa-trash-o ms-3" aria-hidden="true"></i>
+                                        </td>
                                     </tr>
                                 )) : <tr>
                                     <td colSpan={5}>

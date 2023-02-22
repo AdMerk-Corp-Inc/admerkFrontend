@@ -154,11 +154,11 @@ function SignupCustomer() {
         }
 
         if (hobby.length > 0) {
-            formData.append("skills", Array.prototype.map.call(hobby, s => s.label).toString())
+            formData.append("hobby", Array.prototype.map.call(hobby, s => s.label).toString())
         }
 
         if (skills.length > 0) {
-            formData.append("hobby", Array.prototype.map.call(hobby, s => s.label).toString())
+            formData.append("skills", Array.prototype.map.call(skills, s => s.label).toString())
         }
 
         if (error == 0) {

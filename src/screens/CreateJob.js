@@ -7,8 +7,7 @@ import { userContext } from '../context/UserContext';
 
 function CreateJob() {
 
-    const navigation = useNavigate()
-    const { user, setUser } = useContext(userContext)
+    const { user } = useContext(userContext)
     const [title, setTitle] = useState('')
     const [country, setCountry] = useState('')
     const [countrylist, setCountryList] = useState([])
@@ -17,6 +16,7 @@ function CreateJob() {
     const [hobby, setHobby] = useState('')
     const [hobbyslist, setHobbyList] = useState([])
     const [photo, setPhoto] = useState('')
+    const [attachement, setAttachement] = useState('')
     const [description, setDescription] = useState('')
 
 
@@ -130,7 +130,6 @@ function CreateJob() {
         if (country?.value) {
             formData.append("country_id", country?.value)
             formData.append("country_name", country?.label)
-            formData.append("country_code", country?.phoneCode)
         } else {
             error = error + 1
         }
@@ -139,12 +138,16 @@ function CreateJob() {
             formData.append("image", photo, photo?.name)
         }
 
+        if (attachement?.name) {
+            formData.append("attachement", attachement, attachement?.name)
+        }
+
         if (hobby.length > 0) {
-            formData.append("skills", Array.prototype.map.call(hobby, s => s.label).toString())
+            formData.append("hobby", Array.prototype.map.call(hobby, s => s.label).toString())
         }
 
         if (skills.length > 0) {
-            formData.append("hobby", Array.prototype.map.call(hobby, s => s.label).toString())
+            formData.append("skills", Array.prototype.map.call(skills, s => s.label).toString())
         }
 
         if (error == 0) {
@@ -160,8 +163,8 @@ function CreateJob() {
                 const data = await response.json();
 
                 if (data.status == 200) {
-                    setUser(data?.user_data)
-                    window.location = window.location.origin + "/refugee-dashboard"
+                    toast.success("Job Created Successfully!")
+                    window.location = window.location.origin + '/all-jobs'
                 } else {
                     toast.error(data?.message)
                 }
@@ -180,10 +183,6 @@ function CreateJob() {
                         <div className="row d-flex justify-content-center align-items-center h-100">
                             <div className="col-lg-8">
                                 <div className="card rounded-3">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-                                        className="w-100"
-                                        style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '0.3rem' }}
-                                        alt="Sample photo" />
                                     <div className="card-body p-4 p-md-5">
                                         <h3 className="mb-4">Create Job</h3>
 
@@ -222,16 +221,16 @@ function CreateJob() {
 
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
-                                              
 
-                                               
+
+
 
                                                 <Select className='col-md-6'
                                                     options={countrylist}
                                                     placeholder='Select Country'
                                                     value={country} required onChange={setCountry}
                                                 />
-                                                
+
 
                                                 <Select className='col-md-6'
                                                     options={skillslist}
@@ -249,7 +248,22 @@ function CreateJob() {
                                                     value={hobby} onChange={setHobby}
                                                 />
 
-                                               
+                                                <div className="filter-form-MUI-input-text col-md-6 mt-3">
+                                                    <main class="input-div">
+                                                        <input
+                                                            class="inner-input"
+                                                            type="file"
+                                                            placeholder=" "
+                                                            id='name'
+                                                            autoComplete="off"
+                                                            onChange={e => setAttachement(e.target.files[0])}
+                                                        />
+                                                        <label for="name" class="inner-label">Upload Job Attchement</label>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
 
                                                 <div className="filter-form-MUI-input-text mt-3">
                                                     <main class="input-div h-100">
@@ -271,7 +285,7 @@ function CreateJob() {
                                                 </div>
 
 
-                                                
+
 
                                             </div>
 
