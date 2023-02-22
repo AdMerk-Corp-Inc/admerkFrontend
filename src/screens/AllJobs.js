@@ -114,8 +114,9 @@ function AllJobs() {
                                             <a href={`edit-job?id=${item?.id}`}>
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                                             </a>
-
-                                            <i class="fa fa-trash-o ms-3" aria-hidden="true"></i>
+                                            <a href={`job-applicant-list?id=${item?.id}`}>
+                                                <i class="fa-regular fa-folder-open text-success ms-3"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 )) : <tr>

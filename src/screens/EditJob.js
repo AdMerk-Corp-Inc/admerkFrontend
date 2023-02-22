@@ -20,11 +20,11 @@ function EditJOb() {
 
     function useQuery() {
         const { search } = useLocation();
-    
+
         return React.useMemo(() => new URLSearchParams(search), [search]);
-      }
-    
-      const id = useQuery().get('id');
+    }
+
+    const id = useQuery().get('id');
 
 
     async function fetchSkill() {
@@ -170,7 +170,7 @@ function EditJOb() {
 
                 if (data.status == 200) {
                     setUser(data?.user_data)
-                    
+
                 } else {
                     toast.error(data?.message)
                 }
@@ -182,7 +182,7 @@ function EditJOb() {
     }
 
     async function fetchJobs() {
-        const response = await fetch(url + "job-details/" + id , {
+        const response = await fetch(url + "job-details/" + id, {
             headers: {
                 'Authorization': `Bearer ${user?.token}`
             },
@@ -198,18 +198,18 @@ function EditJOb() {
                     // "phoneCode": data?.list[0].phoneCode
                 })
 
-                
+
 
                 setSkills(data?.detail?.skills?.split(",").map(item => {
                     return {
-                        label : item,
-                        value : item
+                        label: item,
+                        value: item
                     }
                 }))
                 setHobby(data?.detail?.hobby?.split(",").map(item => {
                     return {
-                        label : item,
-                        value : item
+                        label: item,
+                        value: item
                     }
                 }))
                 setDescription(data?.detail?.description)
@@ -273,16 +273,16 @@ function EditJOb() {
 
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
-                                              
 
-                                               
+
+
 
                                                 <Select className='col-md-6'
                                                     options={countrylist}
                                                     placeholder='Select Country'
                                                     value={country} required onChange={setCountry}
                                                 />
-                                                
+
 
                                                 <Select className='col-md-6'
                                                     options={skillslist}
@@ -300,7 +300,7 @@ function EditJOb() {
                                                     value={hobby} onChange={setHobby}
                                                 />
 
-                                               
+
 
                                                 <div className="filter-form-MUI-input-text mt-3">
                                                     <main class="input-div h-100">
@@ -322,7 +322,7 @@ function EditJOb() {
                                                 </div>
 
 
-                                                
+
 
                                             </div>
 
