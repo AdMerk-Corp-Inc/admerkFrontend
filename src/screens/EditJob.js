@@ -17,14 +17,15 @@ function EditJOb() {
     const [hobbyslist, setHobbyList] = useState([])
     const [photo, setPhoto] = useState('')
     const [description, setDescription] = useState('')
+    const [attachement, setAttachement] = useState('')
 
     function useQuery() {
         const { search } = useLocation();
-    
+
         return React.useMemo(() => new URLSearchParams(search), [search]);
-      }
-    
-      const id = useQuery().get('id');
+    }
+
+    const id = useQuery().get('id');
 
 
     async function fetchSkill() {
@@ -139,13 +140,17 @@ function EditJOb() {
         if (country?.value) {
             formData.append("country_id", country?.value)
             formData.append("country_name", country?.label)
-            formData.append("country_code", country?.phoneCode)
+
         } else {
             error = error + 1
         }
 
         if (photo?.name) {
             formData.append("image", photo, photo?.name)
+        }
+
+        if (attachement?.name) {
+            formData.append("attachement", attachement, attachement?.name)
         }
 
         if (hobby.length > 0) {
@@ -170,7 +175,7 @@ function EditJOb() {
 
                 if (data.status == 200) {
                     setUser(data?.user_data)
-                    
+
                 } else {
                     toast.error(data?.message)
                 }
@@ -182,7 +187,7 @@ function EditJOb() {
     }
 
     async function fetchJobs() {
-        const response = await fetch(url + "job-details/" + id , {
+        const response = await fetch(url + "job-details/" + id, {
             headers: {
                 'Authorization': `Bearer ${user?.token}`
             },
@@ -198,21 +203,22 @@ function EditJOb() {
                     // "phoneCode": data?.list[0].phoneCode
                 })
 
-                
+
 
                 setSkills(data?.detail?.skills?.split(",").map(item => {
                     return {
-                        label : item,
-                        value : item
+                        label: item,
+                        value: item
                     }
                 }))
                 setHobby(data?.detail?.hobby?.split(",").map(item => {
                     return {
-                        label : item,
-                        value : item
+                        label: item,
+                        value: item
                     }
                 }))
                 setDescription(data?.detail?.description)
+                setPhoto()
 
             } else {
                 toast.error(data.message)
@@ -273,16 +279,16 @@ function EditJOb() {
 
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
-                                              
 
-                                               
+
+
 
                                                 <Select className='col-md-6'
                                                     options={countrylist}
                                                     placeholder='Select Country'
                                                     value={country} required onChange={setCountry}
                                                 />
-                                                
+
 
                                                 <Select className='col-md-6'
                                                     options={skillslist}
@@ -300,7 +306,22 @@ function EditJOb() {
                                                     value={hobby} onChange={setHobby}
                                                 />
 
-                                               
+                                                <div className="filter-form-MUI-input-text col-md-6 mt-3">
+                                                    <main class="input-div">
+                                                        <input
+                                                            class="inner-input"
+                                                            type="file"
+                                                            placeholder=" "
+                                                            id='name'
+                                                            autoComplete="off"
+                                                            onChange={e => setAttachement(e.target.files[0])}
+                                                        />
+                                                        <label for="name" class="inner-label">Upload Job Attchement</label>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
 
                                                 <div className="filter-form-MUI-input-text mt-3">
                                                     <main class="input-div h-100">
@@ -322,7 +343,7 @@ function EditJOb() {
                                                 </div>
 
 
-                                                
+
 
                                             </div>
 
