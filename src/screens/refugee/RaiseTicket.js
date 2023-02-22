@@ -103,7 +103,7 @@ function RaiseTicket() {
                     }}><i class="fa-solid fa-eye text-primary"></i></a></td>
                   </tr>
                 )) : <tr>
-                  <td colSpan={5}>
+                  <td colSpan={8}>
                     <div className='not-found'>No Tickets Found</div>
                   </td>
                 </tr>
