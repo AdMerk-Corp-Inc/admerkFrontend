@@ -34,7 +34,7 @@ const ApplyNewJob = (props) => {
                 if (data.status == 200) {
                     props.onHide()
                     setResume('')
-                    toast.success(data.mesage)
+                    toast.success("Job Applied successfully!")
                 } else {
                     toast.error(data.message)
                 }
