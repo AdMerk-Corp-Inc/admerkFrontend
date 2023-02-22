@@ -27,6 +27,8 @@ import VolunteerAdminDashboard from './screens/VolunteerAdminDashboard';
 import ChangePassword from './screens/auth/ChangePassword';
 import AllJobs from './screens/AllJobs';
 import ForgotPassword from './screens/auth/ForgotPassword';
+import CreateJob from './screens/CreateJob';
+import EditJOb from './screens/EditJob';
 
 function App() {
   const { user } = useContext(userContext)
@@ -43,6 +45,8 @@ function App() {
           <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
           <Route path='/create-volunteer' exact={true} element={<Volunteer />} />
           <Route path='/change-password' exact={true} element={<ChangePassword />} />
+          <Route path='/create-job' exact={true} element={<CreateJob />} />
+          <Route path='/edit-job' exact={true} element={<EditJOb />} />
 
           <Route path='/sponsor-dashboard' exact={true} element={<Layout>
             <SponsorDashboard />
