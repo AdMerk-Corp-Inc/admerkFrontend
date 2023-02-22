@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { userContext } from '../context/UserContext';
-import { url } from '../Helper/Helper';
+import { node_url, url } from '../Helper/Helper';
 
 
 function JobApplicantList() {
@@ -74,9 +74,9 @@ function JobApplicantList() {
                                         <td>{index + 1}</td>
                                         <td>{item?.name}</td>
                                         <td>{item?.email}</td>
-                                        <td>{item?.mobile_no}</td>
-                                        <td>{item?.applied_date}</td>
-                                        <td><a href='#'>hii</a></td>
+                                        <td>+{item?.country_code} {item?.whatsapp_number}</td>
+                                        <td>{item?.apply_date}</td>
+                                        <td><a href={`${node_url}${item?.resume}`} target="_blank">Resume</a></td>
                                         
                                     </tr>
                                 )) : <tr>
