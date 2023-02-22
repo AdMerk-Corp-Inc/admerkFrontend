@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CreateTicket from '../../component/CreateTicket';
 import { userContext } from '../../context/UserContext';
@@ -10,10 +11,11 @@ function RaiseTicket() {
   const [modalShow, setModalShow] = useState(false);
   const [allTickets, setAllTickets] = useState([])
   const [ticketStatus, setTicketStatus] = useState('All')
+  const [id, setId] = useState()
 
   async function fetchTickets() {
     let mainURL = 'all-tickets'
-    if(ticketStatus != "All"){
+    if (ticketStatus != "All") {
       mainURL = mainURL + `?status=${ticketStatus}`
     }
 
@@ -52,6 +54,7 @@ function RaiseTicket() {
             <CreateTicket
               show={modalShow}
               onHide={() => setModalShow(false)}
+              id={id}
             />
 
             <div className='d-flex align-items-center justify-content-end status-filter-div mb-4'>
@@ -67,6 +70,11 @@ function RaiseTicket() {
               <thead>
                 <tr>
                   <th scope="col">Sr No.</th>
+                  {user?.role < 3 && <>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mobile</th>
+                  </>}
                   <th scope="col">Date</th>
                   <th scope="col">Title</th>
                   <th scope="col">Status</th>
@@ -77,13 +85,25 @@ function RaiseTicket() {
                 {allTickets?.length > 0 ? allTickets.map((item, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
+                    {user?.role < 3 && <>
+                    <td scope="col">
+                      <Link to={`/profile?id=${item?.user_id}`}>
+                      {item?.name}
+                      </Link>
+                    </td>
+                    <td scope="col">{item?.email}</td>
+                    <td scope="col">+{item?.country_code} {item?.whatsapp_number}</td>
+                  </>}
                     <td>{dateTransformer(item?.created_date)}</td>
                     <td>{item?.title}</td>
                     <td>{item?.status == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Open</span> : <span className='bg-danger px-2 py-1 rounded text-white'>Closed</span>}</td>
-                    <td><a href='javascript:void(0);' onClick={() => setModalShow(true,item?.id)}><i class="fa-solid fa-eye text-primary"></i></a></td>
+                    <td><a href='javascript:void(0);' onClick={() => {
+                      setId(item?.id)
+                      setModalShow(true)
+                    }}><i class="fa-solid fa-eye text-primary"></i></a></td>
                   </tr>
                 )) : <tr>
-                  <td colSpan={5}>
+                  <td colSpan={8}>
                     <div className='not-found'>No Tickets Found</div>
                   </td>
                 </tr>

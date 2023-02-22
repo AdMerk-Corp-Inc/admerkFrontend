@@ -440,11 +440,13 @@
   margin: 0 1rem;
 }
 
-.my-tickets-div .status-filter-div label {
+.my-tickets-div .status-filter-div label,
+.all-jobs-div .status-filter-div label {
   font-size: 14px;
 }
 
-.my-tickets-div .status-filter-div select {
+.my-tickets-div .status-filter-div select,
+.all-jobs-div .status-filter-div select {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;

@@ -31,7 +31,7 @@ function Navbar() {
                 <li class="nav-item pe-4">
                   <a class="nav-link" href="/tickets">View Tickets</a>
                 </li>
-                <li class="nav-item px-4">
+                <li class="nav-item pe-4">
                   <a class="nav-link" href="/all-user">All Users</a>
                 </li>
                 <li class="nav-item pe-4">
@@ -41,7 +41,7 @@ function Navbar() {
                   <a class="nav-link" href="/hobby">Hobbies</a>
                 </li>
                 <li class="nav-item pe-4">
-                  <a class="nav-link" href="/tickets">All Jobs</a>
+                  <a class="nav-link" href="/all-jobs">All Jobs</a>
                 </li>
               </> : <>
                 <li class="nav-item align-self-center">

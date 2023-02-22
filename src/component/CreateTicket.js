@@ -11,6 +11,36 @@ const CreateTicket = (props) => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
+    useEffect(() => {
+        async function fetchTicketDetail() {
+            const response = await fetch(url + 'ticket-detail/' + props?.id, {
+                headers: {
+                    'Authorization': `Bearer ${user?.token}`
+                },
+            })
+
+            if (response.ok == true) {
+                const data = await response.json()
+
+                console.log(data)
+                if (data.status == 200) {
+                    setTitle(data?.detail?.title)
+                    setDescription(data?.detail?.description)
+
+                } else {
+                    toast.error(data.message)
+                }
+
+            } else {
+                toast.error('Internal Server Error')
+            }
+        }
+
+        if (props?.id) {
+            fetchTicketDetail()
+        }
+    }, [props?.id])
+
     async function Submit() {
         if (title && description) {
             const formData = new FormData();
