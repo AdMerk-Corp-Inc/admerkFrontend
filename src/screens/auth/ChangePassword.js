@@ -5,39 +5,38 @@ import { url } from '../../Helper/Helper'
 
 function ChangePassword() {
 
-  const { setUser } = useContext(userContext)
+  const { user } = useContext(userContext)
   const [newpassword, setNewPassword] = useState('')
   const [confirmpassword, setConfirmPassword] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault()
 
-    const formData = new FormData()
-    formData.append("email", newpassword)
-    formData.append("password", confirmpassword)
+    if (newpassword != confirmpassword) {
+      toast.error("Password Doesn't match")
+    } else {
+      const formData = new FormData()
+      formData.append("password", confirmpassword)
 
-    const response = await fetch(url + 'login', {
-      method: 'POST',
-      body: formData
-    });
+      const response = await fetch(url + 'change-password', {
+        method: 'POST',
+        headers : {
+          "Authorization" : `Bearer ${user?.token}`
+        },
+        body: formData
+      });
 
-    if (response.ok == true) {
-      const data = await response.json();
+      if (response.ok == true) {
+        const data = await response.json();
 
-      if (data.status == 200) {
-        setUser(data?.user_data)
-        if (data.user_data.role == 4) {
-          window.location = window.location.origin + "/refugee-dashboard"
-        } else if (data.user_data.role == 3) {
-          window.location = window.location.origin + "/sponsor-dashboard"
+        if (data.status == 200) {
+          toast.success("Password Updated successfully!")
         } else {
-          window.location = window.location.origin + "/admin-dashboard"
+          toast.error(data?.message)
         }
       } else {
-        toast.error(data?.message)
+        toast.error("Internal Server Error")
       }
-    } else {
-      toast.error("Internal Server Error")
     }
   }
 
@@ -89,13 +88,13 @@ function ChangePassword() {
 
                     <div className='d-flex justify-content-between align-items-center mt-3 forgot-pass-div'>
                       <button type="submit" className="btn custom-sm-btn btn-lg my-0 mb-4">Change Password</button>
-                     
+
                     </div>
                   </form>
 
 
 
-                  
+
                 </div>
               </div>
             </div>
