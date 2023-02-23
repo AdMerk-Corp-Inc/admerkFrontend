@@ -112,6 +112,7 @@ function App() {
           <Route path='/job-applicant-list' exact={true} element={<Layout>
             <JobApplicantList />
           </Layout>} />
+      
 
         </Routes>
       </BrowserRouter>
