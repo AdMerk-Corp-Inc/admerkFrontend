@@ -171,8 +171,7 @@ function SignupCustomer() {
                 const data = await response.json();
 
                 if (data.status == 200) {
-                    setUser(data?.user_data)
-                    window.location = window.location.origin + "/refugee-dashboard"
+                    toast.success(data.message)
                 } else {
                     toast.error(data?.message)
                 }

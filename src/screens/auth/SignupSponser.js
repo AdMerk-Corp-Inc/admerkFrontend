@@ -77,8 +77,7 @@ function SignupSponser() {
                 const data = await response.json();
                 console.log(data)
                 if (data.status == 200) {
-                    setUser(data?.user_data)
-                    window.location = window.location.origin + "/sponsor-dashboard"
+                    toast.success(data.message)
                 } else {
                     toast.error(data?.message)
                 }
