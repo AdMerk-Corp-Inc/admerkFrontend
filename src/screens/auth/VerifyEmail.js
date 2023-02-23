@@ -48,7 +48,7 @@ function VerifyEmail() {
             <div className="container py-5 h-100">
                 <div className="card rounded-3 h-100" style={{ justifyContent: 'center', alignItems: 'center' }}>
                     {show ? <>
-                        <img className="img-fluid" style={{ width: 100 }} src='/assets/images/loader.gif' alt="Sample photo" />
+                        <img className="img-fluid" style={{ width: 100 }} src='/assets/images/tick.jpeg' alt="Sample photo" />
                         <p className='fw-bold text-center mt-3'>Your account has been verified successfully. You can <Link to="/login">login</Link> now</p>
                     </> : <>
                         <img className="img-fluid" style={{ width: 100 }} src='/assets/images/loader.gif' alt="Sample photo" />

@@ -43,8 +43,8 @@ function Footer() {
         </div>
 
         <div className='copy-right-div d-flex align-items-center justify-content-between'>
-          <p>© 2023 - All Rights Reserved By <a href="">ADMERK</a></p>
-          <p>Made with ❤ by <a href="">Web Amplifier</a></p>
+          <p>© {new Date().getFullYear()} - All Rights Reserved By <a href="">ADMERK</a></p>
+          <p>Made with ❤ by <a href="https://web-amplifier.com/">Web Amplifier</a></p>
         </div>
       </div>
     </div>
