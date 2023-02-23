@@ -32,12 +32,14 @@ import EditJOb from './screens/EditJob';
 import JobDetailPage from './screens/JobDetailPage';
 import JobApplicantList from './screens/JobApplicantList';
 import VerifyEmail from './screens/auth/VerifyEmail';
+import Loader from './component/Loader';
 
 function App() {
   const { user } = useContext(userContext)
   return (
     <>
       <ToastContainer />
+      {/* <Loader /> */}
       <BrowserRouter>
         <Routes>
           <Route path='/' exact={true} element={<CommonSignup />} />
