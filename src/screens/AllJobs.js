@@ -9,9 +9,14 @@ function AllJobs() {
 
     const { user } = useContext(userContext)
     const [allJobs, setAllJobs] = useState([])
+    const [status,setStatus] = useState("All") 
 
     async function fetchJobs() {
-        const response = await fetch(url + "getAllJobs", {
+        let main_url = "getAllJobs"
+        if (status != "All"){
+            main_url = main_url + `?status=${status}`
+        }
+        const response = await fetch(url + main_url, {
             headers: {
                 'Authorization': `Bearer ${user?.token}`
             },
@@ -36,7 +41,7 @@ function AllJobs() {
             toast.error(err.message)
         })
 
-    }, [])
+    }, [status])
 
     async function changeStatus(item){
         const res = window.confirm("Are you sure you want to change the status of the job ?")
@@ -81,8 +86,8 @@ function AllJobs() {
                                 <a type="button" href='/create-job' class="btn btn-primary custom-sm-btn mb-4">Create Job</a>
                             </div>
 
-                            <label className='me-3' htmlFor="">Ticket Status:</label>
-                            <select class="form-select form-select-sm" aria-label="Default select example">
+                            <label className='me-3' htmlFor="">Job Status:</label>
+                            <select value={status} onChange={e=>setStatus(e.target.value)} class="form-select form-select-sm" aria-label="Default select example">
                                 <option value='All'>All</option>
                                 <option value="1">Open</option>
                                 <option value="2">Closed</option>

@@ -11,7 +11,6 @@ function JobDetailPage() {
   const [feeds, setFeeds] = useState([])
   const [modalShow, setModalShow] = useState(false);
   const { user } = useContext(userContext)
-  const [ids, setIds] = useState()
 
   function useQuery() {
     const { search } = useLocation();
@@ -80,10 +79,9 @@ function JobDetailPage() {
               <ApplyNewJob
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                ids={id}
+                id={id}
               />
               <a className='custom-sm-btn btn mt-0' href='#' onClick={() => {
-                setIds(feeds.id)
                 setModalShow(true)
               }}  >Apply Now</a>
             </div>

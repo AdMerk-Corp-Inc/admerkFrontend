@@ -9,16 +9,18 @@ const ApplyNewJob = (props) => {
 
     const { user } = useContext(userContext)
     const [resume, setResume] = useState('')
-    
+
 
 
     async function Submit() {
-        if (resume) {
+        if (resume?.name) {
             const formData = new FormData();
-            formData.append('resume', resume)
-            
 
-            const response = await fetch(url + 'apply-job/' + props?.ids, {
+
+            formData.append('resume', resume, resume?.name)
+
+
+            const response = await fetch(url + 'apply-job/' + props?.id, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${user?.token}`
@@ -32,7 +34,7 @@ const ApplyNewJob = (props) => {
                 if (data.status == 200) {
                     props.onHide()
                     setResume('')
-                    toast.success(data.mesage)
+                    toast.success("Job Applied successfully!")
                 } else {
                     toast.error(data.message)
                 }
@@ -59,7 +61,7 @@ const ApplyNewJob = (props) => {
                 <div className='d-flex flex-column px-3 '>
                     <div className=' '>
                         <label>Upload A Resume For Apply New Job</label>
-                        
+
                         <div className="filter-form-MUI-input-text col-md-12 mt-3">
                             <main class="input-div">
                                 <input
@@ -68,7 +70,6 @@ const ApplyNewJob = (props) => {
                                     placeholder=" "
                                     id='name'
                                     autoComplete="off"
-                                    value={resume}
                                     onChange={e => setResume(e.target.files[0])}
                                 />
                                 <label for="name" class="inner-label">Upload Resume</label>
@@ -78,7 +79,7 @@ const ApplyNewJob = (props) => {
                             {/* <span className='error'>it is span tag</span> */}
                         </div>
                     </div>
-                    
+
                 </div>
             </Modal.Body>
             <Modal.Footer>

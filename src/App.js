@@ -47,8 +47,10 @@ function App() {
           <Route path='/signup-sponser' exact={true} element={<SignupSponser />} />
           <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
           <Route path='/create-volunteer' exact={true} element={<Volunteer />} />
-          <Route path='/change-password' exact={true} element={<ChangePassword />} />
           <Route path='/verify-email' exact={true} element={<VerifyEmail />} />
+          <Route path='/change-password' exact={true} element={<Layout>
+            <ChangePassword />
+          </Layout>} />
 
           <Route path='/sponsor-dashboard' exact={true} element={<Layout>
             <SponsorDashboard />
