@@ -31,6 +31,7 @@ import CreateJob from './screens/CreateJob';
 import EditJOb from './screens/EditJob';
 import JobDetailPage from './screens/JobDetailPage';
 import JobApplicantList from './screens/JobApplicantList';
+import VerifyEmail from './screens/auth/VerifyEmail';
 
 function App() {
   const { user } = useContext(userContext)
@@ -47,6 +48,7 @@ function App() {
           <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
           <Route path='/create-volunteer' exact={true} element={<Volunteer />} />
           <Route path='/change-password' exact={true} element={<ChangePassword />} />
+          <Route path='/verify-email' exact={true} element={<VerifyEmail />} />
 
           <Route path='/sponsor-dashboard' exact={true} element={<Layout>
             <SponsorDashboard />
