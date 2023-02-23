@@ -47,6 +47,56 @@ function AllUser() {
         fetchUsers()
     }, [page, search, role])
 
+    async function changeStatus(item) {
+        const res = window.confirm("Are you sure you want to change the status of the User ?")
+
+        if (res == true) {
+            let new_status = 1
+            if (item?.status == 1) {
+                new_status = 2
+            } else {
+                new_status = 1
+            }
+            const response = await fetch(url + `change-user-status/${item?.id}/${new_status}`, {
+                headers: {
+                    "Authorization": `Bearer ${user?.token}`
+                }
+            });
+
+            if (response.ok == true) {
+                const data = await response.json();
+
+                if (data.status == 200) {
+                    toast.success("Status updated successfully!")
+                    fetchUsers().catch(err => {
+                        toast.error(err.message)
+                    })
+                } else {
+                    toast.error(data?.message)
+                }
+            }
+        }
+    }
+
+    async function resendEmail(item) {
+        const res = window.confirm("Are you sure you want to Resend Email for Verification ?")
+
+        const response = await fetch(url + 'resendVerification/' + item?.id, {
+
+        });
+
+        if (response.ok == true) {
+            const data = await response.json();
+
+            if (data.status == 200) {
+                toast.success("Status updated successfully!")
+               
+            } else {
+                toast.error(data?.message)
+            }
+        }
+    }
+
     return (
 
         <section className="my-tickets-div" style={{ backgroundColor: '#0061df08' }}>
@@ -63,7 +113,7 @@ function AllUser() {
                             </div>
 
                             <div className='mx-4'>
-                                <input placeholder='Search' value={search} onChange={e=>setSearch(e.target.value)} className="form-control" />
+                                <input placeholder='Search' value={search} onChange={e => setSearch(e.target.value)} className="form-control" />
                             </div>
 
                             <label className='me-3' htmlFor="">User Role:</label>
@@ -81,8 +131,10 @@ function AllUser() {
                                     <th scope="col">Sr No.</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">User Role</th>
+                                    <th scope="col">Verifed</th>
                                     <th scope="col">Mobile No.</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -90,15 +142,21 @@ function AllUser() {
                                 {allUsers?.length > 0 ? allUsers.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>
-                                            <Link to={`/profile?id=${item?.id}`}>
-                                            {item?.name}
-                                            </Link>
-                                        </td>
+                                        <td><Link to={`/profile?id=${item?.id}`}>{item?.name}</Link></td>
                                         <td>{item?.role == 2 ? <span className='bg-primary px-2 py-1 rounded text-white'>Volunteer</span> : item?.role == 3 ? <span className='bg-primary px-2 py-1 rounded text-white'>Sponsor</span> : <span className='bg-primary px-2 py-1 rounded text-white'>Refugee</span>}</td>
+                                        <td>{item?.email_verified == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Yes</span> : <span className='bg-danger px-2 py-1 rounded text-white'>NO</span>}</td>
                                         <td>+{item?.country_code} {item?.whatsapp_number}</td>
                                         <td>{item?.email}</td>
-                                        <td><a href='javascript:void(0);' ><i class="fa-solid fa-eye text-primary"></i></a></td>
+                                        <td onClick={() => changeStatus(item)}>{item?.status == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Active</span> : <span className='bg-danger px-2 py-1 rounded text-white'>UnActive</span>}</td>
+                                        <td>
+                                            <a href='javascript:void(0);' ><i class="fa-solid fa-eye text-primary"></i></a>
+                                            {
+                                                item?.email_verified == 2 ?
+                                                    <a href='javascript:void(0);' onClick={() => resendEmail(item)}><i class="fa-solid fa-message text-danger ms-3"></i></a>
+                                                    : <></>
+                                            }
+
+                                        </td>
                                     </tr>
                                 )) : <tr>
                                     <td colSpan={6}>

@@ -383,7 +383,7 @@ function SignupCustomer() {
                                                     {/* <span className='error'>span tag</span> */}
                                                 </div>
 
-                                                <div className='filter-form-MUI-radio-btn custom-MUI-radio-btn col-md-6'>
+                                                {/* <div className='filter-form-MUI-radio-btn custom-MUI-radio-btn col-md-6'>
                                                     <label className='form-check-label'>Are You From USA?</label>
                                                     <div className='d-flex mt-2'>
                                                         <div className='d-flex align-items-center'>
@@ -404,8 +404,8 @@ function SignupCustomer() {
                                                             <label className='mb-0 ms-2'>No</label>
                                                         </div>
                                                     </div>
-                                                    {/* <span className='error'>span tag</span> */}
-                                                </div>
+                                                    <span className='error'>span tag</span>
+                                                </div> */}
                                             </div>
 
                                             <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Create my account</button>

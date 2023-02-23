@@ -9,6 +9,8 @@ function Login() {
   const { setUser } = useContext(userContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loginData, setLoginData] = useState([])
+  const [show, setShow] = useState(false)
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -27,6 +29,8 @@ function Login() {
 
       if (data.status == 200) {
         setUser(data?.user_data)
+        setLoginData(data?.user_data)
+        setShow(true)
         if (data.user_data.role == 4) {
           window.location = window.location.origin + "/refugee-dashboard"
         } else if (data.user_data.role == 3) {
@@ -41,6 +45,25 @@ function Login() {
       toast.error("Internal Server Error")
     }
   }
+
+  async function resendEmail(item) {
+    const response = await fetch(url + "resendVerification/" + item?.id , {
+
+    })
+    if (response.ok == true) {
+        const data = await response.json()
+        console.log(data)
+        if (data.status == 200) {
+           
+        } else {
+            toast.error(data.message)
+        }
+    } else {
+        toast.error("Internal Server Error")
+    }
+
+  }
+
 
   return (
     <div className='login-div'>
@@ -87,6 +110,17 @@ function Login() {
                         </main>
                       </div>
                     </div>
+
+                    {loginData.status == 301 && show ? loginData.status.map((item) => (
+                      <div className=' mb-3 pt-1'>
+                        <p className='mb-0'>Have not verified email yet! <a href="#" onClick={() => resendEmail(item.id)}  >Resend</a></p>
+                      </div>
+                    )) :
+                      <></>
+                    }
+
+
+
 
                     <div className='d-flex justify-content-between align-items-center mt-3 forgot-pass-div'>
                       <button type="submit" className="btn custom-sm-btn btn-lg my-0">Login</button>
