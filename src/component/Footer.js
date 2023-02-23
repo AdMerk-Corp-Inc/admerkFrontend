@@ -2,14 +2,18 @@ import React, { useContext } from 'react'
 import { userContext } from '../context/UserContext'
 
 function Footer() {
-  const {user} = useContext(userContext)
+  const { user } = useContext(userContext)
   return (
     <div className='footer-div bg-dark text-white pt-5'>
       <div className='container'>
         <div className='row pb-4'>
           <div className='col-md-4'>
             <h2>ADMERK</h2>
-            <p className='mb-0'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. A quaerat iure nobis itaque ratione minima quasi perferendis modi aliquid dolorem, quia, vero aliquam facilis sapiente! Iusto eum iure sunt labore. Saepe asperiores ullam fuga, eos at, recusandae voluptas veniam ut ipsum nostrum soluta consequatur, consequuntur rem nesciunt nulla dolorum quasi!</p>
+            <p className='mb-0'>
+              Admerk is the free platform for World Wide. The Main Motive of these platform is to provide dream job to Refugges. We always aim to provide dream job to refugees because they leave their home country to get that dream job.
+              These Platform is not for any particular country these platform is for all country. We always want to improve the leaving Standard of all refugees.
+              We also aims on providing Best and hard working employee to the sponsor.
+            </p>
           </div>
 
           <div className='col-md-4 d-flex flex-column align-items-center'>
@@ -17,7 +21,7 @@ function Footer() {
               <h3>Company</h3>
               <ul>
                 <li><a href="">Home</a></li>
-                <li><a href={user?.role < 3 ? '/admin-dashboard' : user?.role == 3 ? '/sponsor-dashboard' : '/refugee-dashboard' }>Dashboard</a></li>
+                <li><a href={user?.role < 3 ? '/admin-dashboard' : user?.role == 3 ? '/sponsor-dashboard' : '/refugee-dashboard'}>Dashboard</a></li>
                 <li><a href="/tickets">My Tickets</a></li>
               </ul>
             </div>

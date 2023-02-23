@@ -271,32 +271,6 @@ function RefugeeDashboard() {
                         </div>
 
                         <div class="accordion-item">
-                          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                              Gender
-                            </button>
-                          </h2>
-                          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                            <div class="accordion-body">
-                              <div class="form-check">
-                                <input checked={gender == '' && true} onChange={() => setGender("")} type="checkbox" class="form-check-input" id='all' />
-                                <label class="form-check-label" for="all">All</label>
-                              </div>
-
-                              <div class="form-check">
-                                <input checked={gender == 'male' && true} onChange={() => setGender("male")} type="checkbox" class="form-check-input" id="male" />
-                                <label class="form-check-label" for="male">Male</label>
-                              </div>
-
-                              <div class="form-check">
-                                <input checked={gender == 'female' && true} onChange={() => setGender("female")} type="checkbox" class="form-check-input" id="female" />
-                                <label class="form-check-label" for="female">Female</label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="accordion-item">
                           <h2 class="accordion-header" id="panelsStayOpen-headingFour">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
                               Location

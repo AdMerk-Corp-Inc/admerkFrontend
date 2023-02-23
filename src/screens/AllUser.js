@@ -81,20 +81,21 @@ function AllUser() {
     async function resendEmail(item) {
         const res = window.confirm("Are you sure you want to Resend Email for Verification ?")
 
-        const response = await fetch(url + 'resendVerification/' + item?.id, {
+        if (res == true) {
+            const response = await fetch(url + 'resendVerification/' + item?.email);
 
-        });
+            if (response.ok == true) {
+                const data = await response.json();
 
-        if (response.ok == true) {
-            const data = await response.json();
+                if (data.status == 200) {
+                    toast.success("Status updated successfully!")
 
-            if (data.status == 200) {
-                toast.success("Status updated successfully!")
-               
-            } else {
-                toast.error(data?.message)
+                } else {
+                    toast.error(data?.message)
+                }
             }
         }
+
     }
 
     return (
