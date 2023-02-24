@@ -63,7 +63,7 @@ function JobDetailPage() {
 
                 <div className='ms-5'>
                   <div className='d-flex'>
-                    <h3 className='styling_name text-capitalize'>{feeds?.name}</h3>
+                    <h3 className='styling_name text-capitalize'>{feeds?.title}</h3>
 
                     <div className='d-flex align-self-center ml_countryname'>
                       <i className="fa-sharp fa-solid fa-location-dot"></i>
@@ -89,7 +89,7 @@ function JobDetailPage() {
 
 
             <div className='d-flex flex-column mt-5 skill-hobby'>
-              <h5 className='heading mb-3'>My Skills</h5>
+              <h5 className='heading mb-3'>Required Skills</h5>
               <div className='d-flex'>
                 {feeds?.skills?.split(',')?.map((item, index) => <span key={index}>{item}</span>)}
               </div>
@@ -103,9 +103,21 @@ function JobDetailPage() {
             </div>
 
             <div className='d-flex flex-column mt-4 skill-hobby'>
-              <h5 className=' heading'>Attachment</h5>
+              <h5 className=' heading'>Work Type</h5>
+              <p className='text-secondary mb-0'>{feeds?.work_type}</p>
+            </div>
+
+            <div className='d-flex flex-column mt-4 skill-hobby'>
+              <h5 className=' heading'>Job Description</h5>
               <p className='text-secondary mb-0'>{feeds?.description}</p>
             </div>
+
+           {
+            feeds?.attachement &&  <div className='d-flex flex-column mt-4 skill-hobby'>
+            <h5 className=' heading'>Attachment</h5>
+            <p className='text-secondary mb-0'><a rel='download' target='_blank' href={`${node_url}${feeds?.attachement}`}>Click Here</a> To Check Job Instructions</p> 
+          </div>
+           }
           </div>
         </div>
       </div>

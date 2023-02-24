@@ -18,6 +18,7 @@ function EditJOb() {
     const [photo, setPhoto] = useState('')
     const [description, setDescription] = useState('')
     const [attachement, setAttachement] = useState('')
+    const [worktype, setWorkType] = useState("Both")
 
     function useQuery() {
         const { search } = useLocation();
@@ -144,6 +145,13 @@ function EditJOb() {
         } else {
             error = error + 1
         }
+        if (worktype?.value) {
+            formData.append("work_type", worktype?.value)
+            formData.append("work_type", worktype?.label)
+
+        } else {
+            error = error + 1
+        }
 
         if (photo?.name) {
             formData.append("image", photo, photo?.name)
@@ -201,6 +209,10 @@ function EditJOb() {
                     'value': data?.detail?.country_id,
                     'label': data?.detail?.country_name,
                     // "phoneCode": data?.list[0].phoneCode
+                })
+                setWorkType({
+                    'value': data?.detail?.work_type,
+                    'label': data?.detail?.work_type,
                 })
 
 
@@ -273,7 +285,7 @@ function EditJOb() {
                                                             autoComplete="off"
                                                             onChange={e => setPhoto(e.target.files[0])}
                                                         />
-                                                        <label for="name" class="inner-label">Upload Profile Photo</label>
+                                                        <label for="name" class="inner-label">Upload Cover Photo</label>
                                                         {/* <span className='required'>*Required</span> */}
                                                     </main>
 
@@ -322,6 +334,17 @@ function EditJOb() {
 
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
+                                                <div className="filter-form-MUI-input-text col-md-6">
+                                              <label className='me-3' htmlFor="">Work Type</label>
+                                               <select 
+                                                value={worktype} onChange={setWorkType}  
+                                                placeholder='Work Type' class="form-select form-select-sm" >
+                                                    <option value='Both'>Both</option>
+                                                    <option value="Remote">Remote</option>
+                                                    <option value="OnSite">OnSite</option>
+                                                </select>
+                                              </div>
+
 
                                                 <div className="filter-form-MUI-input-text mt-3">
                                                     <main class="input-div h-100">

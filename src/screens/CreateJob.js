@@ -18,6 +18,7 @@ function CreateJob() {
     const [photo, setPhoto] = useState('')
     const [attachement, setAttachement] = useState('')
     const [description, setDescription] = useState('')
+    const [worktype, setWorkType] = useState("Both")
 
 
     async function fetchSkill() {
@@ -133,6 +134,12 @@ function CreateJob() {
         } else {
             error = error + 1
         }
+        
+        // if (worktype?.value) {
+        //     formData.append("work_type", worktype?.value)
+        //     formData.append("work_type", worktype?.label)
+            
+        // } 
 
         if (photo?.name) {
             formData.append("image", photo, photo?.name)
@@ -215,7 +222,7 @@ function CreateJob() {
                                                             autoComplete="off"
                                                             onChange={e => setPhoto(e.target.files[0])}
                                                         />
-                                                        <label for="name" class="inner-label">Upload Profile Photo</label>
+                                                        <label for="name" class="inner-label">Upload Cover Photo</label>
                                                         {/* <span className='required'>*Required</span> */}
                                                     </main>
 
@@ -264,6 +271,16 @@ function CreateJob() {
 
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
+                                              <div className="filter-form-MUI-input-text col-md-6">
+                                              <label className='' htmlFor="">Work Type</label>
+                                               <select 
+                                                value={worktype} onChange={setWorkType}  
+                                                placeholder='Work Type' class="form-select form-select-sm" >
+                                                    <option value='Both'>Both</option>
+                                                    <option value="Remote">Remote</option>
+                                                    <option value="OnSite">OnSite</option>
+                                                </select>
+                                              </div>
 
                                                 <div className="filter-form-MUI-input-text mt-3">
                                                     <main class="input-div h-100">
