@@ -145,13 +145,7 @@ function EditJOb() {
         } else {
             error = error + 1
         }
-        if (worktype?.value) {
-            formData.append("work_type", worktype?.value)
-            formData.append("work_type", worktype?.label)
-
-        } else {
-            error = error + 1
-        }
+        formData.append("work_type", worktype)
 
         if (photo?.name) {
             formData.append("image", photo, photo?.name)
@@ -231,6 +225,7 @@ function EditJOb() {
                 }))
                 setDescription(data?.detail?.description)
                 setPhoto()
+                setWorkType(data?.detail?.work_type)
 
             } else {
                 toast.error(data.message)
