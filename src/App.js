@@ -33,6 +33,7 @@ import JobDetailPage from './screens/JobDetailPage';
 import JobApplicantList from './screens/JobApplicantList';
 import VerifyEmail from './screens/auth/VerifyEmail';
 import Loader from './component/Loader';
+import NonAuthLayout from './screens/NonAuthLayout';
 
 function App() {
   const { user } = useContext(userContext)
@@ -42,14 +43,17 @@ function App() {
       {/* <Loader /> */}
       <BrowserRouter>
         <Routes>
-          <Route path='/' exact={true} element={<CommonSignup />} />
-          <Route path='/login' exact={true} element={<Login />} />
-          <Route path='/forgot-password' exact={true} element={<ForgotPassword />} />
-          <Route path='/signup' exact={true} element={<CommonSignup />} />
-          <Route path='/signup-sponser' exact={true} element={<SignupSponser />} />
-          <Route path='/signup-refugee' exact={true} element={<SignupCustomer />} />
-          <Route path='/create-volunteer' exact={true} element={<Volunteer />} />
-          <Route path='/verifyemail' exact={true} element={<VerifyEmail />} />
+
+          <Route path='/' exact={true} element={<NonAuthLayout><CommonSignup /></NonAuthLayout>} />
+          <Route path='/login' exact={true} element={<NonAuthLayout><Login /></NonAuthLayout>} />
+          <Route path='/forgot-password' exact={true} element={<NonAuthLayout><ForgotPassword /></NonAuthLayout>} />
+          <Route path='/signup' exact={true} element={<NonAuthLayout><CommonSignup /></NonAuthLayout>} />
+          <Route path='/signup-sponser' exact={true} element={<NonAuthLayout><SignupSponser /></NonAuthLayout>} />
+          <Route path='/signup-refugee' exact={true} element={<NonAuthLayout><SignupCustomer /></NonAuthLayout>} />
+          <Route path='/create-volunteer' exact={true} element={<NonAuthLayout><Volunteer /></NonAuthLayout>} />
+          <Route path='/verifyemail' exact={true} element={<NonAuthLayout><VerifyEmail /></NonAuthLayout>} />
+
+
           <Route path='/change-password' exact={true} element={<Layout>
             <ChangePassword />
           </Layout>} />
@@ -118,7 +122,7 @@ function App() {
           <Route path='/job-applicant-list' exact={true} element={<Layout>
             <JobApplicantList />
           </Layout>} />
-      
+
 
         </Routes>
       </BrowserRouter>
