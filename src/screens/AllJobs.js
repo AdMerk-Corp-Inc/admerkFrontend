@@ -3,6 +3,7 @@ import Pagination from '../component/Pagination';
 import { toast } from 'react-toastify';
 import { userContext } from '../context/UserContext';
 import { url } from '../Helper/Helper';
+import { Link } from 'react-router-dom';
 
 
 function AllJobs() {
@@ -110,7 +111,11 @@ function AllJobs() {
                                 {allJobs?.length > 0 ? allJobs.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{item?.title}</td>
+                                        <td>
+                                            <Link to={`/apply-job?id=${item?.id}`}>
+                                            {item?.title}
+                                            </Link>
+                                        </td>
                                         <td>{item?.country_name}</td>
                                         <td>{item?.created_date}</td>
                                         <td>{item?.applied_count}</td>
@@ -125,7 +130,7 @@ function AllJobs() {
                                         </td>
                                     </tr>
                                 )) : <tr>
-                                    <td colSpan={5}>
+                                    <td colSpan={7}>
                                         <div className='not-found'>No Jobs Found</div>
                                     </td>
                                 </tr>

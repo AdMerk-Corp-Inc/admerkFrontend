@@ -20,7 +20,7 @@ function RefugeeDashboard() {
   const [chobby, setCHobby] = useState("")
   const [cCountry, setCCountry] = useState("")
   const [search, setSearch] = useState("")
-  const [gender, setGender] = useState("")
+  const [gender, setGender] = useState("Both")
 
   async function fetchSkill() {
     var requestOptions = {
@@ -123,6 +123,7 @@ function RefugeeDashboard() {
     formData.append("country_id", cCountry?.value ? cCountry?.value : '')
     formData.append("page", page)
     formData.append("search", search)
+    formData.append("work_type", gender)
 
     const response = await fetch(url + 'fetch-home-jobs', {
       method: 'POST',
@@ -149,7 +150,7 @@ function RefugeeDashboard() {
 
   useEffect(() => {
     fetchFeeds()
-  }, [page, search, cskill, chobby, cCountry])
+  }, [page, gender, search, cskill, chobby, cCountry])
 
 
 
@@ -192,6 +193,32 @@ function RefugeeDashboard() {
                     value={chobby} onChange={setCHobby}
                     isClearable
                   />
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                  Work Type
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                <div class="accordion-body">
+                  <div class="form-check">
+                    <input checked={gender == 'Both' && true} onChange={() => setGender("Both")} type="checkbox" class="form-check-input" id='all' />
+                    <label class="form-check-label" for="all">Both</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input checked={gender == 'Remote' && true} onChange={() => setGender("Remote")} type="checkbox" class="form-check-input" id="male" />
+                    <label class="form-check-label" for="male">Remote</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input checked={gender == 'On Site' && true} onChange={() => setGender("On Site")} type="checkbox" class="form-check-input" id="female" />
+                    <label class="form-check-label" for="female">On Site</label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -266,6 +293,32 @@ function RefugeeDashboard() {
                                 value={chobby} onChange={setCHobby}
                                 isClearable
                               />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                              Work Type
+                            </button>
+                          </h2>
+                          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                              <div class="form-check">
+                                <input checked={gender == 'Both' && true} onChange={() => setGender("Both")} type="checkbox" class="form-check-input" id='all' />
+                                <label class="form-check-label" for="all">Both</label>
+                              </div>
+
+                              <div class="form-check">
+                                <input checked={gender == 'Remote' && true} onChange={() => setGender("Remote")} type="checkbox" class="form-check-input" id="male" />
+                                <label class="form-check-label" for="male">Remote</label>
+                              </div>
+
+                              <div class="form-check">
+                                <input checked={gender == 'On Site' && true} onChange={() => setGender("On Site")} type="checkbox" class="form-check-input" id="female" />
+                                <label class="form-check-label" for="female">On Site</label>
+                              </div>
                             </div>
                           </div>
                         </div>

@@ -8,7 +8,9 @@ function Footer() {
       <div className='container'>
         <div className='row pb-4'>
           <div className='col-md-4'>
-            <h2>ADMERK</h2>
+            <div>
+              <h2>ADMERK</h2>
+            </div>
             <p className='mb-0'>
               Admerk is the free platform for World Wide. The Main Motive of these platform is to provide dream job to Refugges. We always aim to provide dream job to refugees because they leave their home country to get that dream job.
               These Platform is not for any particular country these platform is for all country. We always want to improve the leaving Standard of all refugees.
