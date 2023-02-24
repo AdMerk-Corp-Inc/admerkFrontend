@@ -44,6 +44,38 @@ function RaiseTicket() {
     fetchTickets()
   }, [ticketStatus])
 
+  async function changeStatus(item){
+    const res = window.confirm("Are you sure you want to change the status of the tickets ?")
+
+    if (res == true){
+        let new_status = 1
+        if (item?.status == 1){
+            new_status = 2
+        }else{
+            new_status = 1
+        }
+        const response = await fetch(url + `change-ticket-status/${item?.id}/${new_status}`,{
+            headers : {
+                "Authorization" : `Bearer ${user?.token}`
+            }
+        });
+
+        if (response.ok == true){
+            const data = await response.json();
+
+            if (data.status == 200){
+                toast.success("Status updated successfully!")
+                fetchTickets().catch(err => {
+                    toast.error(err.message)
+                })
+            }else{
+                toast.error(data?.message)
+            }
+        }
+
+    }
+}
+
   return (
 
     <section className="my-tickets-div" style={{ backgroundColor: '#0061df08' }}>
@@ -96,7 +128,7 @@ function RaiseTicket() {
                   </>}
                     <td>{dateTransformer(item?.created_date)}</td>
                     <td>{item?.title}</td>
-                    <td>{item?.status == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Open</span> : <span className='bg-danger px-2 py-1 rounded text-white'>Closed</span>}</td>
+                    <td onClick={()=>changeStatus(item)}>{item?.status == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Open</span> : <span className='bg-danger px-2 py-1 rounded text-white'>Closed</span>}</td>
                     <td><a href='javascript:void(0);' onClick={() => {
                       setId(item?.id)
                       setModalShow(true)
