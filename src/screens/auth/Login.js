@@ -6,12 +6,13 @@ import { url } from '../../Helper/Helper'
 
 function Login() {
 
-  const { setUser } = useContext(userContext)
+  const { setUser,setLoad } = useContext(userContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [show, setShow] = useState(false)
 
   async function handleSubmit(e) {
+    setLoad(true)
     e.preventDefault()
 
     const formData = new FormData()
@@ -24,6 +25,7 @@ function Login() {
     });
 
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json();
 
       if (data.status == 200) {
@@ -42,13 +44,16 @@ function Login() {
         toast.error(data?.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
 
   async function resendEmail(item) {
+    setLoad(true)
     const response = await fetch(url + "resendVerification/" + email)
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json()
       if (data.status == 200) {
         toast.success("Email has been sent")
@@ -56,6 +61,7 @@ function Login() {
         toast.error(data.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal Server Error")
     }
 

@@ -6,7 +6,7 @@ import { url } from '../Helper/Helper';
 
 
 function Volunteer() {
-    const {user,setUser} = useContext(userContext)
+    const {user,setUser,setLoad} = useContext(userContext)
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -15,13 +15,14 @@ function Volunteer() {
     const [whatsappnum, setWhatsappNum] = useState('')
 
     async function fetchCountry() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "country-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.list.length > 0) {
@@ -38,19 +39,21 @@ function Volunteer() {
                 toast.error("")
             }
         } else {
-
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     useEffect(() => {
         fetchCountry().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
     }, [])
 
     async function handleSubmit(e) {
+        setLoad(true)
         e.preventDefault()
         let error = 0
 
@@ -75,6 +78,7 @@ function Volunteer() {
             });
     
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
                 console.log(data)
                 if (data.status == 200) {
@@ -84,6 +88,7 @@ function Volunteer() {
                 }
             }
         }else{
+            setLoad(false)
             toast.error("Please fill country")
         }
 

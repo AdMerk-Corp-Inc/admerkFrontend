@@ -7,7 +7,7 @@ import { userContext } from '../../context/UserContext'
 import { Link } from 'react-router-dom';
 
 function RefugeeDashboard() {
-  const { user } = useContext(userContext)
+  const { user,setLoad } = useContext(userContext)
   const [skillslist, setSkillsList] = useState([])
   const [hobby, setHobby] = useState('')
   const [hobbyslist, setHobbyList] = useState([])
@@ -23,13 +23,14 @@ function RefugeeDashboard() {
   const [gender, setGender] = useState("Both")
 
   async function fetchSkill() {
+    setLoad(true)
     var requestOptions = {
       redirect: 'follow'
     };
 
     const response = await fetch(url + "skills-list", requestOptions)
     if (response.ok === true) {
-
+      setLoad(false)
       const data = await response.json()
       console.log(data);
       if (data.list.length > 0) {
@@ -45,19 +46,20 @@ function RefugeeDashboard() {
         toast.error("Please Create Skills First")
       }
     } else {
-
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
 
   async function fetchHobby() {
+    setLoad(true)
     var requestOptions = {
       redirect: 'follow'
     };
 
     const response = await fetch(url + "hobby-list", requestOptions)
     if (response.ok === true) {
-
+      setLoad(false)
       const data = await response.json()
       console.log(data);
       if (data.list.length > 0) {
@@ -73,15 +75,16 @@ function RefugeeDashboard() {
         toast.error("Please Create Hobby First")
       }
     } else {
-
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
 
   async function fetchCountry() {
+    setLoad(true)
     const response = await fetch(url + "country-list")
     if (response.ok === true) {
-
+      setLoad(false)
       const data = await response.json()
       console.log(data);
       if (data.list.length > 0) {
@@ -98,25 +101,29 @@ function RefugeeDashboard() {
         toast.error("")
       }
     } else {
-
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
 
   useEffect(() => {
     fetchCountry().catch(err => {
+      setLoad(false)
       toast.error(err.message)
     })
     fetchHobby().catch(err => {
+      setLoad(false)
       toast.error(err.message)
     })
     fetchSkill().catch(err => {
+      setLoad(false)
       toast.error(err.message)
     })
 
   }, [])
 
   async function fetchFeeds() {
+    setLoad(true)
     const formData = new FormData()
     formData.append("skill", cskill?.label ? cskill?.label : '')
     formData.append("hobby", chobby?.label ? chobby?.label : '')
@@ -134,6 +141,7 @@ function RefugeeDashboard() {
     });
 
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json();
       console.log(data)
       if (data.status == 200) {
@@ -142,6 +150,7 @@ function RefugeeDashboard() {
         toast.error(data?.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal server error!")
     }
   }
@@ -150,6 +159,7 @@ function RefugeeDashboard() {
 
   useEffect(() => {
     fetchFeeds()
+    setLoad(false)
   }, [page, gender, search, cskill, chobby, cCountry])
 
 

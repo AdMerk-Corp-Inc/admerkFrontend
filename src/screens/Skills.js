@@ -6,11 +6,13 @@ import { url } from '../Helper/Helper';
 function Skills() {
 
     const [allSkills, setAllSkills] = useState([])
-    const { user } = useContext(userContext)
+    const { user,setLoad } = useContext(userContext)
 
     async function fetchSkill() {
+        setLoad(true)
         const response = await fetch(url + "skills-list")
         if (response.ok == true) {
+            setLoad(false)
             const data = await response.json()
             console.log(data)
             if (data.status == 200) {
@@ -20,6 +22,7 @@ function Skills() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
@@ -27,6 +30,7 @@ function Skills() {
 
 
     async function createSkill() {
+        setLoad(true)
         const res = window.prompt('Enter Skill Name')
         if (res.length > 0) {
             const formData = new FormData()
@@ -40,6 +44,7 @@ function Skills() {
 
             });
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
                 console.log(data);
                 if (data.status == 200) {
@@ -51,6 +56,7 @@ function Skills() {
                     toast.error(data.message)
                 }
             } else {
+                setLoad(false)
                 toast.error("Internal Server Error")
             }
 
@@ -60,6 +66,7 @@ function Skills() {
     }
 
     async function editSkill(item) {
+        setLoad(true)
         const res = window.prompt('Edit Skill Name', item.name)
         if (res.length > 0) {
 
@@ -74,6 +81,7 @@ function Skills() {
 
             });
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
                 console.log(data);
                 if (data.status == 200) {
@@ -85,6 +93,7 @@ function Skills() {
                     toast.error(data.message)
                 }
             } else {
+                setLoad(false)
                 toast.error("Internal Server Error")
             }
         }
@@ -92,12 +101,14 @@ function Skills() {
 
     useEffect(() => {
         fetchSkill().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
     }, [])
 
     async function deleteSkill(id) {
+        setLoad(true)
         const confirm = window.confirm('Are You Sure You Want To Delete This Skill')
         if (confirm === true) {
             const response = await fetch(url + 'delete-skill/' + id, {
@@ -106,6 +117,7 @@ function Skills() {
                 }
             })
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json()
                 if (data?.status == 200) {
                     toast.success(data?.message)
@@ -116,6 +128,7 @@ function Skills() {
                     toast.error(data?.message)
                 }
             } else {
+                setLoad(false)
                 toast.error('Internal Server Error')
             }
         }

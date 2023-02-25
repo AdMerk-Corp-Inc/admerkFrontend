@@ -7,12 +7,13 @@ function Hobby() {
 
     const [allhobbies, setAllHobbies] = useState([])
     const [name,] = useState('')
-    const { user } = useContext(userContext)
+    const { user,setLoad } = useContext(userContext)
 
     async function fetchHobby() {
-
+        setLoad(true)
         const response = await fetch(url + "hobby-list")
         if (response.ok == true) {
+            setLoad(false)
             const data = await response.json()
 
             if (data.status == 200) {
@@ -21,6 +22,7 @@ function Hobby() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
@@ -29,6 +31,7 @@ function Hobby() {
 
 
     async function createHobby() {
+        setLoad(true)
         const res = window.prompt('Enter Hobby Name')
         if (res.length > 0) {
             const formData = new FormData()
@@ -42,6 +45,7 @@ function Hobby() {
 
             });
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
                 console.log(data);
                 if (data.status == 200) {
@@ -53,6 +57,7 @@ function Hobby() {
                     toast.error(data.message)
                 }
             } else {
+                setLoad(false)
                 toast.error("Internal Server Error")
             }
         }
@@ -60,7 +65,7 @@ function Hobby() {
 
 
     async function editHobby(item) {
-
+        setLoad(true)
         const res = window.prompt('Update Hobby Name', item.name)
         if (res.length > 0) {
             const formData = new FormData()
@@ -74,6 +79,7 @@ function Hobby() {
 
             });
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
                 console.log(data);
                 if (data.status == 200) {
@@ -85,6 +91,7 @@ function Hobby() {
                     toast.error(data.message)
                 }
             } else {
+                setLoad(false)
                 toast.error("Internal Server Error")
             }
 
@@ -94,12 +101,14 @@ function Hobby() {
 
     useEffect(() => {
         fetchHobby().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
     }, [])
 
     async function deleteHobby(id) {
+        setLoad(true)
         const confirm = window.confirm('Are You Sure You Want To Delete This Hobby')
         if (confirm === true) {
             const response = await fetch(url + 'delete-hobby/' + id, {
@@ -108,6 +117,7 @@ function Hobby() {
                 }
             })
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json()
                 if (data?.status == 200) {
                     toast.success(data?.message)
@@ -118,6 +128,7 @@ function Hobby() {
                     toast.error(data?.message)
                 }
             } else {
+                setLoad(false)
                 toast.error('Internal Server Error')
             }
         }

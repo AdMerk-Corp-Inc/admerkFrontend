@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function SignupCustomer() {
     const navigation = useNavigate()
-    const { user, setUser } = useContext(userContext)
+    const { user, setUser,setLoad } = useContext(userContext)
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -27,13 +27,14 @@ function SignupCustomer() {
 
 
     async function fetchSkill() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "skills-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.status == 200) {
@@ -49,18 +50,20 @@ function SignupCustomer() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     async function fetchHobby() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "hobby-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.status == 200) {
@@ -76,19 +79,20 @@ function SignupCustomer() {
                 toast.error(data.message)
             }
         } else {
-
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     async function fetchCountry() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "country-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.list.length > 0) {
@@ -105,19 +109,22 @@ function SignupCustomer() {
                 toast.error("")
             }
         } else {
-
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     useEffect(() => {
         fetchCountry().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
         fetchHobby().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
         fetchSkill().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
@@ -125,6 +132,7 @@ function SignupCustomer() {
     }, [])
 
     async function handleSubmit(e) {
+        setLoad(true)
         e.preventDefault()
 
         let error = 0
@@ -168,6 +176,7 @@ function SignupCustomer() {
             });
 
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
 
                 if (data.status == 200) {

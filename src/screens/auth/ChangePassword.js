@@ -5,11 +5,12 @@ import { url } from '../../Helper/Helper'
 
 function ChangePassword() {
 
-  const { user } = useContext(userContext)
+  const { user,setLoad } = useContext(userContext)
   const [newpassword, setNewPassword] = useState('')
   const [confirmpassword, setConfirmPassword] = useState('')
 
   async function handleSubmit(e) {
+    setLoad(true)
     e.preventDefault()
 
     if (newpassword != confirmpassword) {
@@ -27,6 +28,7 @@ function ChangePassword() {
       });
 
       if (response.ok == true) {
+        setLoad(false)
         const data = await response.json();
 
         if (data.status == 200) {
@@ -35,6 +37,7 @@ function ChangePassword() {
           toast.error(data?.message)
         }
       } else {
+        setLoad(false)
         toast.error("Internal Server Error")
       }
     }

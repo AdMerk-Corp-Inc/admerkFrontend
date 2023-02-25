@@ -8,9 +8,10 @@ function VolunteerAdminDashboard() {
 
 
   const[datacounts,setDataCounts] = useState([])
-  const { user } = useContext(userContext)
+  const { user ,setLoad} = useContext(userContext)
 
   async function fetchCounts() {
+    setLoad(true)
     const response = await fetch(url + "dashboard-count", {
       headers: {
         "Authorization": `Bearer ${user?.token}`
@@ -18,6 +19,7 @@ function VolunteerAdminDashboard() {
 
     })
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json()
       console.log(data)
       if (data.status == 200) {
@@ -26,12 +28,14 @@ function VolunteerAdminDashboard() {
         toast.error(data.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
 
   useEffect(() => {
     fetchCounts().catch(err => {
+      setLoad(false)
       toast.error(err.message)
     })
   }, [])

@@ -5,7 +5,7 @@ import { userContext } from '../../context/UserContext';
 import { url } from '../../Helper/Helper';
 
 function SignupSponser() {
-    const {user,setUser} = useContext(userContext)
+    const {user,setUser,setLoad} = useContext(userContext)
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -14,13 +14,14 @@ function SignupSponser() {
     const [whatsappnum, setWhatsappNum] = useState('')
 
     async function fetchCountry() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "country-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.list.length > 0) {
@@ -37,19 +38,21 @@ function SignupSponser() {
                 toast.error("")
             }
         } else {
-
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     useEffect(() => {
         fetchCountry().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
     }, [])
 
     async function handleSubmit(e) {
+        setLoad(true)
         e.preventDefault()
         let error = 0
 
@@ -74,6 +77,7 @@ function SignupSponser() {
             });
     
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
                 console.log(data)
                 if (data.status == 200) {

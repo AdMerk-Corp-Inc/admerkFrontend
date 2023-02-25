@@ -10,7 +10,7 @@ function JobDetailPage() {
 
   const [feeds, setFeeds] = useState([])
   const [modalShow, setModalShow] = useState(false);
-  const { user } = useContext(userContext)
+  const { user,setLoad } = useContext(userContext)
 
   function useQuery() {
     const { search } = useLocation();
@@ -22,7 +22,7 @@ function JobDetailPage() {
 
 
   async function fetchFeeds() {
-
+    setLoad(true)
     const response = await fetch(url + 'job-details/' + id, {
 
       headers: {
@@ -32,6 +32,7 @@ function JobDetailPage() {
     });
 
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json();
       console.log(data)
       if (data.status == 200) {
@@ -40,6 +41,7 @@ function JobDetailPage() {
         toast.error(data?.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal server error!")
     }
   }
@@ -48,6 +50,7 @@ function JobDetailPage() {
 
   useEffect(() => {
     fetchFeeds()
+    setLoad(false)
   }, [])
 
 

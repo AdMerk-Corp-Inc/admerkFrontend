@@ -6,7 +6,7 @@ import { userContext } from '../context/UserContext';
 import { node_url, url } from '../Helper/Helper';
 
 function AccountProfile() {
-  const [user, setUser] = useState('')
+  const [user, setUser,setLoad] = useState('')
 
   const contextData = useContext(userContext)
 
@@ -19,8 +19,10 @@ function AccountProfile() {
   const id = useQuery().get('id');
 
   useEffect(() => {
+   
     if (id) {
       async function fetchDetail() {
+        setLoad(true)
         const response = await fetch(url + 'user-detail/' + id, {
           headers: {
             'Authorization': `Bearer ${contextData?.user?.token}`
@@ -28,6 +30,7 @@ function AccountProfile() {
         });
 
         if (response.ok == true) {
+          setLoad(false)
           const data = await response.json()
 
           console.log(data)
@@ -38,12 +41,14 @@ function AccountProfile() {
           }
 
         } else {
+          setLoad(false)
           toast.error('Internal Server Error')
         }
 
       }
 
       fetchDetail();
+      setLoad(false)
     } else {
       setUser(contextData.user)
     }

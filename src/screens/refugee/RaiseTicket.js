@@ -7,13 +7,14 @@ import { dateTransformer, url } from '../../Helper/Helper';
 
 function RaiseTicket() {
 
-  const { user } = useContext(userContext)
+  const { user,setLoad } = useContext(userContext)
   const [modalShow, setModalShow] = useState(false);
   const [allTickets, setAllTickets] = useState([])
   const [ticketStatus, setTicketStatus] = useState('All')
   const [id, setId] = useState()
 
   async function fetchTickets() {
+    setLoad(true)
     let mainURL = 'all-tickets'
     if (ticketStatus != "All") {
       mainURL = mainURL + `?status=${ticketStatus}`
@@ -26,6 +27,7 @@ function RaiseTicket() {
     })
 
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json()
 
       console.log(data)
@@ -36,15 +38,18 @@ function RaiseTicket() {
         toast.error(data.message)
       }
     } else {
+      setLoad(false)
       toast.error('Internal Server Error')
     }
   }
 
   useEffect(() => {
+    setLoad(false)
     fetchTickets()
   }, [ticketStatus])
 
   async function changeStatus(item){
+    setLoad(true)
     const res = window.confirm("Are you sure you want to change the status of the tickets ?")
 
     if (res == true){
@@ -61,6 +66,7 @@ function RaiseTicket() {
         });
 
         if (response.ok == true){
+          setLoad(false)
             const data = await response.json();
 
             if (data.status == 200){

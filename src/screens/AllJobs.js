@@ -8,11 +8,12 @@ import { Link } from 'react-router-dom';
 
 function AllJobs() {
 
-    const { user } = useContext(userContext)
+    const { user,setLoad } = useContext(userContext)
     const [allJobs, setAllJobs] = useState([])
     const [status,setStatus] = useState("All") 
 
     async function fetchJobs() {
+        setLoad(true)
         let main_url = "getAllJobs"
         if (status != "All"){
             main_url = main_url + `?status=${status}`
@@ -23,6 +24,7 @@ function AllJobs() {
             },
         })
         if (response.ok == true) {
+            setLoad(false)
             const data = await response.json()
             console.log(data)
             if (data.status == 200) {
@@ -32,6 +34,7 @@ function AllJobs() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
@@ -39,12 +42,14 @@ function AllJobs() {
 
     useEffect(() => {
         fetchJobs().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
     }, [status])
 
     async function changeStatus(item){
+        setLoad(true)
         const res = window.confirm("Are you sure you want to change the status of the job ?")
 
         if (res == true){
@@ -61,6 +66,7 @@ function AllJobs() {
             });
 
             if (response.ok == true){
+                setLoad(false)
                 const data = await response.json();
 
                 if (data.status == 200){
@@ -69,6 +75,7 @@ function AllJobs() {
                         toast.error(err.message)
                     })
                 }else{
+                    setLoad(false)
                     toast.error(data?.message)
                 }
             }

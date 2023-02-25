@@ -6,7 +6,7 @@ import { url } from '../Helper/Helper';
 
 function EditAccountProfile() {
 
-    const { user } = useContext(userContext)
+    const { user,setLoad } = useContext(userContext)
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -25,9 +25,12 @@ function EditAccountProfile() {
     const [fromUsa, setFromUsa] = useState(1)
 
     useEffect(() => {
+        setLoad(false)
         async function fetchHobby() {
+            setLoad(true)
             const response = await fetch(url + "hobby-list")
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json()
 
                 if (data.status == 200) {
@@ -43,15 +46,16 @@ function EditAccountProfile() {
                     toast.error(data.message)
                 }
             } else {
-
+                setLoad(false)
                 toast.error("Internal Server Error")
             }
         }
 
         async function fetchSkill() {
+            setLoad(true)
             const response = await fetch(url + "skills-list")
             if (response.ok == true) {
-
+                setLoad(false)
                 const data = await response.json()
 
                 if (data.status == 200) {
@@ -67,14 +71,16 @@ function EditAccountProfile() {
                     toast.error(data.message)
                 }
             } else {
+                setLoad(false)
                 toast.error("Internal Server Error")
             }
         }
 
         async function fetchCountry() {
+            setLoad(true)
             const response = await fetch(url + "country-list")
             if (response.ok == true) {
-
+                setLoad(false)
                 const data = await response.json()
 
                 if (data.status == 200) {
@@ -91,11 +97,13 @@ function EditAccountProfile() {
                     toast.error(data.message)
                 }
             } else {
+                setLoad(false)
                 toast.error("Internal Server Error")
             }
         }
 
         async function fetchDetail() {
+            setLoad(true)
             const response = await fetch(url + 'user-detail/' + user?.id, {
                 headers: {
                     'Authorization': `Bearer ${user?.token}`
@@ -103,6 +111,7 @@ function EditAccountProfile() {
             });
 
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json()
 
                 if (data.status == 200) {
@@ -144,6 +153,7 @@ function EditAccountProfile() {
                 }
 
             } else {
+                setLoad(false)
                 toast.error('Internal Server Error')
             }
         }
@@ -152,6 +162,7 @@ function EditAccountProfile() {
         fetchSkill();
         fetchCountry();
         fetchDetail();
+        
     }, [])
 
     return (

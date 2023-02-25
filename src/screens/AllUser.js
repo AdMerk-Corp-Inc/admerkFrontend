@@ -8,7 +8,7 @@ import { url } from '../Helper/Helper';
 
 function AllUser() {
 
-    const { user } = useContext(userContext)
+    const { user,setLoad } = useContext(userContext)
     const [allUsers, setAllUsers] = useState([])
     const [search, setSearch] = useState('')
     const [page, setPage] = useState(1)
@@ -16,6 +16,7 @@ function AllUser() {
 
 
     async function fetchUsers() {
+        setLoad(true)
         let main_url = `getAllUsers?page=${page}&search=${search}`
         if (role != "All") {
             main_url = main_url + `&role=${role}`
@@ -27,6 +28,7 @@ function AllUser() {
         })
 
         if (response.ok == true) {
+            setLoad(false)
             const data = await response.json()
 
             console.log(data)
@@ -37,6 +39,7 @@ function AllUser() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error('Internal Server Error')
         }
     }
@@ -44,10 +47,12 @@ function AllUser() {
 
 
     useEffect(() => {
+        setLoad(false)
         fetchUsers()
     }, [page, search, role])
 
     async function changeStatus(item) {
+        setLoad(true)
         const res = window.confirm("Are you sure you want to change the status of the User ?")
 
         if (res == true) {
@@ -64,6 +69,7 @@ function AllUser() {
             });
 
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
 
                 if (data.status == 200) {
@@ -74,17 +80,22 @@ function AllUser() {
                 } else {
                     toast.error(data?.message)
                 }
+            }else{
+                setLoad(false)
             }
+            
         }
     }
 
     async function resendEmail(item) {
+        setLoad(true)
         const res = window.confirm("Are you sure you want to Resend Email for Verification ?")
 
         if (res == true) {
             const response = await fetch(url + 'resendVerification/' + item?.email);
 
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
 
                 if (data.status == 200) {

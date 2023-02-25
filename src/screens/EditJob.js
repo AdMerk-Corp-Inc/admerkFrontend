@@ -7,7 +7,7 @@ import { userContext } from '../context/UserContext';
 
 function EditJOb() {
 
-    const { user, setUser } = useContext(userContext)
+    const { user, setUser,setLoad } = useContext(userContext)
     const [title, setTitle] = useState('')
     const [country, setCountry] = useState('')
     const [countrylist, setCountryList] = useState([])
@@ -30,13 +30,14 @@ function EditJOb() {
 
 
     async function fetchSkill() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "skills-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.status == 200) {
@@ -52,18 +53,20 @@ function EditJOb() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     async function fetchHobby() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "hobby-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.status == 200) {
@@ -79,19 +82,20 @@ function EditJOb() {
                 toast.error(data.message)
             }
         } else {
-
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     async function fetchCountry() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "country-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.list.length > 0) {
@@ -108,28 +112,33 @@ function EditJOb() {
                 toast.error("")
             }
         } else {
-
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     useEffect(() => {
         fetchCountry().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
         fetchHobby().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
         fetchSkill().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
         fetchJobs().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
     }, [])
 
     async function handleSubmit(e) {
+        setLoad(true)
         e.preventDefault()
 
         let error = 0
@@ -173,6 +182,7 @@ function EditJOb() {
             });
 
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
 
                 if (data.status == 200) {
@@ -183,18 +193,21 @@ function EditJOb() {
                 }
             }
         } else {
+            setLoad(false)
             toast.error("Please fill country")
         }
 
     }
 
     async function fetchJobs() {
+        setLoad(true)
         const response = await fetch(url + "job-details/" + id, {
             headers: {
                 'Authorization': `Bearer ${user?.token}`
             },
         })
         if (response.ok == true) {
+            setLoad(false)
             const data = await response.json()
             console.log(data)
             if (data.status == 200) {
@@ -231,6 +244,7 @@ function EditJOb() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
