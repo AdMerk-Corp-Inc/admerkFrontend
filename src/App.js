@@ -36,11 +36,11 @@ import Loader from './component/Loader';
 import NonAuthLayout from './screens/NonAuthLayout';
 
 function App() {
-  const { user } = useContext(userContext)
+  const { user,load } = useContext(userContext)
   return (
     <>
       <ToastContainer />
-      {/* <Loader /> */}
+      {load && <Loader />}
       <BrowserRouter>
         <Routes>
 
