@@ -80,8 +80,8 @@ function JobApplicantList() {
                                         
                                     </tr>
                                 )) : <tr>
-                                    <td colSpan={5}>
-                                        <div className='not-found'>No Jobs Found</div>
+                                    <td colSpan={6}>
+                                        <div className='not-found'>No Record Found</div>
                                     </td>
                                 </tr>
                                 }

@@ -156,11 +156,11 @@ function EditJOb() {
         }
 
         if (hobby.length > 0) {
-            formData.append("skills", Array.prototype.map.call(hobby, s => s.label).toString())
+            formData.append("hobby", Array.prototype.map.call(hobby, s => s.label).toString())
         }
 
         if (skills.length > 0) {
-            formData.append("hobby", Array.prototype.map.call(hobby, s => s.label).toString())
+            formData.append("skills", Array.prototype.map.call(skills, s => s.label).toString())
         }
 
         if (error == 0) {
@@ -176,8 +176,8 @@ function EditJOb() {
                 const data = await response.json();
 
                 if (data.status == 200) {
-                    setUser(data?.user_data)
-
+                    toast.success("Job Created Successfully!")
+                    window.location = window.location.origin + '/all-jobs'
                 } else {
                     toast.error(data?.message)
                 }
@@ -244,10 +244,6 @@ function EditJOb() {
                         <div className="row d-flex justify-content-center align-items-center h-100">
                             <div className="col-lg-8">
                                 <div className="card rounded-3">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-                                        className="w-100"
-                                        style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '0.3rem' }}
-                                        alt="Sample photo" />
                                     <div className="card-body p-4 p-md-5">
                                         <h3 className="mb-4">Edit Job</h3>
 

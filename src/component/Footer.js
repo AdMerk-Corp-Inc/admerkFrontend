@@ -39,10 +39,10 @@ function Footer() {
 
               <h3 className='mt-4'>Follow Us On</h3>
               <div className='d-flex social-icons'>
-                <a href=""><img src="/assets/images/facebook.png" alt="" /></a>
-                <a href=""><img src="/assets/images/instagram.png" alt="" /></a>
-                <a href=""><img src="/assets/images/linkedin.png" alt="" /></a>
-                <a href=""><img src="/assets/images/tiktok.png" alt="" /></a>
+                <a href="https://www.facebook.com/Admerkcorp" target="_blank"><img src="/assets/images/facebook.png" alt="" /></a>
+                <a href="https://www.instagram.com/admerkstaffing/" target="_blank"><img src="/assets/images/instagram.png" alt="" /></a>
+                <a href="https://www.linkedin.com/in/admerk/" target="_blank"><img src="/assets/images/linkedin.png" alt="" /></a>
+                <a href="https://www.tiktok.com/@admerkstaffing" target="_blank"><img src="/assets/images/tiktok.png" alt="" /></a>
               </div>
             </div>
           </div>
