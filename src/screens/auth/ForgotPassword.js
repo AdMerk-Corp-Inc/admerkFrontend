@@ -6,8 +6,9 @@ import { url } from '../../Helper/Helper'
 function ForgotPassword() {
 
   const [email, setEmail] = useState('')
-
+  const { setLoad } = useContext(userContext)
   async function handleSubmit(e) {
+    setLoad(true)
     e.preventDefault()
 
     const formData = new FormData()
@@ -19,6 +20,7 @@ function ForgotPassword() {
     });
 
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json();
 
       if (data.status == 200) {
@@ -28,6 +30,7 @@ function ForgotPassword() {
         toast.error(data?.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }

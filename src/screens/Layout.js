@@ -4,7 +4,7 @@ import Navbar from '../component/Navbar'
 import { userContext } from '../context/UserContext'
 
 function Layout(props) {
-    const { user } = useContext(userContext)
+    const { user, } = useContext(userContext)
     return (
         <>
             {user ? <>
