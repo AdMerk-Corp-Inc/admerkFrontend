@@ -36,6 +36,7 @@ function Login() {
           window.location = window.location.origin + "/admin-dashboard"
         }
       } else if (data.status == 301) {
+        toast.success(data?.message)
         setShow(true)
       } else {
         toast.error(data?.message)
