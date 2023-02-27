@@ -6,7 +6,7 @@ import { userContext } from '../context/UserContext';
 import { node_url, url } from '../Helper/Helper';
 
 function AccountProfile() {
-  const [user, setUser,setLoad] = useState('')
+  const [user, setUser] = useState('')
 
   const contextData = useContext(userContext)
 
@@ -22,7 +22,7 @@ function AccountProfile() {
    
     if (id) {
       async function fetchDetail() {
-        setLoad(true)
+        contextData.setLoad(true)
         const response = await fetch(url + 'user-detail/' + id, {
           headers: {
             'Authorization': `Bearer ${contextData?.user?.token}`
@@ -30,7 +30,7 @@ function AccountProfile() {
         });
 
         if (response.ok == true) {
-          setLoad(false)
+          contextData.setLoad(false)
           const data = await response.json()
 
           console.log(data)
@@ -41,14 +41,14 @@ function AccountProfile() {
           }
 
         } else {
-          setLoad(false)
+          contextData.setLoad(false)
           toast.error('Internal Server Error')
         }
 
       }
 
       fetchDetail();
-      setLoad(false)
+      contextData.setLoad(false)
     } else {
       setUser(contextData.user)
     }
@@ -106,7 +106,7 @@ function AccountProfile() {
                 <span className='text-secondary text-capitalize'>{user?.gender}</span>
               </div>
 
-              <div className='col-md-4'>
+              {/* <div className='col-md-4'>
                 <h5 className=' heading'>From</h5>
                 <div className='d-flex align-items-center'>
                   <span className='text-secondary '>USA</span>
@@ -115,7 +115,7 @@ function AccountProfile() {
                     <i class="fa fa-times" aria-hidden="true"></i>
                   }
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className='d-flex flex-column mt-4 skill-hobby'>
