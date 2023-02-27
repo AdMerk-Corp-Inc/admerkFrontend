@@ -318,7 +318,7 @@ function SignupCustomer() {
                                                 <Select className='col-md-6'
                                                     options={skillslist}
                                                     isMulti={true}
-                                                    placeholder='Select Skills'
+                                                    placeholder='Select Skills (You can choose multiple)'
                                                     required
                                                     value={skills} onChange={setSkills}
                                                 />
@@ -326,7 +326,7 @@ function SignupCustomer() {
                                                 <Select className='col-md-6'
                                                     options={hobbyslist}
                                                     isMulti={true}
-                                                    placeholder='Select Hobby'
+                                                    placeholder='Select Hobbies (You can choose multiple)'
                                                     required
                                                     value={hobby} onChange={setHobby}
                                                 />
@@ -360,7 +360,7 @@ function SignupCustomer() {
                                                             value={description}
                                                             onChange={e => setDescription(e.target.value)}
                                                         />
-                                                        <label for="name" class="inner-label">Description</label>
+                                                        <label for="name" class="inner-label">Tell us more about yourself</label>
                                                         {/* <span className='required'>*Required</span> */}
                                                     </main>
 

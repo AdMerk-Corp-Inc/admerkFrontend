@@ -9,6 +9,62 @@
   font-family: 'Roboto', sans-serif;
 }
 
+body {
+  top: 0 !important;
+}
+
+.google-language-div {
+  padding: 3.5px 15px;
+  border-radius: 100px;
+  line-height: 32px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  color: black;
+  -webkit-animation: beat 2s linear infinite;
+          animation: beat 2s linear infinite;
+  background-color: #3396dd0f;
+}
+
+.google-language-div .goog-te-combo {
+  color: black;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  width: 7rem;
+  outline: none;
+}
+
+.google-language-div .goog-te-combo:focus-visible {
+  outline: none;
+}
+
+.google-language-div span {
+  display: none;
+}
+
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+  height: 1.5rem;
+  font-size: 0;
+  line-height: 1px;
+}
+
+.goog-te-banner-frame,
+.goog-logo-link,
+div#goog-gt-tt {
+  display: none !important;
+}
+
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  visibility: hidden !important;
+}
+
 .navbar-div .navbar-brand {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 2.2rem;
@@ -359,6 +415,28 @@
 .dashboard-heading-div {
   border: 1px solid #d5e0d5;
   border-radius: 10px;
+  padding: 30px;
+}
+
+.dashboard-heading-div h2 {
+  font-family: 'Mirza', cursive;
+  font-size: 48px;
+  text-transform: capitalize;
+  color: #2e2e2e;
+  font-weight: 400;
+}
+
+.dashboard-heading-div h3 {
+  font-size: 22px;
+  text-transform: capitalize;
+  color: #5e6d55;
+}
+
+.dashboard-heading-div img {
+  position: absolute;
+  top: 8px;
+  right: 26px;
+  width: 10rem;
 }
 
 .refugee-cards {

@@ -254,7 +254,11 @@ function RefugeeDashboard() {
         </div>
 
         <div className='col-md-9'>
-          <div className='dashboard-heading-div'>
+          <div className='dashboard-heading-div position-relative mb-4'>
+            <div>
+              <h2>Hello, {user?.name}</h2>
+              <h3>Discover the jobs you love to do</h3>
+            </div>
             <img src="/assets/images/plane.svg" alt="" />
           </div>
 

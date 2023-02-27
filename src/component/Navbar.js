@@ -26,7 +26,12 @@ function Navbar() {
           <div class="collapse navbar-collapse" id="navbarsExample05">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-
+              <li class="nav-item pe-4">
+                <div className='nav-link align-items-center google-language-div'>
+                  <i class="fa fa-language me-2"></i>
+                  <div id="google_element"></div>
+                </div>
+              </li>
               {user?.role < 3 ? <>
                 <li class="nav-item pe-4">
                   <a class="nav-link" href="/tickets">View Tickets</a>
