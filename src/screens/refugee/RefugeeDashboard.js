@@ -7,7 +7,7 @@ import { userContext } from '../../context/UserContext'
 import { Link } from 'react-router-dom';
 
 function RefugeeDashboard() {
-  const { user,setLoad } = useContext(userContext)
+  const { user, setLoad } = useContext(userContext)
   const [skillslist, setSkillsList] = useState([])
   const [hobby, setHobby] = useState('')
   const [hobbyslist, setHobbyList] = useState([])
@@ -254,6 +254,10 @@ function RefugeeDashboard() {
         </div>
 
         <div className='col-md-9'>
+          <div className='dashboard-heading-div'>
+            <img src="/assets/images/plane.svg" alt="" />
+          </div>
+
           <div className='refugee-cards'>
             <div class="input-group px-4 py-3 border-bottom search-div">
               <input value={search} onChange={e => setSearch(e.target.value)} type="text" class="form-control shadow-none" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />

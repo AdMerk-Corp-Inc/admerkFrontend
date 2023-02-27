@@ -17,11 +17,11 @@
   -webkit-transition: .3s ease-in-out;
   transition: .3s ease-in-out;
   line-height: 0.8;
+  margin-top: 8px;
 }
 
 .navbar-div .navbar-brand img {
-  width: 15rem;
-  margin-left: 2rem;
+  width: 18rem;
 }
 
 .navbar-div .navbar-nav a {
@@ -354,6 +354,11 @@
 
 .sponsor-dashboard-div .accordion-item label {
   font-size: 14px;
+}
+
+.dashboard-heading-div {
+  border: 1px solid #d5e0d5;
+  border-radius: 10px;
 }
 
 .refugee-cards {
