@@ -101,10 +101,6 @@ function Volunteer() {
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-lg-8">
                             <div className="card rounded-3">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-                                    className="w-100"
-                                    style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '0.3rem' }}
-                                    alt="Sample photo" />
                                 <div className="card-body p-4 p-md-5">
                                     <h3 className="mb-4">Create Volunteer</h3>
 
