@@ -19,7 +19,7 @@ function AccountProfile() {
   const id = useQuery().get('id');
 
   useEffect(() => {
-   
+
     if (id) {
       async function fetchDetail() {
         contextData.setLoad(true)
@@ -56,15 +56,23 @@ function AccountProfile() {
 
   return (
     <section className="account-detail-page" style={{ backgroundColor: '#0061df08' }}>
-      <div className="container p-5 h-100">
+      <div className="container-xl py-5 px-4 px-md-5 h-100">
         {/*  code start for refugee card */}
         <div className="card rounded-3">
-          <div className="card-body p-5 p-md-5">
-            <div className='d-flex justify-content-between align-items-start'>
-              <div className='d-flex align-items-center'>
-                <img className="img-size rounded" src={`${node_url}${user?.profile_photo}`} alt="Sample photo" />
+          <div className="card-body p-4 p-lg-5">
+            <div className='d-lg-none d-flex justify-content-end mb-4'>
+              {!id && <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>}
+              {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/+${user?.country_code}${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact On Whatsapp</a>}
+            </div>
 
-                <div className='ms-5'>
+            <div className='d-flex justify-content-between align-items-start'>
+              <div className='d-sm-flex align-items-center'>
+                {user?.profile_photo ? <img className="img-size rounded" src={`${node_url}${user?.profile_photo}`} alt="Sample photo" /> :
+                  <img className="img-size rounded" src='/assets/images/nouser.jpg' />
+                }
+
+
+                <div className='ms-0 ms-sm-4 ms-md-5 mt-4 mt-sm-0'>
                   <div className='d-flex'>
                     <h3 className='styling_name text-capitalize'>{user?.name}</h3>
 
@@ -86,22 +94,24 @@ function AccountProfile() {
 
                   <div className=' py-2'>
                     <i class="fa-brands fa-whatsapp"></i>
-                    <span className='styling_country font_color'>{user?.whatsapp_number ? `+${user?.country_code} ${user?.whatsapp_number}`  : 'NA'}</span>
+                    <span className='styling_country font_color'>{user?.whatsapp_number ? `+${user?.country_code} ${user?.whatsapp_number}` : 'NA'}</span>
                   </div>
                 </div>
               </div>
 
-              {!id && <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>}
-              {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/+${user?.country_code}${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact Whatsapp</a>}
+              <div className='d-none d-lg-block'>
+                {!id && <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>}
+                {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/+${user?.country_code}${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact On Whatsapp</a>}
+              </div>
             </div>
 
-            <div className='row mt-5'>
-              <div className='col-md-4'>
+            <div className='row mt-4 mt-sm-5'>
+              <div className='col-md-4 col-sm-6'>
                 <h5 className=' heading'>My Graduation</h5>
                 <span className='text-secondary '>{user?.graduation}</span>
               </div>
 
-              <div className='col-md-4'>
+              <div className='col-md-4 col-sm-6 mt-4 mt-sm-0'>
                 <h5 className=' heading'>Gender</h5>
                 <span className='text-secondary text-capitalize'>{user?.gender}</span>
               </div>

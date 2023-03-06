@@ -46,8 +46,8 @@ function VolunteerAdminDashboard() {
       <div className="container py-5 h-100">
         
 
-        <div className='row w-100 p-2'>
-          <div className='col-md-4'>
+        <div className='row w-100 mx-0'>
+          <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.refugee}</p>
               <p className='fw-bold'>Total Refugee</p>
@@ -55,14 +55,14 @@ function VolunteerAdminDashboard() {
             </div>
           </div>
 
-          <div className='col-md-4'>
+          <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.sponsor}</p>
               <p className='fw-bold'>Total Sponsor</p>
               <i className='fa fa-map-o dashboard__cardIcon'></i>
             </div>
           </div>
-          <div className='col-md-4'>
+          <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.volunteer}</p>
               <p className='fw-bold'>Total Volunteer</p>
@@ -71,8 +71,8 @@ function VolunteerAdminDashboard() {
           </div>
         </div>
 
-        <div className='row w-100 p-2'>
-          <div className='col-md-4'>
+        <div className='row w-100 mx-0'>
+          <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.jobs}</p>
               <p className='fw-bold'>Total Jobs</p>
@@ -80,14 +80,14 @@ function VolunteerAdminDashboard() {
             </div>
           </div>
 
-          <div className='col-md-4'>
+          <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.open_jobs}</p>
               <p className='fw-bold'>Total Open Jobs</p>
               <i className='fa fa-map-o dashboard__cardIcon'></i>
             </div>
           </div>
-          <div className='col-md-4'>
+          <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.closed_jobs}</p>
               <p className='fw-bold'>Total Close Jobs</p>
@@ -96,8 +96,8 @@ function VolunteerAdminDashboard() {
           </div>
 
         </div>
-        <div className='row w-100 p-2'>
-          <div className='col-md-4'>
+        <div className='row w-100 mx-0'>
+          <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.tickets}</p>
               <p className='fw-bold'>Total Tickets</p>
@@ -105,14 +105,14 @@ function VolunteerAdminDashboard() {
             </div>
           </div>
 
-          <div className='col-md-4'>
+          <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.open_tickets}</p>
               <p className='fw-bold'>Total Open Tickets</p>
               <i className='fa fa-map-o dashboard__cardIcon'></i>
             </div>
           </div>
-          <div className='col-md-4'>
+          <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.close_tickets}</p>
               <p className='fw-bold'>Total Close Tickets</p>

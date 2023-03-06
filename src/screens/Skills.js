@@ -6,7 +6,7 @@ import { url } from '../Helper/Helper';
 function Skills() {
 
     const [allSkills, setAllSkills] = useState([])
-    const { user,setLoad } = useContext(userContext)
+    const { user, setLoad } = useContext(userContext)
 
     async function fetchSkill() {
         setLoad(true)
@@ -66,9 +66,9 @@ function Skills() {
     }
 
     async function editSkill(item) {
-        setLoad(true)
         const res = window.prompt('Edit Skill Name', item.name)
         if (res.length > 0) {
+            setLoad(true)
 
             const formData = new FormData()
             formData.append('name', res)
@@ -108,9 +108,9 @@ function Skills() {
     }, [])
 
     async function deleteSkill(id) {
-        setLoad(true)
         const confirm = window.confirm('Are You Sure You Want To Delete This Skill')
         if (confirm === true) {
+            setLoad(true)
             const response = await fetch(url + 'delete-skill/' + id, {
                 headers: {
                     "Authorization": `Bearer ${user?.token}`
@@ -145,34 +145,36 @@ function Skills() {
                             <button onClick={createSkill} type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Skill</button>
                         </div>
 
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Sr No.</th>
-                                    <th scope="col">Skill Name</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {allSkills?.length > 0 ? allSkills.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{item?.name}</td>
-                                        <td>
-                                            <a href='javascript:void(0);' onClick={() => editSkill(item)}><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href='javascript:void(0)' onClick={() => deleteSkill(item?.id)}><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a>
+                        <div className='table-responsive'>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sr No.</th>
+                                        <th scope="col">Skill Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {allSkills?.length > 0 ? allSkills.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{item?.name}</td>
+                                            <td>
+                                                <a href='javascript:void(0);' onClick={() => editSkill(item)}><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                <a href='javascript:void(0)' onClick={() => deleteSkill(item?.id)}><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                    )) : <tr>
+                                        <td colSpan={5}>
+                                            <div className='not-found'>No Skills Found</div>
                                         </td>
                                     </tr>
-                                )) : <tr>
-                                    <td colSpan={5}>
-                                        <div className='not-found'>No Skills Found</div>
-                                    </td>
-                                </tr>
-                                }
+                                    }
 
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
 
                     </div>
 

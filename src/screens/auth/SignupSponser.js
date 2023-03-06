@@ -165,7 +165,7 @@ function SignupSponser() {
                                                 {/* <span className='error'>it is span tag</span> */}
                                             </div>
 
-                                            <Select className='col-md-6'
+                                            <Select className='col-md-6 mb-3'
                                                 options={countrylist}
                                                 placeholder='Select Country'
                                                 required

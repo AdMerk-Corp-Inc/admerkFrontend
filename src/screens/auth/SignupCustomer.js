@@ -263,12 +263,12 @@ function SignupCustomer() {
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
 
-                                                <Select className='col-md-6'
+                                                <Select className='col-md-6 mb-3'
                                                     options={countrylist}
                                                     placeholder='Select Country'
                                                     value={country} required onChange={setCountry}
                                                 />
-                                                <div className='filter-form-MUI-calendar col-md-6'>
+                                                <div className='filter-form-MUI-calendar col-md-6 mb-3'>
                                                     <main className='input-div'>
                                                         <input className='inner-input' type="date" value={dob}
                                                             required
@@ -315,7 +315,7 @@ function SignupCustomer() {
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
 
-                                                <Select className='col-md-6'
+                                                <Select className='col-md-6 mb-3'
                                                     options={skillslist}
                                                     isMulti={true}
                                                     placeholder='Select Skills (You can choose multiple)'
@@ -323,7 +323,7 @@ function SignupCustomer() {
                                                     value={skills} onChange={setSkills}
                                                 />
 
-                                                <Select className='col-md-6'
+                                                <Select className='col-md-6 mb-3'
                                                     options={hobbyslist}
                                                     isMulti={true}
                                                     placeholder='Select Hobbies (You can choose multiple)'

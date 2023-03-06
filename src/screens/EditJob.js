@@ -254,7 +254,7 @@ function EditJOb() {
         <div>
             <div className='signup-both-div'>
                 <section className="h-custom" style={{ backgroundColor: '#0061df08' }}>
-                    <div className="container py-5 h-100">
+                    <div className="container-md py-5 h-100">
                         <div className="row d-flex justify-content-center align-items-center h-100">
                             <div className="col-lg-8">
                                 <div className="card rounded-3">
@@ -300,14 +300,14 @@ function EditJOb() {
 
 
 
-                                                <Select className='col-md-6'
+                                                <Select className='col-md-6 mb-3'
                                                     options={countrylist}
                                                     placeholder='Select Country'
                                                     value={country} required onChange={setCountry}
                                                 />
 
 
-                                                <Select className='col-md-6'
+                                                <Select className='col-md-6 mb-3'
                                                     options={skillslist}
                                                     isMulti={true}
                                                     placeholder='Select Skills'
@@ -315,7 +315,7 @@ function EditJOb() {
                                                     value={skills} onChange={setSkills}
                                                 />
 
-                                                <Select className='col-md-6 mt-3'
+                                                <Select className='col-md-6 mb-3'
                                                     options={hobbyslist}
                                                     isMulti={true}
                                                     placeholder='Select Hobby'
@@ -323,7 +323,7 @@ function EditJOb() {
                                                     value={hobby} onChange={setHobby}
                                                 />
 
-                                                <div className="filter-form-MUI-input-text col-md-6 mt-3">
+                                                <div className="filter-form-MUI-input-text col-md-6">
                                                     <main class="input-div">
                                                         <input
                                                             class="inner-input"

@@ -10,7 +10,7 @@ function JobDetailPage() {
 
   const [feeds, setFeeds] = useState([])
   const [modalShow, setModalShow] = useState(false);
-  const { user,setLoad } = useContext(userContext)
+  const { user, setLoad } = useContext(userContext)
 
   function useQuery() {
     const { search } = useLocation();
@@ -56,15 +56,21 @@ function JobDetailPage() {
 
   return (
     <section className="account-detail-page" style={{ backgroundColor: '#0061df08' }}>
-      <div className="container p-5 h-100">
+      <div className="container-lg py-5 px-4 px-md-5 h-100">
         {/*  code start for refugee card */}
         <div className="card rounded-3">
-          <div className="card-body p-5 p-md-5">
+          <div className="card-body p-4 p-lg-5">
+            <div className='d-md-none d-flex justify-content-end mb-4'>
+              <a className='custom-sm-btn btn mt-0' href='#' onClick={() => {
+                setModalShow(true)
+              }}  >Apply Now</a>
+            </div>
+
             <div className='d-flex justify-content-between align-items-start'>
-              <div className='d-flex align-items-center'>
+              <div className='d-sm-flex align-items-center'>
                 <img className="img-size rounded" src={`${node_url}${feeds?.cover_picture}`} alt="Sample photo" />
 
-                <div className='ms-5'>
+                <div className='ms-0 ms-sm-4 ms-md-5 mt-4 mt-sm-0'>
                   <div className='d-flex'>
                     <h3 className='styling_name text-capitalize'>{feeds?.title}</h3>
 
@@ -84,14 +90,17 @@ function JobDetailPage() {
                 onHide={() => setModalShow(false)}
                 id={id}
               />
-              <a className='custom-sm-btn btn mt-0' href='#' onClick={() => {
-                setModalShow(true)
-              }}  >Apply Now</a>
+
+              <div className='d-none d-md-block'>
+                <a className='custom-sm-btn btn mt-0' href='#' onClick={() => {
+                  setModalShow(true)
+                }}  >Apply Now</a>
+              </div>
             </div>
 
 
 
-            <div className='d-flex flex-column mt-5 skill-hobby'>
+            <div className='d-flex flex-column mt-4 mt-sm-5 skill-hobby'>
               <h5 className='heading mb-3'>Required Skills</h5>
               <div className='d-flex'>
                 {feeds?.skills?.split(',')?.map((item, index) => <span key={index}>{item}</span>)}
@@ -115,12 +124,12 @@ function JobDetailPage() {
               <p className='text-secondary mb-0'>{feeds?.description}</p>
             </div>
 
-           {
-            feeds?.attachement &&  <div className='d-flex flex-column mt-4 skill-hobby'>
-            <h5 className=' heading'>Attachment</h5>
-            <p className='text-secondary mb-0'><a rel='download' target='_blank' href={`${node_url}${feeds?.attachement}`}>Click Here</a> To Check Job Instructions</p> 
-          </div>
-           }
+            {
+              feeds?.attachement && <div className='d-flex flex-column mt-4 skill-hobby'>
+                <h5 className=' heading'>Attachment</h5>
+                <p className='text-secondary mb-0'><a rel='download' target='_blank' href={`${node_url}${feeds?.attachement}`}>Click Here</a> To Check Job Instructions</p>
+              </div>
+            }
           </div>
         </div>
       </div>

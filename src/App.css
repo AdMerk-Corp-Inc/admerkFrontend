@@ -542,6 +542,28 @@ div#goog-gt-tt {
           box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.table-div th {
+  white-space: nowrap;
+}
+
+.table-div td {
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+.table-div td span {
+  min-width: 4.2rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.table-div td a {
+  text-decoration: none;
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 0.2px;
+}
+
 .footer-div h2 {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 3rem;
@@ -594,10 +616,63 @@ div#goog-gt-tt {
   text-decoration: none;
 }
 
+.signup-both-div .h-custom,
+.login-div .h-custom {
+  min-height: 100vh;
+}
+
 @media (min-width: 1025px) {
   .signup-both-div .h-custom,
   .login-div .h-custom {
     min-height: 100vh;
+  }
+}
+
+@media (max-width: 1200px) {
+  .account-detail-page .img-size {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 992px) {
+  .account-detail-page .custom-sm-btn {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-div td {
+    font-size: 14px;
+  }
+  .account-detail-page .img-size {
+    width: 160px;
+    height: 160px;
+  }
+  .common-signup-div .inner-card {
+    height: 14rem;
+    padding: 1.5rem;
+  }
+  .common-signup-div .inner-card img {
+    width: 5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .common-signup-div h2 {
+    font-size: 34px;
+    margin-top: 3.5rem;
+  }
+  .common-signup-div .inner-card {
+    height: auto;
+    padding: 1.5rem;
+  }
+  .common-signup-div .inner-card img {
+    width: 5rem;
+  }
+  .common-signup-div .a-btn {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
   }
 }
 

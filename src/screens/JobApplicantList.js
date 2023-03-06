@@ -57,9 +57,7 @@ function JobApplicantList() {
             <div className="container py-5 h-100">
                 <div className="card rounded-3">
 
-                    <div className='p-4 table-div'>
-                       
-
+                    <div className='p-4 table-div table-responsive'>
                         <table class="table table-hover">
                             <thead>
                                 <tr>

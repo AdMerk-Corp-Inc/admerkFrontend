@@ -7,7 +7,7 @@ import { userContext } from '../context/UserContext';
 
 function CreateJob() {
 
-    const { user,setLoad } = useContext(userContext)
+    const { user, setLoad } = useContext(userContext)
     const [title, setTitle] = useState('')
     const [country, setCountry] = useState('')
     const [countrylist, setCountryList] = useState([])
@@ -239,14 +239,14 @@ function CreateJob() {
 
 
 
-                                                <Select className='col-md-6'
+                                                <Select className='col-md-6 mb-3'
                                                     options={countrylist}
                                                     placeholder='Select Country'
                                                     value={country} required onChange={setCountry}
                                                 />
 
 
-                                                <Select className='col-md-6'
+                                                <Select className='col-md-6 mb-3'
                                                     options={skillslist}
                                                     isMulti={true}
                                                     placeholder='Select Skills'
@@ -254,7 +254,7 @@ function CreateJob() {
                                                     value={skills} onChange={setSkills}
                                                 />
 
-                                                <Select className='col-md-6 mt-3'
+                                                <Select className='col-md-6 mb-3'
                                                     options={hobbyslist}
                                                     isMulti={true}
                                                     placeholder='Select Hobby'
@@ -262,7 +262,7 @@ function CreateJob() {
                                                     value={hobby} onChange={setHobby}
                                                 />
 
-                                                <div className="filter-form-MUI-input-text col-md-6 mt-3">
+                                                <div className="filter-form-MUI-input-text col-md-6">
                                                     <main class="input-div">
                                                         <input
                                                             class="inner-input"
