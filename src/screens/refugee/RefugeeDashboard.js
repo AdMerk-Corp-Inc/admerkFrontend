@@ -130,7 +130,11 @@ function RefugeeDashboard() {
     formData.append("country_id", cCountry?.value ? cCountry?.value : '')
     formData.append("page", page)
     formData.append("search", search)
-    formData.append("work_type", gender)
+    if (gender != "Both"){
+      formData.append("work_type", gender)
+    }else{
+      formData.append("work_type", "")
+    }
 
     const response = await fetch(url + 'fetch-home-jobs', {
       method: 'POST',
