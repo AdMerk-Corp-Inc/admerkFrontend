@@ -104,7 +104,7 @@ function SignupSponser() {
                                     style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '0.3rem' }}
                                     alt="Sample photo" />
                                 <div className="card-body p-4 p-md-5">
-                                    <h3 className="mb-4">Sign up to help refugee</h3>
+                                    <h3 className="mb-4">Sign up to post job</h3>
 
                                     <form onSubmit={e => handleSubmit(e)}>
 
