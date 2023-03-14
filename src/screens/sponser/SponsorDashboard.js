@@ -359,7 +359,7 @@ function SponsorDashboard() {
                         </div>
 
                         {feeds?.length > 0 ? feeds.map((item, index) => (
-                            <Link key={index} className='refugee-single-card px-4 py-4 text-decoration-none d-block' to={`/refugee-profile?id=${item?.id}`}>
+                            <Link key={index} className='refugee-single-card px-3 px-md-4 py-4 text-decoration-none d-block' to={`/refugee-profile?id=${item?.id}`}>
                                 <div className='d-flex align-items-center avatar-div'>
                                     {item?.profile_photo ? <img src={`${node_url}${item?.profile_photo}`} alt="" /> : <img src="/assets/images/no-user.png" alt="" />}
 

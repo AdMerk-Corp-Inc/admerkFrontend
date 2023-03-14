@@ -56,7 +56,7 @@ function AccountProfile() {
 
   return (
     <section className="account-detail-page" style={{ backgroundColor: '#0061df08' }}>
-      <div className="container-xl py-5 px-4 px-md-5 h-100">
+      <div className="container-xl py-5 px-3 px-md-5 h-100">
         {/*  code start for refugee card */}
         <div className="card rounded-3">
           <div className="card-body p-4 p-lg-5">
@@ -130,14 +130,14 @@ function AccountProfile() {
 
             <div className='d-flex flex-column mt-4 skill-hobby'>
               <h5 className='heading mb-3'>My Skills</h5>
-              <div className='d-flex'>
+              <div className='d-flex flex-wrap'>
                 {user?.skills?.split(',')?.map((item, index) => <span key={index}>{item}</span>)}
               </div>
             </div>
 
             <div className='d-flex flex-column mt-4 skill-hobby'>
               <h5 className=' heading'>Hobbies</h5>
-              <div className='d-flex'>
+              <div className='d-flex flex-wrap'>
                 {user?.hobby?.split(',')?.map((item, index) => <span>{item}</span>)}
               </div>
             </div>
