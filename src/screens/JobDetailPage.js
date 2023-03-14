@@ -76,7 +76,7 @@ function JobDetailPage() {
 
                     <div className='d-flex align-self-center ml_countryname'>
                       <i className="fa-sharp fa-solid fa-location-dot"></i>
-                      <span className='styling_country ps-2'>{feeds?.country_name}</span>
+                      <span className='styling_country ps-2'>{feeds?.country_name} {feeds?.state_name} {feeds?.city_name}</span>
                     </div>
                   </div>
 

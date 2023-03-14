@@ -377,7 +377,7 @@ function RefugeeDashboard() {
                 <div className='d-flex align-items-center avatar-div'>
                   <div>
                     <h5>{item?.title}</h5>
-                    <span>{item?.country_name}</span>
+                    <span>{item?.country_name} {item?.state_name} {item?.city_name}</span>
                   </div>
                 </div>
                 {/* <div dangerouslySetInnerHTML={{ __html: feeds?.description }} /> */}
