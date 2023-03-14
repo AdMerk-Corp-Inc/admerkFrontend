@@ -4,13 +4,18 @@ import { toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import { url } from '../Helper/Helper';
 import { userContext } from '../context/UserContext';
+import TextEditor from '../component/TextEditor';
 
 function EditJOb() {
 
-    const { user, setUser,setLoad } = useContext(userContext)
+    const { user, setUser, setLoad } = useContext(userContext)
     const [title, setTitle] = useState('')
     const [country, setCountry] = useState('')
+    const [state, setState] = useState('')
+    const [city, setCity] = useState('')
     const [countrylist, setCountryList] = useState([])
+    const [statelist, setStateList] = useState([])
+    const [citylist, setCityList] = useState([])
     const [skills, setSkills] = useState('')
     const [skillslist, setSkillsList] = useState([])
     const [hobby, setHobby] = useState('')
@@ -154,6 +159,21 @@ function EditJOb() {
         } else {
             error = error + 1
         }
+
+        if (state?.value) {
+            formData.append("state_id", state?.value)
+            formData.append("state_name", state?.label)
+        } else {
+            error = error + 1
+        }
+
+        if (city?.value) {
+            formData.append("city_id", city?.value)
+            formData.append("city_name", city?.label)
+        } else {
+            error = error + 1
+        }
+
         formData.append("work_type", worktype)
 
         if (photo?.name) {
@@ -217,6 +237,22 @@ function EditJOb() {
                     'label': data?.detail?.country_name,
                     // "phoneCode": data?.list[0].phoneCode
                 })
+                fetchStateCountryList(data?.detail?.country_id).catch(err => {
+                    setLoad(false)
+                    toast.error(err.message)
+                })
+                setState({
+                    'value': data?.detail?.state_id,
+                    'label': data?.detail?.state_name,
+                })
+                fetchCityStateList(data?.detail?.state_id).catch(err => {
+                    setLoad(false)
+                    toast.error(err.message)
+                })
+                setCity({
+                    'value': data?.detail?.city_id,
+                    'label': data?.detail?.city_name,
+                })
                 setWorkType({
                     'value': data?.detail?.work_type,
                     'label': data?.detail?.work_type,
@@ -237,7 +273,6 @@ function EditJOb() {
                     }
                 }))
                 setDescription(data?.detail?.description)
-                setPhoto()
                 setWorkType(data?.detail?.work_type)
 
             } else {
@@ -248,6 +283,78 @@ function EditJOb() {
             toast.error("Internal Server Error")
         }
     }
+
+    async function fetchStateCountryList(country_id){
+        setLoad(true)
+        var requestOptions = {
+            redirect: 'follow'
+        };
+
+        const response = await fetch(url + "get-state-by-country/" + country_id, requestOptions)
+        if (response.ok === true) {
+            setLoad(false)
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name,
+                    })
+                }
+                setStateList(arr)
+            } else {
+                toast.error("")
+            }
+        } else {
+            setLoad(false)
+            toast.error("Internal Server Error")
+        }
+    }
+    async function fetchCityStateList(state_id){
+        setLoad(true)
+
+        const response = await fetch(url + "get-city-by-state/" + state_id)
+        if (response.ok === true) {
+            setLoad(false)
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name
+                    })
+                }
+                setCityList(arr)
+            } else {
+                toast.error("")
+            }
+        } else {
+            setLoad(false)
+            toast.error("Internal Server Error")
+        }
+    }
+
+    useEffect(() => {
+            if(country?.value){
+                fetchStateCountryList(country?.value).catch(err => {
+                    setLoad(false)
+                    toast.error(err.message)
+                })
+            }
+    }, [country])
+
+    useEffect(() => {
+        if(state?.value){
+            fetchCityStateList(state?.value).catch(err => {
+                setLoad(false)
+                toast.error(err.message)
+            })
+        }
+    }, [state])
 
 
     return (
@@ -306,6 +413,18 @@ function EditJOb() {
                                                     value={country} required onChange={setCountry}
                                                 />
 
+                                                <Select className='col-md-6 mb-3'
+                                                    options={statelist}
+                                                    placeholder='Select State'
+                                                    value={state} required onChange={setState}
+                                                />
+
+                                                <Select className='col-md-6 mb-3'
+                                                    options={citylist}
+                                                    placeholder='Select City'
+                                                    value={city} required onChange={setCity}
+                                                />
+
 
                                                 <Select className='col-md-6 mb-3'
                                                     options={skillslist}
@@ -340,20 +459,20 @@ function EditJOb() {
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
                                                 <div className="filter-form-MUI-input-text col-md-6">
-                                              <label className='me-3' htmlFor="">Work Type</label>
-                                               <select 
-                                                value={worktype} onChange={setWorkType}  
-                                                placeholder='Work Type' class="form-select form-select-sm" >
-                                                    <option value='Both'>Both</option>
-                                                    <option value="Remote">Remote</option>
-                                                    <option value="OnSite">OnSite</option>
-                                                </select>
-                                              </div>
+                                                    <label className='me-3' htmlFor="">Work Type</label>
+                                                    <select
+                                                        value={worktype} onChange={setWorkType}
+                                                        placeholder='Work Type' class="form-select form-select-sm" >
+                                                        <option value='Both'>Both</option>
+                                                        <option value="Remote">Remote</option>
+                                                        <option value="OnSite">OnSite</option>
+                                                    </select>
+                                                </div>
 
 
                                                 <div className="filter-form-MUI-input-text mt-3">
                                                     <main class="input-div h-100">
-                                                        <textarea
+                                                        {/* <textarea
                                                             class="inner-input position-relative pt-3"
                                                             type="text"
                                                             placeholder=" "
@@ -363,7 +482,8 @@ function EditJOb() {
                                                             value={description}
                                                             onChange={e => setDescription(e.target.value)}
                                                         />
-                                                        <label for="name" class="inner-label">Description</label>
+                                                        <label for="name" class="inner-label">Description</label> */}
+                                                         <TextEditor content={description} setContent={setDescription} />
                                                         {/* <span className='required'>*Required</span> */}
                                                     </main>
 
@@ -375,7 +495,7 @@ function EditJOb() {
 
                                             </div>
 
-                                            <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Edit Job</button>
+                                            <button type="submit" className="btn custom-sm-btn btn-lg mb-1 job-submit-btn">Edit Job</button>
 
                                         </form>
 

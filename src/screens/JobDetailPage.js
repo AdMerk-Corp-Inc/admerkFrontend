@@ -121,7 +121,8 @@ function JobDetailPage() {
 
             <div className='d-flex flex-column mt-4 skill-hobby'>
               <h5 className=' heading'>Job Description</h5>
-              <p className='text-secondary mb-0'>{feeds?.description}</p>
+              <div dangerouslySetInnerHTML={{ __html: feeds?.description }} />
+              {/* <p className='text-secondary mb-0'>{feeds?.description}</p> */}
             </div>
 
             {

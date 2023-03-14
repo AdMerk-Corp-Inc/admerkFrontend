@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { userContext } from '../context/UserContext';
 import { url } from '../Helper/Helper';
 import { Link } from 'react-router-dom';
+import DeleteModal from '../component/DeleteModal';
 
 
 function AllJobs() {
@@ -11,6 +12,8 @@ function AllJobs() {
     const { user, setLoad } = useContext(userContext)
     const [allJobs, setAllJobs] = useState([])
     const [status, setStatus] = useState("All")
+    const [modalShow, setModalShow] = React.useState(false);
+    const [currentId, setCurrentId] = useState("")
 
     async function fetchJobs() {
         setLoad(true)
@@ -82,9 +85,39 @@ function AllJobs() {
 
         }
     }
+    async function deletedata() {
+        const response = await fetch(url + "delete-job/" + currentId)
+        if (response.ok === true) {
+            const data = await response.json()
+            if (data?.status === 200) {
+                toast.success(data?.message)
+                setModalShow(false)
+                setCurrentId('')
+                fetchJobs().catch(err => {
+                    setLoad(false)
+                    toast.error(err.message)
+                })
+            } else {
+                toast.error(data?.message)
+            }
+        } else {
+            toast.error("Internal Server Error")
+        }
+    }
+
+    function deletePopupTrigger(id) {
+        setModalShow(true)
+        setCurrentId(id)
+    }
 
     return (
         <section className="all-jobs-div" style={{ backgroundColor: '#0061df08' }}>
+            <div>
+                <DeleteModal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    deletedata={deletedata} />
+            </div>
             <div className="container py-5 h-100">
                 <div className="card rounded-3">
 
@@ -134,6 +167,9 @@ function AllJobs() {
                                                 </a>
                                                 <a href={`job-applicant-list?id=${item?.id}`}>
                                                     <i class="fa-regular fa-folder-open text-success ms-3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Applicants Detail"></i>
+                                                </a>
+                                                <a href="javascript:void(0)" onClick={() => deletePopupTrigger(item?.id)}>
+                                                    <i class="fa-solid fa-trash text-danger ms-3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Applicants Detail"></i>
                                                 </a>
                                             </td>
                                         </tr>

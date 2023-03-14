@@ -380,9 +380,9 @@ function RefugeeDashboard() {
                     <span>{item?.country_name}</span>
                   </div>
                 </div>
-
-                <p className='mb-0 mt-4'>
-                  {item?.description}
+                {/* <div dangerouslySetInnerHTML={{ __html: feeds?.description }} /> */}
+                <p className='mb-0 mt-4' dangerouslySetInnerHTML={{ __html: item?.description }}>
+                  {/* {item?.description} */}
                 </p>
 
                 <div className='d-flex flex-column mt-4 skill-hobby'>

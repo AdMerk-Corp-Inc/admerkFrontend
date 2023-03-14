@@ -715,3 +715,22 @@ div#goog-gt-tt {
         }
     }
 }
+
+.modal-header {
+    border-bottom: 0px !important;
+    padding: 3rem 1rem 0rem 1rem !important;
+    justify-content: center !important;
+}
+
+.modal-body {
+    padding: 0rem 1rem 1rem 1rem !important;
+}
+.modal-footer{
+    justify-content: center !important;
+    padding: 0rem 0rem 1.95rem 0rem !important;
+    border-top: 0px !important;
+}
+
+.job-submit-btn{
+    margin-top: 3rem !important;
+}
