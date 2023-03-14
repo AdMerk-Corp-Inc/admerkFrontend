@@ -12,9 +12,9 @@ function Footer() {
               <h2>ADMERK</h2>
             </div>
             <p className='mb-0'>
-              Admerk is the free platform for World Wide. The Main Motive of these platform is to provide dream job to Refugges. We always aim to provide dream job to refugees because they leave their home country to get that dream job.
-              These Platform is not for any particular country these platform is for all country. We always want to improve the leaving Standard of all refugees.
-              We also aims on providing Best and hard working employee to the sponsor.
+              Admerk is the free platform for World Wide. The Main Motive of these platform is to provide dream job to job seekers.
+              These Platform is not for any particular country these platform is for all country. We always want to improve the platform for all users.
+              We also aims on providing Best and hard working job seekers to the companies.
             </p>
           </div>
 
