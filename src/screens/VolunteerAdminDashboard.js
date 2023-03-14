@@ -50,7 +50,7 @@ function VolunteerAdminDashboard() {
           <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.refugee}</p>
-              <p className='fw-bold'>Total Job Seeker</p>
+              <p className='fw-bold'>Total Job Seeker/Refugee</p>
               <i className='fa fa-map-o dashboard__cardIcon'></i>
             </div>
           </div>
@@ -58,7 +58,7 @@ function VolunteerAdminDashboard() {
           <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.sponsor}</p>
-              <p className='fw-bold'>Total Company</p>
+              <p className='fw-bold'>Total Company/Sponsor</p>
               <i className='fa fa-map-o dashboard__cardIcon'></i>
             </div>
           </div>

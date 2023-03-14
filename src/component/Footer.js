@@ -12,15 +12,15 @@ function Footer() {
               <h2>ADMERK</h2>
             </div>
             <p className='mb-0'>
-              Admerk is the free platform for World Wide. The Main Motive of these platform is to provide dream job to job seekers.
+              Admerk is the free platform for World Wide. The Main Motive of these platform is to provide dream job to job seekers/refugees.
               These Platform is not for any particular country these platform is for all country. We always want to improve the platform for all users.
-              We also aims on providing Best and hard working job seekers to the companies.
+              We also aims on providing Best and hard working job seekers/refugees to the companies.
             </p>
           </div>
 
           <div className='col-md-4 d-flex flex-column align-items-center'>
             <div>
-              <h3>Company</h3>
+              <h3>Company/Sponsor</h3>
               <ul>
                 <li><a href="">Home</a></li>
                 <li><a href={user?.role < 3 ? '/admin-dashboard' : user?.role == 3 ? '/sponsor-dashboard' : '/refugee-dashboard'}>Dashboard</a></li>
