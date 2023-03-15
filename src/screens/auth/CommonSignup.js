@@ -8,16 +8,24 @@ function CommonSignup() {
                 <h2 className='text-center'>Join As A Company/Sponsor Or Job Seeker/Refugee</h2>
 
                 <div className='row'>
-                    <div className='col-sm-6'>
+                    <div className='col-sm-4'>
                         <div className="col-md-12 inner-card">
-                            <img src="/assets/images/hiring.png" alt="" />
-                            <h3 className='text-center'>I am Company/Sponsor, looking for hiring</h3>
+                            <img src="/assets/images/company.png" alt="" />
+                            <h3 className='text-center'>I am Company, looking for hiring</h3>
                         </div>
 
-                        <Link className='a-btn' to="/signup-sponser">Signup as Company/Sponsor <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
+                        <Link className='a-btn' to="/signup-sponser?type=1">Signup as Company <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
+                    </div>
+                    <div className='col-sm-4'>
+                        <div className="col-md-12 inner-card">
+                            <img src="/assets/images/hiring.png" alt="" />
+                            <h3 className='text-center'>I am Sponsor</h3>
+                        </div>
+
+                        <Link className='a-btn' to="/signup-sponser?type=2">Signup as Sponsor <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
                     </div>
 
-                    <div className='col-sm-6'>
+                    <div className='col-sm-4'>
                         <div className="col-md-12 inner-card">
                             <img src="/assets/images/cv.png" alt="" />
                             <h3 className='text-center'>I am looking for job</h3>

@@ -160,7 +160,7 @@ function AllUser() {
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             <td><Link to={`/profile?id=${item?.id}`}>{item?.name}</Link></td>
-                                            <td>{item?.role == 2 ? <span className='bg-primary px-2 py-1 rounded text-white'>Volunteer</span> : item?.role == 3 ? <span className='bg-primary px-2 py-1 rounded text-white'>Compny</span> : <span className='bg-primary px-2 py-1 rounded text-white'>Job Seeker/Refugee</span>}</td>
+                                            <td>{item?.role == 2 ? <span className='bg-primary px-2 py-1 rounded text-white'>Volunteer</span> : item?.role == 3 ? item?.user_type == "1" ? <span className='bg-primary px-2 py-1 rounded text-white'>Company</span> : <span className='bg-primary px-2 py-1 rounded text-white'>Sponsor</span> : <span className='bg-primary px-2 py-1 rounded text-white'>Job Seeker/Refugee</span>}</td>
                                             <td>{item?.email_verified == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Yes</span> : <span className='bg-danger px-2 py-1 rounded text-white'>NO</span>}</td>
                                             <td>+{item?.country_code} {item?.whatsapp_number}</td>
                                             <td>{item?.email}</td>
