@@ -432,6 +432,8 @@ function SignupSponser() {
                                             }
                                         </div>
 
+                                        <p className='mt-3 text-muted'>By adding phone number you are agree tp recieve updates</p>
+
                                         <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Create my account</button>
 
                                     </form>
