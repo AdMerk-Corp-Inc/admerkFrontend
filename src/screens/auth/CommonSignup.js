@@ -30,7 +30,7 @@ function CommonSignup() {
 
                     <div className='col-sm-3'>
                         <div className="col-md-12 inner-card">
-                            <img src="/assets/images/cv.png" alt="" />
+                            <img src="/assets/images/helpinghand.png" alt="" />
                             <h3 className='text-center'>I am Refugee looking for sponsor</h3>
                         </div>
 
