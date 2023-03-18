@@ -495,7 +495,7 @@ function EditJOb() {
 
                                             </div>
 
-                                            <button type="submit" className="btn custom-sm-btn btn-lg mb-1 job-submit-btn">Edit Job</button>
+                                            <button type="submit" className="btn custom-sm-btn btn-lg mb-1 job-submit-btn">Update Job</button>
 
                                         </form>
 

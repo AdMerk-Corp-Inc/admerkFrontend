@@ -78,8 +78,13 @@ function SignupSponser() {
         formData.append("name", name)
         formData.append("email", email)
         formData.append("password", password)
-        formData.append("role", 3)
+        if (type == 1) {
+            formData.append("role", 6) // for sponsor
+        } else {
+            formData.append("role", 3) // for company
+        }
         formData.append("whatsapp_number", whatsappnum)
+
         if (country?.value) {
             formData.append("country_id", country?.value)
             formData.append("country_name", country?.label)
@@ -87,6 +92,7 @@ function SignupSponser() {
         } else {
             error = error + 1
         }
+
         if (state?.value) {
             formData.append("state_id", state?.value)
             formData.append("state_name", state?.label)
@@ -100,6 +106,7 @@ function SignupSponser() {
         } else {
             error = error + 1
         }
+
         formData.append("zip_code", zipcode)
 
         if (type == "2") {
@@ -124,7 +131,7 @@ function SignupSponser() {
                 console.log(data)
                 if (data.status == 200) {
                     toast.success(data.message)
-                    setTimeout(() => {window.location.reload()}, 2500)
+                    setTimeout(() => { window.location.reload() }, 2500)
                 } else {
                     toast.error(data?.message)
                 }
@@ -217,10 +224,9 @@ function SignupSponser() {
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-lg-8">
                             <div className="card rounded-3">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-                                    className="w-100"
-                                    style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '0.3rem' }}
-                                    alt="Sample photo" />
+                                <div className='d-flex align-items-center justify-content-center mt-1'>
+                                    <img src='/assets/images/newLogo.png' style={{ width: '19rem' }} />
+                                </div>
                                 <div className="card-body p-4 p-md-5">
                                     <h3 className="mb-4">Sign Up {type == "2" ? "As Sponsor" : "To Post Job"}</h3>
 
@@ -320,23 +326,23 @@ function SignupSponser() {
                                                 value={city} required onChange={setCity}
                                             />
                                             <div className="filter-form-MUI-input-text col-md-6">
-                                                        <main class="input-div">
-                                                            <input
-                                                                class="inner-input"
-                                                                type="text"
-                                                                placeholder=" "
-                                                                id='zip_code'
-                                                                autoComplete="off"
-                                                                required
-                                                                value={zipcode}
-                                                                onChange={e => setZipcode(e.target.value)}
-                                                            />
-                                                            <label for="name" class="inner-label">ZIP Code</label>
-                                                            {/* <span className='required'>*Required</span> */}
-                                                        </main>
+                                                <main class="input-div">
+                                                    <input
+                                                        class="inner-input"
+                                                        type="text"
+                                                        placeholder=" "
+                                                        id='zip_code'
+                                                        autoComplete="off"
+                                                        required
+                                                        value={zipcode}
+                                                        onChange={e => setZipcode(e.target.value)}
+                                                    />
+                                                    <label for="name" class="inner-label">ZIP Code</label>
+                                                    {/* <span className='required'>*Required</span> */}
+                                                </main>
 
-                                                        {/* <span className='error'>it is span tag</span> */}
-                                                    </div>
+                                                {/* <span className='error'>it is span tag</span> */}
+                                            </div>
                                             {
                                                 type == "2" &&
                                                 <>
@@ -393,7 +399,7 @@ function SignupSponser() {
                                                                     prev_arr.push(args)
                                                                 }
                                                             }} />
-                                                            <label htmlFor="form-checkbox-1">1. Passive Sponsor: "0" Financial Commitment on Sponsor. The Host family in USA lack income to sponsor someone in Haiti. If the I-134A application is approved, the Host family will assume full responsibilities for the beneficiary/refugee. The Sponsor has "0" financial commitment and obligation toward beneficiary/refugee except the time to fill out the USCIS Form I-134A.</label>
+                                                            <label htmlFor="form-checkbox-1">1. Passive Sponsor: "0" Financial Commitment on Sponsor. The Host family lack income to sponsor someone. If the I-134A application is approved, the Host family will assume full responsibilities for the beneficiary/refugee. The Sponsor has "0" financial commitment and obligation toward beneficiary/refugee except the time to fill out the USCIS Form I-134A.</label>
                                                         </div>
                                                         <div className="d-flex align-items-start mt-2">
                                                             <input type="checkbox" name="" className='me-2' id="form-checkbox-2" style={{ width: "80px", height: "23px" }}

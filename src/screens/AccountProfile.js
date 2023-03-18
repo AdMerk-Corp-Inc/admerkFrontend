@@ -62,7 +62,7 @@ function AccountProfile() {
           <div className="card-body p-4 p-lg-5">
             <div className='d-lg-none d-flex justify-content-end mb-4'>
               {!id && <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>}
-              {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/+${user?.country_code}${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact On Whatsapp</a>}
+              {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact On Whatsapp</a>}
             </div>
 
             <div className='d-flex justify-content-between align-items-start'>
@@ -78,14 +78,14 @@ function AccountProfile() {
 
                     <div className='d-flex align-self-center ml_countryname'>
                       <i className="fa-sharp fa-solid fa-location-dot"></i>
-                      <span className='styling_country ps-2'>{user?.country_name}</span>
+                      <span className='styling_country ps-2'>{user?.country_name} {user?.state_name} {user?.city_name} {user?.zip_code && ' (zipcode : ' + user?.zip_code + ')' }</span>
                     </div>
                   </div>
 
-                  <div className=' py-2'>
+                  {!id && <div className=' py-2'>
                     <i class="fa-solid fa-envelope"></i>
                     <span className='styling_country font_color'>{user?.email}</span>
-                  </div>
+                  </div>}
 
                   <div className=' py-2'>
                     <i class="fa-solid fa-cake-candles"></i>
@@ -94,14 +94,14 @@ function AccountProfile() {
 
                   <div className=' py-2'>
                     <i class="fa-brands fa-whatsapp"></i>
-                    <span className='styling_country font_color'>{user?.whatsapp_number ? `+${user?.country_code} ${user?.whatsapp_number}` : 'NA'}</span>
+                    <span className='styling_country font_color'>{user?.whatsapp_number ? `${user?.whatsapp_number}` : 'NA'}</span>
                   </div>
                 </div>
               </div>
 
               <div className='d-none d-lg-block'>
                 {!id && <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>}
-                {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/+${user?.country_code}${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact On Whatsapp</a>}
+                {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact On Whatsapp</a>}
               </div>
             </div>
 
@@ -146,6 +146,21 @@ function AccountProfile() {
               <h5 className=' heading'>Description</h5>
               <p className='text-secondary mb-0'>{user?.description}</p>
             </div>
+
+            {user?.role == 4 && <div className='d-flex flex-column mt-4 skill-hobby'>
+              <h5 className=' heading'>Details</h5>
+              <p className='text-secondary mb-1'> <strong>Travel Preference</strong> :  {user?.travelby == 1 ? 'Travelling by my self' : 'If traveling with children under 18 or Traveling with others: You must fill out a form for each'}</p>
+              <p className='text-secondary mb-1'> <strong>Sponsor Preference</strong> :  {user?.sponsorcategory == 1 ? 'Passive Sponsor: 0 Financial Commitment. Your family in the United States does not have enough income to sponsor you. If you are approved, your family or friend will take full responsibility for you. The sponsor has no financial commitment or obligation for myself' : 'Sponsor who can accommodate beneficiary in his home and help him integrate into the community where he lives. The sponsor will interview the beneficiary and make a decision if he can offer housing in his home and help in finding work for 1 to 3 months until the beneficiary can be self-suficient.'}</p>
+              <p className='text-secondary mb-1'> <strong>maritial Status</strong> : {user?.maritialStatus}</p>
+            </div>}
+
+            {(user?.role == 4 && user?.passport) && <div className='d-flex flex-column mt-4 skill-hobby'>
+              <h5 className=' heading'>Passport Photo</h5>
+              <a target="_blank" href={`${node_url}${user?.passport}`}>
+                <img className="img-size rounded" src={`${node_url}${user?.passport}`} alt="Sample photo" />
+              </a>
+            </div>}
+
           </div>
         </div>
       </div>

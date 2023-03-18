@@ -13,10 +13,9 @@ const ApplyNewJob = (props) => {
 
 
     async function Submit() {
-        setLoad(true)
         if (resume?.name) {
             const formData = new FormData();
-
+            setLoad(true)
 
             formData.append('resume', resume, resume?.name)
 

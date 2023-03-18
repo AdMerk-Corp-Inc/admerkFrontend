@@ -50,7 +50,14 @@ function VolunteerAdminDashboard() {
           <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.refugee}</p>
-              <p className='fw-bold'>Total Job Seeker/Refugee</p>
+              <p className='fw-bold'>Total Refugee</p>
+              <i className='fa fa-map-o dashboard__cardIcon'></i>
+            </div>
+          </div>
+          <div className='col-md-4 mb-3'>
+            <div className='count-card'>
+              <p>{datacounts.job_seeker}</p>
+              <p className='fw-bold'>Total Job Seeker</p>
               <i className='fa fa-map-o dashboard__cardIcon'></i>
             </div>
           </div>
@@ -58,7 +65,15 @@ function VolunteerAdminDashboard() {
           <div className='col-md-4 mb-3'>
             <div className='count-card'>
               <p>{datacounts.sponsor}</p>
-              <p className='fw-bold'>Total Company/Sponsor</p>
+              <p className='fw-bold'>Total Sponsor</p>
+              <i className='fa fa-map-o dashboard__cardIcon'></i>
+            </div>
+          </div>
+
+          <div className='col-md-4 mb-3'>
+            <div className='count-card'>
+              <p>{datacounts.company}</p>
+              <p className='fw-bold'>Total Company</p>
               <i className='fa fa-map-o dashboard__cardIcon'></i>
             </div>
           </div>

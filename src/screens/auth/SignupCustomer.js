@@ -3,16 +3,20 @@ import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { url } from '../../Helper/Helper';
 import { userContext } from '../../context/UserContext'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function SignupCustomer() {
     const navigation = useNavigate()
-    const { user, setUser,setLoad } = useContext(userContext)
+    const { user, setUser, setLoad } = useContext(userContext)
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [country, setCountry] = useState('')
+    const [state, setState] = useState('')
+    const [city, setCity] = useState('')
     const [countrylist, setCountryList] = useState([])
+    const [statelist, setStateList] = useState([])
+    const [citylist, setCityList] = useState([])
     const [dob, setDob] = useState('')
     const [whatsappnum, setWhatsappNum] = useState('')
     const [graduation, setGraduation] = useState('')
@@ -24,6 +28,19 @@ function SignupCustomer() {
     const [description, setDescription] = useState('')
     const [gender, setGender] = useState("male")
     const [fromUsa, setFromUsa] = useState(1)
+    const [zipcode, setZipcode] = useState("")
+    const [maritialStatus, setMaritialStatus] = useState('')
+    const [passport, setPassport] = useState('')
+    const [travelBy, setTravelBy] = useState('')
+    const [sponsorCategory, setSponsorCategory] = useState('')
+
+    function useQuery() {
+        const { search } = useLocation();
+
+        return React.useMemo(() => new URLSearchParams(search), [search]);
+    }
+
+    const type = useQuery().get('type');
 
 
     async function fetchSkill() {
@@ -114,6 +131,60 @@ function SignupCustomer() {
         }
     }
 
+    async function fetchStateCountryList() {
+        setLoad(true)
+
+        const response = await fetch(url + "get-state-by-country/" + country?.value)
+        if (response.ok === true) {
+            setLoad(false)
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name,
+                        "country_id": data.list[i].country_id
+                    })
+                }
+                setStateList(arr)
+            } else {
+                toast.error("")
+            }
+        } else {
+            setLoad(false)
+            toast.error("Internal Server Error")
+        }
+    }
+    async function fetchCityStateList() {
+        setLoad(true)
+
+        const response = await fetch(url + "get-city-by-state/" + state?.value)
+        if (response.ok === true) {
+            setLoad(false)
+            const data = await response.json()
+            console.log(data);
+            if (data.list.length > 0) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].name,
+                        "country_id": data.list[i].country_id,
+                        "state_id": data.list[i].state_id
+                    })
+                }
+                setCityList(arr)
+            } else {
+                toast.error("")
+            }
+        } else {
+            setLoad(false)
+            toast.error("Internal Server Error")
+        }
+    }
+
     useEffect(() => {
         fetchCountry().catch(err => {
             setLoad(false)
@@ -141,13 +212,21 @@ function SignupCustomer() {
         formData.append("name", name)
         formData.append("email", email)
         formData.append("password", password)
-        formData.append("role", 4)
+        if (type == 1) {
+            formData.append("role", 4) // for refugee
+        } else {
+            formData.append("role", 5) // for job seeker
+        }
         formData.append("dob", dob)
         formData.append("graduation", graduation)
         formData.append("whatsapp_number", whatsappnum)
         formData.append("gender", gender)
         formData.append("from_usa", fromUsa)
         formData.append("description", description)
+        formData.append("zip_code", zipcode)
+        formData.append('travelby', travelBy)
+        formData.append('sponsorcategory', sponsorCategory)
+        formData.append('maritialStatus', maritialStatus)
 
         if (country?.value) {
             formData.append("country_id", country?.value)
@@ -157,9 +236,29 @@ function SignupCustomer() {
             error = error + 1
         }
 
+        if (state?.value) {
+            formData.append("state_id", state?.value)
+            formData.append("state_name", state?.label)
+        } else {
+            error = error + 1
+        }
+
+        if (city?.value) {
+            formData.append("city_id", city?.value)
+            formData.append("city_name", city?.label)
+        } else {
+            error = error + 1
+        }
+
         if (photo?.name) {
             formData.append("image", photo, photo?.name)
         }
+
+        if (passport?.name) {
+            formData.append("passport", passport, passport?.name)
+        }
+
+
 
         if (hobby.length > 0) {
             formData.append("hobby", Array.prototype.map.call(hobby, s => s.label).toString())
@@ -191,6 +290,26 @@ function SignupCustomer() {
 
     }
 
+    useEffect(() => {
+        if (country?.value) {
+            setState("")
+            setCity("")
+            fetchStateCountryList().catch(err => {
+                setLoad(false)
+                toast.error(err.message)
+            })
+        }
+    }, [country])
+    useEffect(() => {
+        if (state?.value) {
+            setCity("")
+            fetchCityStateList().catch(err => {
+                setLoad(false)
+                toast.error(err.message)
+            })
+        }
+    }, [state])
+
     return (
         <div>
             <div className='signup-both-div'>
@@ -199,12 +318,11 @@ function SignupCustomer() {
                         <div className="row d-flex justify-content-center align-items-center h-100">
                             <div className="col-lg-8">
                                 <div className="card rounded-3">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-                                        className="w-100"
-                                        style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '0.3rem' }}
-                                        alt="Sample photo" />
+                                    <div className='d-flex align-items-center justify-content-center mt-1'>
+                                        <img src='/assets/images/newLogo.png' style={{ width: '19rem' }} />
+                                    </div>
                                     <div className="card-body p-4 p-md-5">
-                                        <h3 className="mb-4">Sign up to find work you love</h3>
+                                        <h3 className="mb-4">Sign up to find {type == 1 ? 'Sponsor' : 'work you love'}</h3>
 
                                         <form onSubmit={(e) => handleSubmit(e)}>
 
@@ -268,6 +386,56 @@ function SignupCustomer() {
                                                     placeholder='Select Country'
                                                     value={country} required onChange={setCountry}
                                                 />
+
+                                                <Select className='col-md-6 mb-3'
+                                                    options={statelist}
+                                                    placeholder='Select State'
+                                                    value={state} required onChange={setState}
+                                                />
+
+                                                <Select className='col-md-6 mb-3'
+                                                    options={citylist}
+                                                    placeholder='Select City'
+                                                    value={city} required onChange={setCity}
+                                                />
+
+                                                <div className="filter-form-MUI-input-text col-md-6">
+                                                    <main class="input-div">
+                                                        <input
+                                                            class="inner-input"
+                                                            type="text"
+                                                            placeholder=" "
+                                                            id='zip_code'
+                                                            autoComplete="off"
+                                                            required
+                                                            value={zipcode}
+                                                            onChange={e => setZipcode(e.target.value)}
+                                                        />
+                                                        <label for="name" class="inner-label">ZIP Code</label>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
+
+                                                <div className="filter-form-MUI-input-text col-md-6">
+                                                    <main class="input-div">
+                                                        <select required value={maritialStatus} onChange={e => setMaritialStatus(e.target.value)} className='innner-input form-control'>
+                                                            <option value=''>Select Maritial Status</option>
+                                                            <option value='Single'>Single</option>
+                                                            <option value='Married'>Married</option>
+                                                            <option value='Divorced'>Divorced</option>
+                                                            <option value='Widowed'>Widowed</option>
+                                                            <option value='Legally Seperated'>Legally Seperated</option>
+                                                            <option value='Marriage Annuled'>Marriage Annuled</option>
+                                                            <option value='Other'>Other</option>
+                                                        </select>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
+
                                                 <div className='filter-form-MUI-calendar col-md-6 mb-3'>
                                                     <main className='input-div'>
                                                         <input className='inner-input' type="date" value={dob}
@@ -347,6 +515,53 @@ function SignupCustomer() {
 
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
+
+                                                {type == 1 && <>
+                                                    <div className="filter-form-MUI-input-text col-md-6">
+                                                        <main class="input-div">
+                                                            <input
+                                                                required
+                                                                class="inner-input"
+                                                                type="file"
+                                                                placeholder=" "
+                                                                id='name'
+                                                                autoComplete="off"
+                                                                onChange={e => setPassport(e.target.files[0])}
+                                                            />
+                                                            <label for="name" class="inner-label">Upload Passport Photo</label>
+                                                            {/* <span className='required'>*Required</span> */}
+                                                        </main>
+
+                                                        {/* <span className='error'>it is span tag</span> */}
+                                                    </div>
+
+
+                                                    <div className="filter-form-MUI-input-text col-12 mt-2">
+                                                        <p className='font-weight-bold'>Will you travel by yourself or with children under 18</p>
+                                                        <div className="d-flex align-items-center">
+                                                            <input type="radio" name="travelby" id="form-checkbox-1" onChange={() => setTravelBy('1')} />
+                                                            <label className='ms-2' htmlFor="form-checkbox-1">Travelling by my self</label>
+                                                        </div>
+                                                        <div className="d-flex align-items-center mt-2">
+                                                            <input type="radio" name="travelby" id="form-checkbox-1" onChange={() => setTravelBy('2')} />
+                                                            <label className='ms-2' htmlFor="form-checkbox-1">If traveling with children under 18 or Traveling with others: You must fill out a form for each</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="filter-form-MUI-input-text col-12 mt-2">
+                                                        <p className='font-weight-bold'>What Category of Sponsor do You Need?</p>
+                                                        <div className="d-flex align-items-center">
+                                                            <input type="radio" name="sponsorCategory" id="form-checkbox-1" onChange={() => setSponsorCategory('1')} />
+                                                            <label className='ms-2' htmlFor="form-checkbox-1">Passive Sponsor: 0 Financial Commitment. Your family in the United States does not have enough income to sponsor you. If you are approved, your family or friend will take full responsibility for you. The sponsor has no financial commitment or obligation for myself.</label>
+                                                        </div>
+                                                        <div className="d-flex align-items-center mt-2">
+                                                            <input type="radio" name="sponsorCategory" id="form-checkbox-1" onChange={() => setSponsorCategory('2')} />
+                                                            <label className='ms-2' htmlFor="form-checkbox-1">
+                                                                Sponsor who can accommodate beneficiary in his home and help him integrate into the community where he lives. The sponsor will interview the beneficiary and make a decision if he can offer housing in his home and help in finding work for 1 to 3 months until the beneficiary can be self-suficient.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </>}
 
                                                 <div className="filter-form-MUI-input-text">
                                                     <main class="input-div h-100">

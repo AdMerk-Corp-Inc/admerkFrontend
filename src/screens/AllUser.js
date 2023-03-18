@@ -133,8 +133,10 @@ function AllUser() {
                                     <label className='me-3' htmlFor="">User Role:</label>
                                     <select value={role} onChange={e => setRole(e.target.value)} class="form-select form-select-sm" aria-label="Default select example">
                                         <option value="All">All</option>
-                                        <option value="4">Job Seeker/Refugee</option>
-                                        <option value="3">Company/Sponsor</option>
+                                        <option value="4">Refugee</option>
+                                        <option value="5">Job Seeker</option>
+                                        <option value="3">Sponsor</option>
+                                        <option value="6">Company</option>
                                         <option value="2">Volunteer</option>
                                     </select>
                                 </div>
@@ -160,7 +162,12 @@ function AllUser() {
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             <td><Link to={`/profile?id=${item?.id}`}>{item?.name}</Link></td>
-                                            <td>{item?.role == 2 ? <span className='bg-primary px-2 py-1 rounded text-white'>Volunteer</span> : item?.role == 3 ? item?.user_type == "1" ? <span className='bg-primary px-2 py-1 rounded text-white'>Company</span> : <span className='bg-primary px-2 py-1 rounded text-white'>Sponsor</span> : <span className='bg-primary px-2 py-1 rounded text-white'>Job Seeker/Refugee</span>}</td>
+                                            <td>{item?.role == 2 && <span className='bg-primary px-2 py-1 rounded text-white'>Volunteer</span>}
+                                                {item?.role == 3 && <span className='bg-primary px-2 py-1 rounded text-white'>Sponsor</span>}
+                                                {item?.role == 6 && <span className='bg-primary px-2 py-1 rounded text-white'>Company</span>}
+                                                {item?.role == 4 && <span className='bg-primary px-2 py-1 rounded text-white'>Refugee</span>}
+                                                {item?.role == 5 && <span className='bg-primary px-2 py-1 rounded text-white'>Job Seeker</span>}
+                                            </td>
                                             <td>{item?.email_verified == 1 ? <span className='bg-primary px-2 py-1 rounded text-white'>Yes</span> : <span className='bg-danger px-2 py-1 rounded text-white'>NO</span>}</td>
                                             <td>+{item?.country_code} {item?.whatsapp_number}</td>
                                             <td>{item?.email}</td>
