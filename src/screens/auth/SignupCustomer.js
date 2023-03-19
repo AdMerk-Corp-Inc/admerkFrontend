@@ -552,12 +552,14 @@ function SignupCustomer() {
                                                         <p className='font-weight-bold'>What Category of Sponsor do You Need?</p>
                                                         <div className="d-flex align-items-center">
                                                             <input type="radio" name="sponsorCategory" id="form-checkbox-1" onChange={() => setSponsorCategory('1')} />
-                                                            <label className='ms-2' htmlFor="form-checkbox-1">Passive Sponsor: 0 Financial Commitment. Your family in the United States does not have enough income to sponsor you. If you are approved, your family or friend will take full responsibility for you. The sponsor has no financial commitment or obligation for myself.</label>
+                                                            <label className='ms-2' htmlFor="form-checkbox-1">
+                                                                Passive Sponsor: 0 Financial Commitment Needed from Sponsor. For Example, your family or friend in the United States does not have enough income to sponsor you. If you are approved, your family or friend in that country will take full responsibility for you including housing. The sponsor has no financial commitment or obligation toward you.
+                                                            </label>
                                                         </div>
                                                         <div className="d-flex align-items-center mt-2">
                                                             <input type="radio" name="sponsorCategory" id="form-checkbox-1" onChange={() => setSponsorCategory('2')} />
                                                             <label className='ms-2' htmlFor="form-checkbox-1">
-                                                                Sponsor who can accommodate beneficiary in his home and help him integrate into the community where he lives. The sponsor will interview the beneficiary and make a decision if he can offer housing in his home and help in finding work for 1 to 3 months until the beneficiary can be self-suficient.
+                                                                Active Sponsor: A sponsor in host country willing to offer full accommodation to beneficiary in his home and help him integrate into the community where he lives to find a job and own living arrangement until the beneficiary can be self-sufficient. The sponsor will conduct an interview with you and make a decision.
                                                             </label>
                                                         </div>
                                                     </div>
@@ -575,7 +577,7 @@ function SignupCustomer() {
                                                             value={description}
                                                             onChange={e => setDescription(e.target.value)}
                                                         />
-                                                        <label for="name" class="inner-label">Tell us more about yourself</label>
+                                                        <label for="name" class="inner-label">{type == 1 ? 'Tell us more about yourself,your circumstances & why you need a sponsor?' : 'Tell us more about yourself'} </label>
                                                         {/* <span className='required'>*Required</span> */}
                                                     </main>
 
@@ -632,7 +634,16 @@ function SignupCustomer() {
                                                 </div> */}
                                             </div>
 
-                                            <p className='mt-3 text-muted'>By adding phone number you are agree tp recieve updates</p>
+                                            <p className='mt-3 text-muted'>By adding phone number you are agree to recieve periodic updates and communications from our strategic partner</p>
+
+                                            {type == 1 && <>
+                                                <p className='text-muted'>Note: Admerk Corp. Inc. provide this platform to connect sponsor with refugees worldwide and do not conduct background check on the users of the platform. It is the responsibilities of participants to conduct their due diligence before making any final decision or commitment.</p>
+                                                <p className='text-muted'><strong>Terms and Conditions</strong>
+                                                    <br />
+                                                    Disclaimer: In filling out this form, we are not providing any guaranteed results, offering any promise or timeline. We are doing our best to reach out to compassionate or humanitarian individuals worldwide willing to offer a helping hand to a person in need.
+
+                                                    When you click on "Submit" below, you give us permission to share your information to work with individuals, organizations or businesses in our effort to connect you with a potential sponsor in USA.  Admerk Corp Inc reserves the right to update and expand their terms and conditions.</p>
+                                            </>}
 
                                             <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Create my account</button>
 

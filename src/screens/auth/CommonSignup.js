@@ -14,27 +14,27 @@ function CommonSignup() {
                     <div className='col-sm-3'>
                         <div className="col-md-12 inner-card">
                             <img src="/assets/images/company.png" alt="" />
-                            <h3 className='text-center'>I am Company, looking for hiring</h3>
+                            <h3 className='text-center'>Companies Hiring</h3>
                         </div>
 
-                        <Link className='a-btn' to="/signup-sponser?type=1">Signup as Company <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
+                        <Link className='a-btn' to="/signup-sponser?type=1">Post Free Job Now <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
                     </div>
                     <div className='col-sm-3'>
                         <div className="col-md-12 inner-card">
                             <img src="/assets/images/hiring.png" alt="" />
-                            <h3 className='text-center'>I am Sponsor</h3>
+                            <h3 className='text-center'>Sponsor</h3>
                         </div>
 
-                        <Link className='a-btn' to="/signup-sponser?type=2">Signup as Sponsor <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
+                        <Link className='a-btn' to="/signup-sponser?type=2">Lend A Helping Hand <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
                     </div>
 
                     <div className='col-sm-3'>
                         <div className="col-md-12 inner-card">
                             <img src="/assets/images/helpinghand.png" alt="" />
-                            <h3 className='text-center'>I am Refugee looking for sponsor</h3>
+                            <h3 className='text-center'>Refugee</h3>
                         </div>
 
-                        <Link className='a-btn' to="/signup-refugee?type=1">Signup As Refugee <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
+                        <Link className='a-btn' to="/signup-refugee?type=1">looking For Sponsor <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
                     </div>
                     <div className='col-sm-3'>
                         <div className="col-md-12 inner-card">
@@ -42,11 +42,11 @@ function CommonSignup() {
                             <h3 className='text-center'>I am looking for job</h3>
                         </div>
 
-                        <Link className='a-btn' to="/signup-refugee?type=2">Signup As Job Seeker <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
+                        <Link className='a-btn' to="/signup-refugee?type=2">Job Seekers <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
                     </div>
                 </div>
 
-                <h6 className='font-weight-normal mt-4 text-center'>Already have an account? <a style={{ textDecoration: 'underline' }} href="/login">Sign in</a></h6>
+                <h6 className='font-weight-normal mt-4 text-center'>Post Resume Free! <a style={{ textDecoration: 'underline' }} href="/login">Sign in</a></h6>
             </div>
         </div>
     )

@@ -399,7 +399,7 @@ function SignupSponser() {
                                                                     prev_arr.push(args)
                                                                 }
                                                             }} />
-                                                            <label htmlFor="form-checkbox-1">1. Passive Sponsor: "0" Financial Commitment on Sponsor. The Host family lack income to sponsor someone. If the I-134A application is approved, the Host family will assume full responsibilities for the beneficiary/refugee. The Sponsor has "0" financial commitment and obligation toward beneficiary/refugee except the time to fill out the USCIS Form I-134A.</label>
+                                                            <label htmlFor="form-checkbox-1">1. Passive Sponsor: "0" Financial Commitment on Sponsor. For example in USA, the "refugee family" lack the income to be the primary sponsor. A sponsor will fill out I-134A application as a humanitarian act in offering a helping hand & the family may be listed or not as a co-sponsor in the I-134A application. If immigration services (USCIS) approved, the refugee family will assume full responsibilities for the beneficiary/refugee. The Sponsor has "0" financial commitment and obligation toward beneficiary/refugee except the time to fill out the USCIS Form I-134A.</label>
                                                         </div>
                                                         <div className="d-flex align-items-start mt-2">
                                                             <input type="checkbox" name="" className='me-2' id="form-checkbox-2" style={{ width: "80px", height: "23px" }}
@@ -415,9 +415,9 @@ function SignupSponser() {
                                                                     }
                                                                 }}
                                                             />
-                                                            <label htmlFor="form-checkbox-2">2. Passive Sponsor: "0" Financial Commitment on Sponsor. The beneficiary/refugee has no family in Sponsor’s country but has friend who can offer them temporary shelter until they find a job to become self sufficient in 1 to 2 months. The Sponsor has "0" financial commitment and obligation toward beneficiary except the time to fill out the USCIS Form I-134A.</label>
+                                                            <label htmlFor="form-checkbox-2">2. Passive Sponsor: "0" Financial Commitment on Sponsor. The beneficiary/refugee has no family in Sponsor’s country but has friend who can offer them temporary shelter until they find a job to become self sufficient. For example in USA, the sponsor will fill out I-134A application as a humanitarian act in offering a helping hand & the Refugee's Friend may be listed or not as a co-sponsor in the I-134A application. If immigration services (USCIS) approved, the refugee's friend will assume full responsibilities for the beneficiary/refugee. The Sponsor has "0" financial commitment and obligation toward beneficiary/refugee except the time to fill out the USCIS Form I-134A.T</label>
                                                         </div>
-                                                        <div className="d-flex align-items-start mt-2">
+                                                        {/* <div className="d-flex align-items-start mt-2">
                                                             <input type="checkbox" name="" className='me-2' id="form-checkbox-3" style={{ width: "80px", height: "23px" }}
                                                                 onChange={() => {
                                                                     let args = 3
@@ -432,13 +432,23 @@ function SignupSponser() {
                                                                 }}
                                                             />
                                                             <label htmlFor="form-checkbox-3">3. Active Sponsor: Sponsor that can offer room and board (Volontary Choice: Due Diligence Should Be Conducted). Strongly recommend that the Sponsor conduct interview potential beneficiary/refugee before making a decision. The Sponsor must be willing to help the beneficiary/refugee integrate in local community and find a job to achieve self-sufficiency within 2 to 3 months.</label>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 </>
                                             }
                                         </div>
 
-                                        <p className='mt-3 text-muted'>By adding phone number you are agree tp recieve updates</p>
+                                        <p className='mt-3 text-muted'>By adding phone number you are agree to recieve periodic updates and communications from our strategic partner</p>
+
+                                        {type == 2 && <> <p className='text-muted'>
+                                            Note: Admerk Corp. Inc. provide this platform to connect sponsor with refugees worldwide and do not conduct background check on the users of the platform. It is the responsibilities of participants to conduct their due diligence before making any final decision or commitment.
+                                        </p>
+                                            <p className='text-muted'><strong>Terms and Conditions</strong>
+                                                <br />
+                                                Disclaimer: In filling out this form, we are not providing any guaranteed results, offering any promise or timeline. We are doing our best to reach out to compassionate or humanitarian individuals worldwide willing to offer a helping hand to a person in need.
+
+                                                When you click on "Submit" below, you give us permission to share your information to work with individuals, organizations or businesses in our effort to connect you with a potential sponsor in USA.  Admerk Corp Inc reserves the right to update and expand their terms and conditions.</p>
+                                        </>}
 
                                         <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Create my account</button>
 
