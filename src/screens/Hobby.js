@@ -7,12 +7,13 @@ function Hobby() {
 
     const [allhobbies, setAllHobbies] = useState([])
     const [name,] = useState('')
-    const { user } = useContext(userContext)
+    const { user, setLoad } = useContext(userContext)
 
     async function fetchHobby() {
-
+        setLoad(true)
         const response = await fetch(url + "hobby-list")
         if (response.ok == true) {
+            setLoad(false)
             const data = await response.json()
 
             if (data.status == 200) {
@@ -21,6 +22,7 @@ function Hobby() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
@@ -31,6 +33,7 @@ function Hobby() {
     async function createHobby() {
         const res = window.prompt('Enter Hobby Name')
         if (res.length > 0) {
+            setLoad(true)
             const formData = new FormData()
             formData.append('name', res)
             const response = await fetch(url + 'create-hobby', {
@@ -42,6 +45,7 @@ function Hobby() {
 
             });
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
                 console.log(data);
                 if (data.status == 200) {
@@ -53,6 +57,7 @@ function Hobby() {
                     toast.error(data.message)
                 }
             } else {
+                setLoad(false)
                 toast.error("Internal Server Error")
             }
         }
@@ -60,9 +65,9 @@ function Hobby() {
 
 
     async function editHobby(item) {
-
         const res = window.prompt('Update Hobby Name', item.name)
         if (res.length > 0) {
+            setLoad(true)
             const formData = new FormData()
             formData.append('name', res)
             const response = await fetch(url + 'update-hobby/' + item?.id, {
@@ -74,6 +79,7 @@ function Hobby() {
 
             });
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json();
                 console.log(data);
                 if (data.status == 200) {
@@ -85,6 +91,7 @@ function Hobby() {
                     toast.error(data.message)
                 }
             } else {
+                setLoad(false)
                 toast.error("Internal Server Error")
             }
 
@@ -94,12 +101,14 @@ function Hobby() {
 
     useEffect(() => {
         fetchHobby().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
     }, [])
 
     async function deleteHobby(id) {
+        setLoad(true)
         const confirm = window.confirm('Are You Sure You Want To Delete This Hobby')
         if (confirm === true) {
             const response = await fetch(url + 'delete-hobby/' + id, {
@@ -108,6 +117,7 @@ function Hobby() {
                 }
             })
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json()
                 if (data?.status == 200) {
                     toast.success(data?.message)
@@ -118,6 +128,7 @@ function Hobby() {
                     toast.error(data?.message)
                 }
             } else {
+                setLoad(false)
                 toast.error('Internal Server Error')
             }
         }
@@ -134,34 +145,36 @@ function Hobby() {
                             <button onClick={createHobby} value={name} required type="button" class="btn btn-primary custom-sm-btn mt-0 mb-4">Create Hobby</button>
                         </div>
 
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Sr No.</th>
-                                    <th scope="col">Hobby Name</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {allhobbies?.length > 0 ? allhobbies.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{item?.name}</td>
-                                        <td>
-                                            <a href='javascript:void(0);' onClick={() => editHobby(item)}><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href='javascript:void(0)' onClick={() => deleteHobby(item?.id)}><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a>
+                        <div className='table-responsive'>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sr No.</th>
+                                        <th scope="col">Hobby Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {allhobbies?.length > 0 ? allhobbies.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{item?.name}</td>
+                                            <td>
+                                                <a href='javascript:void(0);' onClick={() => editHobby(item)}><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                <a href='javascript:void(0)' onClick={() => deleteHobby(item?.id)}><i class="fa fa-trash-o ms-3" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                    )) : <tr>
+                                        <td colSpan={5}>
+                                            <div className='not-found'>No Skills Found</div>
                                         </td>
                                     </tr>
-                                )) : <tr>
-                                    <td colSpan={5}>
-                                        <div className='not-found'>No Skills Found</div>
-                                    </td>
-                                </tr>
-                                }
+                                    }
 
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
 
                     </div>
 

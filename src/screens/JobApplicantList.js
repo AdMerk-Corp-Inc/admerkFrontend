@@ -7,7 +7,7 @@ import { node_url, url } from '../Helper/Helper';
 
 function JobApplicantList() {
 
-    const { user } = useContext(userContext)
+    const { user,setLoad } = useContext(userContext)
     const [allapplicant, setAllApplicant] = useState([])
 
     function useQuery() {
@@ -19,12 +19,14 @@ function JobApplicantList() {
     const id = useQuery().get('id');
 
     async function fetchJobs() {
+        setLoad(true)
         const response = await fetch(url + "job-applicant-list/" + id, {
             headers: {
                 'Authorization': `Bearer ${user?.token}`
             },
         })
         if (response.ok == true) {  
+            setLoad(false)
             const data = await response.json()
             console.log(data)
             if (data.status == 200) {
@@ -34,6 +36,7 @@ function JobApplicantList() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
@@ -41,6 +44,7 @@ function JobApplicantList() {
 
     useEffect(() => {
         fetchJobs().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
@@ -53,9 +57,7 @@ function JobApplicantList() {
             <div className="container py-5 h-100">
                 <div className="card rounded-3">
 
-                    <div className='p-4 table-div'>
-                       
-
+                    <div className='p-4 table-div table-responsive'>
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -80,8 +82,8 @@ function JobApplicantList() {
                                         
                                     </tr>
                                 )) : <tr>
-                                    <td colSpan={5}>
-                                        <div className='not-found'>No Jobs Found</div>
+                                    <td colSpan={6}>
+                                        <div className='not-found'>No Record Found</div>
                                     </td>
                                 </tr>
                                 }

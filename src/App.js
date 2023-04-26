@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './App.css';
 import './Style.css';
 import './index.css'
+import './App.css';
 import AccountProfile from './screens/AccountProfile';
 import CommonSignup from './screens/auth/CommonSignup';
 import SignupCustomer from './screens/auth/SignupCustomer';
@@ -36,11 +36,11 @@ import Loader from './component/Loader';
 import NonAuthLayout from './screens/NonAuthLayout';
 
 function App() {
-  const { user } = useContext(userContext)
+  const { user,load } = useContext(userContext)
   return (
     <>
       <ToastContainer />
-      {/* <Loader /> */}
+      {load && <Loader />}
       <BrowserRouter>
         <Routes>
 
@@ -50,12 +50,15 @@ function App() {
           <Route path='/signup' exact={true} element={<NonAuthLayout><CommonSignup /></NonAuthLayout>} />
           <Route path='/signup-sponser' exact={true} element={<NonAuthLayout><SignupSponser /></NonAuthLayout>} />
           <Route path='/signup-refugee' exact={true} element={<NonAuthLayout><SignupCustomer /></NonAuthLayout>} />
-          <Route path='/create-volunteer' exact={true} element={<NonAuthLayout><Volunteer /></NonAuthLayout>} />
           <Route path='/verifyemail' exact={true} element={<NonAuthLayout><VerifyEmail /></NonAuthLayout>} />
+          
 
 
           <Route path='/change-password' exact={true} element={<Layout>
             <ChangePassword />
+          </Layout>} />
+          <Route path='/create-volunteer' exact={true} element={<Layout>
+            <Volunteer />
           </Layout>} />
 
           <Route path='/sponsor-dashboard' exact={true} element={<Layout>

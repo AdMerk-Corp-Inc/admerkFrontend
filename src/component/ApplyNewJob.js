@@ -7,7 +7,7 @@ import { url } from '../Helper/Helper';
 
 const ApplyNewJob = (props) => {
 
-    const { user } = useContext(userContext)
+    const { user,setLoad } = useContext(userContext)
     const [resume, setResume] = useState('')
 
 
@@ -15,7 +15,7 @@ const ApplyNewJob = (props) => {
     async function Submit() {
         if (resume?.name) {
             const formData = new FormData();
-
+            setLoad(true)
 
             formData.append('resume', resume, resume?.name)
 
@@ -29,6 +29,7 @@ const ApplyNewJob = (props) => {
             })
 
             if (response.ok == true) {
+                setLoad(false)
                 const data = await response.json()
 
                 if (data.status == 200) {
@@ -39,6 +40,7 @@ const ApplyNewJob = (props) => {
                     toast.error(data.message)
                 }
             } else {
+                setLoad(false)
                 toast.error('Internal server error')
             }
         } else {

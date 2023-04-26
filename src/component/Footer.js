@@ -8,17 +8,19 @@ function Footer() {
       <div className='container'>
         <div className='row pb-4'>
           <div className='col-md-4'>
-            <h2>ADMERK</h2>
+            <div>
+              <h2>ADMERK</h2>
+            </div>
             <p className='mb-0'>
-              Admerk is the free platform for World Wide. The Main Motive of these platform is to provide dream job to Refugges. We always aim to provide dream job to refugees because they leave their home country to get that dream job.
-              These Platform is not for any particular country these platform is for all country. We always want to improve the leaving Standard of all refugees.
-              We also aims on providing Best and hard working employee to the sponsor.
+              Admerk is the free platform for World Wide. The Main Motive of these platform is to provide dream job to job seekers/refugees.
+              These Platform is not for any particular country these platform is for all country. We always want to improve the platform for all users.
+              We also aims on providing Best and hard working job seekers/refugees to the companies.
             </p>
           </div>
 
           <div className='col-md-4 d-flex flex-column align-items-center'>
             <div>
-              <h3>Company</h3>
+              <h3>Company/Sponsor</h3>
               <ul>
                 <li><a href="">Home</a></li>
                 <li><a href={user?.role < 3 ? '/admin-dashboard' : user?.role == 3 ? '/sponsor-dashboard' : '/refugee-dashboard'}>Dashboard</a></li>
@@ -37,10 +39,10 @@ function Footer() {
 
               <h3 className='mt-4'>Follow Us On</h3>
               <div className='d-flex social-icons'>
-                <a href=""><img src="/assets/images/facebook.png" alt="" /></a>
-                <a href=""><img src="/assets/images/instagram.png" alt="" /></a>
-                <a href=""><img src="/assets/images/linkedin.png" alt="" /></a>
-                <a href=""><img src="/assets/images/tiktok.png" alt="" /></a>
+                <a href="https://www.facebook.com/Admerkcorp" target="_blank"><img src="/assets/images/facebook.png" alt="" /></a>
+                <a href="https://www.instagram.com/admerkstaffing/" target="_blank"><img src="/assets/images/instagram.png" alt="" /></a>
+                <a href="https://www.linkedin.com/in/admerk/" target="_blank"><img src="/assets/images/linkedin.png" alt="" /></a>
+                <a href="https://www.tiktok.com/@admerkstaffing" target="_blank"><img src="/assets/images/tiktok.png" alt="" /></a>
               </div>
             </div>
           </div>
@@ -48,7 +50,7 @@ function Footer() {
 
         <div className='copy-right-div d-flex align-items-center justify-content-between'>
           <p>© {new Date().getFullYear()} - All Rights Reserved By <a href="">ADMERK</a></p>
-          <p>Made with ❤ by <a href="https://web-amplifier.com/">Web Amplifier</a></p>
+          <p style={{display : 'none'}}>Made with ❤ by <a href="https://web-amplifier.com/">Web Amplifier</a></p>
         </div>
       </div>
     </div>

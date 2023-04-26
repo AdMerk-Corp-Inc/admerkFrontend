@@ -7,7 +7,7 @@ import { userContext } from '../../context/UserContext'
 import { Link } from 'react-router-dom';
 
 function RefugeeDashboard() {
-  const { user } = useContext(userContext)
+  const { user, setLoad } = useContext(userContext)
   const [skillslist, setSkillsList] = useState([])
   const [hobby, setHobby] = useState('')
   const [hobbyslist, setHobbyList] = useState([])
@@ -20,16 +20,17 @@ function RefugeeDashboard() {
   const [chobby, setCHobby] = useState("")
   const [cCountry, setCCountry] = useState("")
   const [search, setSearch] = useState("")
-  const [gender, setGender] = useState("")
+  const [gender, setGender] = useState("Both")
 
   async function fetchSkill() {
+    setLoad(true)
     var requestOptions = {
       redirect: 'follow'
     };
 
     const response = await fetch(url + "skills-list", requestOptions)
     if (response.ok === true) {
-
+      setLoad(false)
       const data = await response.json()
       console.log(data);
       if (data.list.length > 0) {
@@ -45,19 +46,20 @@ function RefugeeDashboard() {
         toast.error("Please Create Skills First")
       }
     } else {
-
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
 
   async function fetchHobby() {
+    setLoad(true)
     var requestOptions = {
       redirect: 'follow'
     };
 
     const response = await fetch(url + "hobby-list", requestOptions)
     if (response.ok === true) {
-
+      setLoad(false)
       const data = await response.json()
       console.log(data);
       if (data.list.length > 0) {
@@ -73,15 +75,16 @@ function RefugeeDashboard() {
         toast.error("Please Create Hobby First")
       }
     } else {
-
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
 
   async function fetchCountry() {
+    setLoad(true)
     const response = await fetch(url + "country-list")
     if (response.ok === true) {
-
+      setLoad(false)
       const data = await response.json()
       console.log(data);
       if (data.list.length > 0) {
@@ -98,31 +101,40 @@ function RefugeeDashboard() {
         toast.error("")
       }
     } else {
-
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
 
   useEffect(() => {
     fetchCountry().catch(err => {
+      setLoad(false)
       toast.error(err.message)
     })
     fetchHobby().catch(err => {
+      setLoad(false)
       toast.error(err.message)
     })
     fetchSkill().catch(err => {
+      setLoad(false)
       toast.error(err.message)
     })
 
   }, [])
 
   async function fetchFeeds() {
+    setLoad(true)
     const formData = new FormData()
     formData.append("skill", cskill?.label ? cskill?.label : '')
     formData.append("hobby", chobby?.label ? chobby?.label : '')
     formData.append("country_id", cCountry?.value ? cCountry?.value : '')
     formData.append("page", page)
     formData.append("search", search)
+    if (gender != "Both"){
+      formData.append("work_type", gender)
+    }else{
+      formData.append("work_type", "")
+    }
 
     const response = await fetch(url + 'fetch-home-jobs', {
       method: 'POST',
@@ -133,6 +145,7 @@ function RefugeeDashboard() {
     });
 
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json();
       console.log(data)
       if (data.status == 200) {
@@ -141,6 +154,7 @@ function RefugeeDashboard() {
         toast.error(data?.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal server error!")
     }
   }
@@ -149,7 +163,8 @@ function RefugeeDashboard() {
 
   useEffect(() => {
     fetchFeeds()
-  }, [page, search, cskill, chobby, cCountry])
+    setLoad(false)
+  }, [page, gender, search, cskill, chobby, cCountry])
 
 
 
@@ -197,6 +212,32 @@ function RefugeeDashboard() {
             </div>
 
             <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                  Work Type
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                <div class="accordion-body">
+                  <div class="form-check">
+                    <input checked={gender == 'Both' && true} onChange={() => setGender("Both")} type="checkbox" class="form-check-input" id='all' />
+                    <label class="form-check-label" for="all">Both</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input checked={gender == 'Remote' && true} onChange={() => setGender("Remote")} type="checkbox" class="form-check-input" id="male" />
+                    <label class="form-check-label" for="male">Remote</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input checked={gender == 'On Site' && true} onChange={() => setGender("On Site")} type="checkbox" class="form-check-input" id="female" />
+                    <label class="form-check-label" for="female">On Site</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
               <h2 class="accordion-header" id="panelsStayOpen-headingFour">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
                   Location
@@ -217,6 +258,14 @@ function RefugeeDashboard() {
         </div>
 
         <div className='col-md-9'>
+          <div className='dashboard-heading-div position-relative mb-4'>
+            <div>
+              <h2>Hello, {user?.name}</h2>
+              <h3>Discover the jobs you love to do</h3>
+            </div>
+            <img src="/assets/images/plane.svg" alt="" />
+          </div>
+
           <div className='refugee-cards'>
             <div class="input-group px-4 py-3 border-bottom search-div">
               <input value={search} onChange={e => setSearch(e.target.value)} type="text" class="form-control shadow-none" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
@@ -271,6 +320,32 @@ function RefugeeDashboard() {
                         </div>
 
                         <div class="accordion-item">
+                          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                              Work Type
+                            </button>
+                          </h2>
+                          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                              <div class="form-check">
+                                <input checked={gender == 'Both' && true} onChange={() => setGender("Both")} type="checkbox" class="form-check-input" id='all' />
+                                <label class="form-check-label" for="all">Both</label>
+                              </div>
+
+                              <div class="form-check">
+                                <input checked={gender == 'Remote' && true} onChange={() => setGender("Remote")} type="checkbox" class="form-check-input" id="male" />
+                                <label class="form-check-label" for="male">Remote</label>
+                              </div>
+
+                              <div class="form-check">
+                                <input checked={gender == 'On Site' && true} onChange={() => setGender("On Site")} type="checkbox" class="form-check-input" id="female" />
+                                <label class="form-check-label" for="female">On Site</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="accordion-item">
                           <h2 class="accordion-header" id="panelsStayOpen-headingFour">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
                               Location
@@ -302,12 +377,12 @@ function RefugeeDashboard() {
                 <div className='d-flex align-items-center avatar-div'>
                   <div>
                     <h5>{item?.title}</h5>
-                    <span>{item?.country_name}</span>
+                    <span>{item?.country_name} {item?.state_name} {item?.city_name}</span>
                   </div>
                 </div>
-
-                <p className='mb-0 mt-4'>
-                  {item?.description}
+                {/* <div dangerouslySetInnerHTML={{ __html: feeds?.description }} /> */}
+                <p className='mb-0 mt-4' dangerouslySetInnerHTML={{ __html: item?.description }}>
+                  {/* {item?.description} */}
                 </p>
 
                 <div className='d-flex flex-column mt-4 skill-hobby'>

@@ -13,20 +13,25 @@ function Navbar() {
         onHide={() => setModalShow(false)}
       />
 
-      <nav class="navbar-div navbar navbar-expand-lg navbar-light bg-light shadow" aria-label="Fifth navbar example">
+      <nav class="navbar-div navbar navbar-expand-xl navbar-light bg-light shadow" aria-label="Fifth navbar example">
         <div class="container-fluid">
           {/* <a class="navbar-brand" href="#">ADMERK</a> */}
-          <a class="navbar-brand" href="#">
-            <img src="/assets/images/logo-5.png" alt="" />
+          <a class="navbar-brand" href="/">
+            <img src="/assets/images/newLogo.png" alt="" />
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
           <div class="collapse navbar-collapse" id="navbarsExample05">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ms-auto mb-2 mb-xl-0">
 
-
+              <li class="nav-item pe-4">
+                <div className='nav-link align-items-center google-language-div'>
+                  <i class="fa fa-language me-2"></i>
+                  <div id="google_element"></div>
+                </div>
+              </li>
               {user?.role < 3 ? <>
                 <li class="nav-item pe-4">
                   <a class="nav-link" href="/tickets">View Tickets</a>
@@ -50,6 +55,9 @@ function Navbar() {
                 <li class="nav-item px-4">
                   <a class="nav-link" href="/tickets">My Tickets</a>
                 </li>
+                {user?.role == 3 && <li class="nav-item pe-4">
+                  <a class="nav-link" href="/all-jobs">All Jobs</a>
+                </li>}
               </>}
             </ul>
 

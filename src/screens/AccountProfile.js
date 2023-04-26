@@ -19,8 +19,10 @@ function AccountProfile() {
   const id = useQuery().get('id');
 
   useEffect(() => {
+
     if (id) {
       async function fetchDetail() {
+        contextData.setLoad(true)
         const response = await fetch(url + 'user-detail/' + id, {
           headers: {
             'Authorization': `Bearer ${contextData?.user?.token}`
@@ -28,6 +30,7 @@ function AccountProfile() {
         });
 
         if (response.ok == true) {
+          contextData.setLoad(false)
           const data = await response.json()
 
           console.log(data)
@@ -38,12 +41,14 @@ function AccountProfile() {
           }
 
         } else {
+          contextData.setLoad(false)
           toast.error('Internal Server Error')
         }
 
       }
 
       fetchDetail();
+      contextData.setLoad(false)
     } else {
       setUser(contextData.user)
     }
@@ -51,28 +56,36 @@ function AccountProfile() {
 
   return (
     <section className="account-detail-page" style={{ backgroundColor: '#0061df08' }}>
-      <div className="container p-5 h-100">
+      <div className="container-xl py-5 px-3 px-md-5 h-100">
         {/*  code start for refugee card */}
         <div className="card rounded-3">
-          <div className="card-body p-5 p-md-5">
-            <div className='d-flex justify-content-between align-items-start'>
-              <div className='d-flex align-items-center'>
-                <img className="img-size rounded" src={`${node_url}${user?.profile_photo}`} alt="Sample photo" />
+          <div className="card-body p-4 p-lg-5">
+            <div className='d-lg-none d-flex justify-content-end mb-4'>
+              {!id && <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>}
+              {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact On Whatsapp</a>}
+            </div>
 
-                <div className='ms-5'>
+            <div className='d-flex justify-content-between align-items-start'>
+              <div className='d-sm-flex align-items-center'>
+                {user?.profile_photo ? <img className="img-size rounded" src={`${node_url}${user?.profile_photo}`} alt="Sample photo" /> :
+                  <img className="img-size rounded" src='/assets/images/nouser.jpg' />
+                }
+
+
+                <div className='ms-0 ms-sm-4 ms-md-5 mt-4 mt-sm-0'>
                   <div className='d-flex'>
                     <h3 className='styling_name text-capitalize'>{user?.name}</h3>
 
                     <div className='d-flex align-self-center ml_countryname'>
                       <i className="fa-sharp fa-solid fa-location-dot"></i>
-                      <span className='styling_country ps-2'>{user?.country_name}</span>
+                      <span className='styling_country ps-2'>{user?.country_name} {user?.state_name} {user?.city_name} {user?.zip_code && ' (zipcode : ' + user?.zip_code + ')' }</span>
                     </div>
                   </div>
 
-                  <div className=' py-2'>
+                  {!id && <div className=' py-2'>
                     <i class="fa-solid fa-envelope"></i>
                     <span className='styling_country font_color'>{user?.email}</span>
-                  </div>
+                  </div>}
 
                   <div className=' py-2'>
                     <i class="fa-solid fa-cake-candles"></i>
@@ -81,27 +94,29 @@ function AccountProfile() {
 
                   <div className=' py-2'>
                     <i class="fa-brands fa-whatsapp"></i>
-                    <span className='styling_country font_color'>{user?.whatsapp_number ? `+${user?.country_code} ${user?.whatsapp_number}`  : 'NA'}</span>
+                    <span className='styling_country font_color'>{user?.whatsapp_number ? `${user?.whatsapp_number}` : 'NA'}</span>
                   </div>
                 </div>
               </div>
 
-              {!id && <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>}
-              {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/+${user?.country_code}${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact Whatsapp</a>}
+              <div className='d-none d-lg-block'>
+                {!id && <a className='custom-sm-btn btn mt-0' href='/edit-profile'><i class="fa fa-pencil me-1 text-white" aria-hidden="true"></i> Edit</a>}
+                {(id && user?.whatsapp_number) && <a className='custom-sm-btn btn mt-0' href={`https://wa.me/${user?.whatsapp_number}`}><i class="fa-brands fa-whatsapp me-1 text-white" aria-hidden="true"></i> Contact On Whatsapp</a>}
+              </div>
             </div>
 
-            <div className='row mt-5'>
-              <div className='col-md-4'>
+            <div className='row mt-4 mt-sm-5'>
+              <div className='col-md-4 col-sm-6'>
                 <h5 className=' heading'>My Graduation</h5>
                 <span className='text-secondary '>{user?.graduation}</span>
               </div>
 
-              <div className='col-md-4'>
+              <div className='col-md-4 col-sm-6 mt-4 mt-sm-0'>
                 <h5 className=' heading'>Gender</h5>
                 <span className='text-secondary text-capitalize'>{user?.gender}</span>
               </div>
 
-              <div className='col-md-4'>
+              {/* <div className='col-md-4'>
                 <h5 className=' heading'>From</h5>
                 <div className='d-flex align-items-center'>
                   <span className='text-secondary '>USA</span>
@@ -110,19 +125,19 @@ function AccountProfile() {
                     <i class="fa fa-times" aria-hidden="true"></i>
                   }
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className='d-flex flex-column mt-4 skill-hobby'>
               <h5 className='heading mb-3'>My Skills</h5>
-              <div className='d-flex'>
+              <div className='d-flex flex-wrap'>
                 {user?.skills?.split(',')?.map((item, index) => <span key={index}>{item}</span>)}
               </div>
             </div>
 
             <div className='d-flex flex-column mt-4 skill-hobby'>
               <h5 className=' heading'>Hobbies</h5>
-              <div className='d-flex'>
+              <div className='d-flex flex-wrap'>
                 {user?.hobby?.split(',')?.map((item, index) => <span>{item}</span>)}
               </div>
             </div>
@@ -131,6 +146,21 @@ function AccountProfile() {
               <h5 className=' heading'>Description</h5>
               <p className='text-secondary mb-0'>{user?.description}</p>
             </div>
+
+            {user?.role == 4 && <div className='d-flex flex-column mt-4 skill-hobby'>
+              <h5 className=' heading'>Details</h5>
+              <p className='text-secondary mb-1'> <strong>Travel Preference</strong> :  {user?.travelby == 1 ? 'Travelling by my self' : 'If traveling with children under 18 or Traveling with others: You must fill out a form for each'}</p>
+              <p className='text-secondary mb-1'> <strong>Sponsor Preference</strong> :  {user?.sponsorcategory == 1 ? 'Passive Sponsor: 0 Financial Commitment. Your family in the United States does not have enough income to sponsor you. If you are approved, your family or friend will take full responsibility for you. The sponsor has no financial commitment or obligation for myself' : 'Sponsor who can accommodate beneficiary in his home and help him integrate into the community where he lives. The sponsor will interview the beneficiary and make a decision if he can offer housing in his home and help in finding work for 1 to 3 months until the beneficiary can be self-suficient.'}</p>
+              <p className='text-secondary mb-1'> <strong>maritial Status</strong> : {user?.maritialStatus}</p>
+            </div>}
+
+            {(user?.role == 4 && user?.passport) && <div className='d-flex flex-column mt-4 skill-hobby'>
+              <h5 className=' heading'>Passport Photo</h5>
+              <a target="_blank" href={`${node_url}${user?.passport}`}>
+                <img className="img-size rounded" src={`${node_url}${user?.passport}`} alt="Sample photo" />
+              </a>
+            </div>}
+
           </div>
         </div>
       </div>

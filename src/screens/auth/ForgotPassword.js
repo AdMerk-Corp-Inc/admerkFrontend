@@ -6,8 +6,9 @@ import { url } from '../../Helper/Helper'
 function ForgotPassword() {
 
   const [email, setEmail] = useState('')
-
+  const { setLoad } = useContext(userContext)
   async function handleSubmit(e) {
+    setLoad(true)
     e.preventDefault()
 
     const formData = new FormData()
@@ -19,6 +20,7 @@ function ForgotPassword() {
     });
 
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json();
 
       if (data.status == 200) {
@@ -28,6 +30,7 @@ function ForgotPassword() {
         toast.error(data?.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
@@ -41,8 +44,10 @@ function ForgotPassword() {
               <div className="card rounded-3">
 
                 <div className="card-body p-4 pb-0 p-md-5 pb-md-0">
-                  <h2 className='text-center mb-4'><a href="">ADMERK</a></h2>
-
+                  {/* <h2 className='text-center mb-4'><a href="">ADMERK</a></h2> */}
+                  <div className='d-flex align-items-center justify-content-center mb-5'>
+                    <img src='/assets/images/newLogo.png' style={{ width: '19rem' }} />
+                  </div>
                   <form onSubmit={(e) => handleSubmit(e)}>
                     <div className='row'>
                       <div className="filter-form-MUI-input-text col-md-12">

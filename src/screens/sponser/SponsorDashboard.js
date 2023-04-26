@@ -7,7 +7,7 @@ import { userContext } from '../../context/UserContext'
 import { Link } from 'react-router-dom';
 
 function SponsorDashboard() {
-    const { user } = useContext(userContext)
+    const { user,setLoad } = useContext(userContext)
     const [skillslist, setSkillsList] = useState([])
     const [hobby, setHobby] = useState('')
     const [hobbyslist, setHobbyList] = useState([])
@@ -23,13 +23,14 @@ function SponsorDashboard() {
     const [gender, setGender] = useState("")
 
     async function fetchSkill() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "skills-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.list.length > 0) {
@@ -45,19 +46,20 @@ function SponsorDashboard() {
                 toast.error("Please Create Skills First")
             }
         } else {
-
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     async function fetchHobby() {
+        setLoad(true)
         var requestOptions = {
             redirect: 'follow'
         };
 
         const response = await fetch(url + "hobby-list", requestOptions)
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.list.length > 0) {
@@ -73,15 +75,16 @@ function SponsorDashboard() {
                 toast.error("Please Create Hobby First")
             }
         } else {
-
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     async function fetchCountry() {
+        setLoad(true)
         const response = await fetch(url + "country-list")
         if (response.ok === true) {
-
+            setLoad(false)
             const data = await response.json()
             console.log(data);
             if (data.list.length > 0) {
@@ -98,25 +101,29 @@ function SponsorDashboard() {
                 toast.error("")
             }
         } else {
-
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
 
     useEffect(() => {
         fetchCountry().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
         fetchHobby().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
         fetchSkill().catch(err => {
+            setLoad(false)
             toast.error(err.message)
         })
 
     }, [])
 
     async function fetchFeeds() {
+        setLoad(true)
         const formData = new FormData()
         formData.append("skill", cskill?.label ? cskill?.label : '')
         formData.append("hobby", chobby?.label ? chobby?.label : '')
@@ -134,6 +141,7 @@ function SponsorDashboard() {
         });
 
         if (response.ok == true) {
+            setLoad(false)
             const data = await response.json();
             console.log(data)
             if (data.status == 200) {
@@ -142,12 +150,14 @@ function SponsorDashboard() {
                 toast.error(data?.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal server error!")
         }
     }
 
     useEffect(() => {
         fetchFeeds()
+        setLoad(false)
     }, [page, search, gender, cskill, chobby, cCountry])
 
 
@@ -349,13 +359,13 @@ function SponsorDashboard() {
                         </div>
 
                         {feeds?.length > 0 ? feeds.map((item, index) => (
-                            <Link key={index} className='refugee-single-card px-4 py-4 text-decoration-none d-block' to={`/refugee-profile?id=${item?.id}`}>
+                            <Link key={index} className='refugee-single-card px-3 px-md-4 py-4 text-decoration-none d-block' to={`/refugee-profile?id=${item?.id}`}>
                                 <div className='d-flex align-items-center avatar-div'>
                                     {item?.profile_photo ? <img src={`${node_url}${item?.profile_photo}`} alt="" /> : <img src="/assets/images/no-user.png" alt="" />}
 
                                     <div>
                                         <h5>{item?.name}</h5>
-                                        <p>{item?.email}</p>
+                                        {/* <p>{item?.email}</p> */}
                                         <span>{item?.country_name}</span>
                                     </div>
                                 </div>

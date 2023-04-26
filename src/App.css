@@ -1,58 +1,97 @@
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   scroll-behavior: smooth;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  top: 0 !important;
+}
+
+.google-language-div {
+  padding: 3.5px 15px;
+  border-radius: 100px;
+  line-height: 32px;
+  display: flex;
+  cursor: pointer;
+  color: black;
+  animation: beat 2s linear infinite;
+  background-color: rgba(51, 150, 221, 0.0588235294);
+}
+.google-language-div .goog-te-combo {
+  color: black;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  width: 7rem;
+  outline: none;
+}
+.google-language-div .goog-te-combo:focus-visible {
+  outline: none;
+}
+.google-language-div span {
+  display: none;
+}
+
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+  height: 1.5rem;
+  font-size: 0;
+  line-height: 1px;
+}
+
+.goog-te-banner-frame,
+.goog-logo-link,
+div#goog-gt-tt {
+  display: none !important;
+}
+
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  visibility: hidden !important;
 }
 
 .navbar-div .navbar-brand {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-size: 2.2rem;
   letter-spacing: -1.5px;
   color: #2948ff;
-  -webkit-transition: .3s ease-in-out;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
   line-height: 0.8;
   margin-top: 8px;
 }
-
 .navbar-div .navbar-brand img {
   width: 18rem;
 }
-
 .navbar-div .navbar-nav a {
   color: #2948ff !important;
 }
-
 .navbar-div .navbar-nav a:hover {
-  color: #000000b3 !important;
+  color: rgba(0, 0, 0, 0.7019607843) !important;
 }
-
 .navbar-div .nav-link,
 .navbar-div li a {
   font-size: 14px;
 }
-
 .navbar-div .user-photo img {
   width: 2.5rem;
   border-radius: 100%;
 }
-
 .navbar-div .user-photo p,
 .navbar-div .user-photo .nav-link {
   color: #2948ff;
   font-size: 14px;
 }
-
 .navbar-div .user-photo p:hover,
 .navbar-div .user-photo .nav-link:hover {
-  color: #000000b3;
+  color: rgba(0, 0, 0, 0.7019607843);
 }
-
 .navbar-div .user-photo .dropdown-menu {
   right: 0;
   left: auto;
@@ -61,40 +100,27 @@
 .common-signup-div {
   min-height: 100vh;
 }
-
 .common-signup-div h2 {
-  font-family: 'Mirza', cursive;
+  font-family: "Mirza", cursive;
   font-size: 48px;
   margin-bottom: 2.5rem;
 }
-
 .common-signup-div .inner-card {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
   border: 1px solid #c1c1c1;
   height: 17rem;
   padding: 1.5rem 2rem;
 }
-
 .common-signup-div .inner-card img {
   width: 9rem;
 }
-
 .common-signup-div .inner-card h3 {
   font-size: 22px;
   margin-top: 2rem;
 }
-
 .common-signup-div .a-btn {
-  background: -webkit-gradient(linear, left top, right top, from(#396afc), to(#2948ff));
   background: linear-gradient(to right, #396afc, #2948ff);
   color: white;
   display: block;
@@ -109,26 +135,22 @@
 }
 
 .login-div h2 a {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-size: 2.5rem;
   letter-spacing: -1.5px;
   color: #2948ff;
-  -webkit-transition: .3s ease-in-out;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
   line-height: 0.8;
   margin-top: 8px;
   text-decoration: none;
 }
-
 .login-div h2 a:hover {
   color: #000000;
 }
-
 .login-div .forgot-pass-div a {
   color: #7e7e7e;
   text-decoration: none;
 }
-
 .login-div .forgot-pass-div a:hover {
   color: #2948ff;
 }
@@ -136,12 +158,10 @@
 .filter-form-MUI-input-text {
   margin-bottom: 1rem;
 }
-
 .filter-form-MUI-input-text .input-div {
   position: relative;
   height: 44px;
 }
-
 .filter-form-MUI-input-text .input-div .inner-input {
   position: absolute;
   top: 0;
@@ -157,27 +177,28 @@
   padding: 3.5px 7px;
   border-radius: 0.2rem;
 }
-
 .filter-form-MUI-input-text .input-div .inner-input:hover {
   border-color: #9f9f9f;
 }
-
 .filter-form-MUI-input-text .input-div .inner-input:focus {
   border-color: #9f9f9f;
 }
-
 .filter-form-MUI-input-text .input-div .inner-label {
   font-size: 0.875rem;
   position: absolute;
-  left: .6rem;
+  left: 0.6rem;
   top: 0.8rem;
   color: #7e7e7e;
   cursor: text;
-  -webkit-transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
   transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
   background-color: white;
 }
-
+.filter-form-MUI-input-text .inner-input:not(:-moz-placeholder-shown).inner-input:not(:focus) ~ .inner-label {
+  top: -0.5rem;
+  font-size: 0.8rem;
+  left: 0.8rem;
+  padding: 0 0.5rem;
+}
 .filter-form-MUI-input-text .inner-input:focus ~ .inner-label,
 .filter-form-MUI-input-text .inner-input:not(:placeholder-shown).inner-input:not(:focus) ~ .inner-label {
   top: -0.5rem;
@@ -185,12 +206,13 @@
   left: 0.8rem;
   padding: 0 0.5rem;
 }
-
+.filter-form-MUI-input-text .inner-input:not(:-moz-placeholder-shown).inner-input:not(:focus) ~ span.required {
+  display: none;
+}
 .filter-form-MUI-input-text .inner-input:focus ~ span.required,
 .filter-form-MUI-input-text .inner-input:not(:placeholder-shown).inner-input:not(:focus) ~ span.required {
   display: none;
 }
-
 .filter-form-MUI-input-text span.required {
   display: block;
   top: -0.5rem;
@@ -201,36 +223,30 @@
   padding: 0 4px;
   color: #fe1216;
   font-weight: 500;
-  -webkit-transition: display 200ms ease-in;
   transition: display 200ms ease-in;
 }
-
 .filter-form-MUI-input-text span.error {
   font-size: 11px;
   color: #fe1216;
   font-weight: 500;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 .filter-form-MUI-radio-btn {
   padding-top: 0.35rem;
 }
-
 .filter-form-MUI-radio-btn input {
   width: 1em;
   height: 1em;
 }
-
 .filter-form-MUI-radio-btn label {
   color: #7e7e7e;
 }
-
 .filter-form-MUI-radio-btn .form-check-input:checked[type=radio] {
   background-image: none;
   border: 3.5px solid white;
   outline: 1px solid #707070;
 }
-
 .filter-form-MUI-radio-btn .form-check-input:checked {
   background-color: #035aab;
 }
@@ -239,7 +255,6 @@
   position: relative;
   height: 44px;
 }
-
 .filter-form-MUI-calendar .input-div .inner-input {
   position: absolute;
   top: 0;
@@ -255,20 +270,16 @@
   padding: 3.5px 7px;
   border-radius: 0.2rem;
 }
-
 .filter-form-MUI-calendar .input-div .inner-input:hover {
   border-color: #9f9f9f;
 }
-
 .filter-form-MUI-calendar .input-div .inner-input:focus {
   border-color: #9f9f9f;
 }
-
 .filter-form-MUI-calendar .input-div .inner-label {
   position: absolute;
   color: #7e7e7e;
   cursor: text;
-  -webkit-transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
   transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
   background-color: white;
   top: -0.4rem;
@@ -285,7 +296,6 @@
   margin-top: 1.5rem;
   font-weight: 500;
 }
-
 .custom-sm-btn:hover {
   color: white;
 }
@@ -315,69 +325,77 @@
     top: 1.1rem;
   }
 }
-
 .signup-both-div h3 {
-  font-family: 'Mirza', cursive;
+  font-family: "Mirza", cursive;
   font-size: 36px;
 }
-
 .signup-both-div .card {
-  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .sponsor-dashboard-div .accordion-item {
   border: 0;
-  border-bottom: 1px solid #00000020;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1254901961);
   margin-bottom: 1rem;
 }
-
 .sponsor-dashboard-div .accordion-item .accordion-button {
   font-size: 14px;
   font-weight: 500;
 }
-
 .sponsor-dashboard-div .accordion-item .accordion-button:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
-
 .sponsor-dashboard-div .accordion-item .accordion-button:not(.collapsed) {
   color: inherit;
   background-color: inherit;
 }
-
 .sponsor-dashboard-div .accordion-item .accordion-button:not(.collapsed)::after {
-  -webkit-filter: brightness(0);
-          filter: brightness(0);
+  filter: brightness(0);
 }
-
 .sponsor-dashboard-div .accordion-item label {
   font-size: 14px;
+}
+
+.dashboard-heading-div {
+  border: 1px solid #d5e0d5;
+  border-radius: 10px;
+  padding: 30px;
+}
+.dashboard-heading-div h2 {
+  font-family: "Mirza", cursive;
+  font-size: 48px;
+  text-transform: capitalize;
+  color: #2e2e2e;
+  font-weight: 400;
+}
+.dashboard-heading-div h3 {
+  font-size: 22px;
+  text-transform: capitalize;
+  color: #5e6d55;
+}
+.dashboard-heading-div img {
+  position: absolute;
+  top: 8px;
+  right: 26px;
+  width: 10rem;
 }
 
 .refugee-cards {
   border: 1px solid #d5e0d5;
   border-radius: 10px;
 }
-
 .refugee-cards .filter-btn {
   padding: 0.5rem;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  align-self: center;
   background-color: #2948ff;
   color: white;
 }
-
 .refugee-cards .refugee-single-card {
   font-size: 15px;
 }
-
 .refugee-cards .refugee-single-card:hover {
   background-color: ghostwhite;
 }
-
 .refugee-cards .refugee-single-card .avatar-div img {
   width: 5rem;
   border-radius: 100%;
@@ -386,14 +404,12 @@
   -o-object-fit: cover;
      object-fit: cover;
 }
-
 .refugee-cards .refugee-single-card .avatar-div h5 {
   font-size: 15px;
   color: #2948ff;
   text-transform: capitalize;
   margin-bottom: 0;
 }
-
 .refugee-cards .refugee-single-card .avatar-div p {
   font-size: 15px;
   margin: 0;
@@ -401,12 +417,10 @@
   color: #1e1e1e;
   word-break: break-word;
 }
-
 .refugee-cards .refugee-single-card .avatar-div span {
   color: #5e6d55;
   font-size: 15px;
 }
-
 .refugee-cards .refugee-single-card p {
   color: #1e1e1e;
 }
@@ -424,19 +438,14 @@
   color: #2948ff;
   text-decoration: none;
 }
-
 .pagination-div span {
   background-color: #2948ff;
   color: white;
   padding: 0.5rem;
   border-radius: 100px;
   line-height: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   margin: 0 1rem;
 }
 
@@ -444,71 +453,81 @@
 .all-jobs-div .status-filter-div label {
   font-size: 14px;
 }
-
 .my-tickets-div .status-filter-div select,
 .all-jobs-div .status-filter-div select {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
   max-width: 8rem;
 }
 
 .table-div {
   min-height: 70vh;
-  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.table-div th {
+  white-space: nowrap;
+}
+.table-div td {
+  white-space: nowrap;
+  font-size: 15px;
+}
+.table-div td span {
+  min-width: 4.2rem;
+  display: inline-block;
+  text-align: center;
+}
+.table-div td a {
+  text-decoration: none;
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 0.2px;
 }
 
 .footer-div h2 {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-size: 3rem;
   letter-spacing: -1.5px;
-  -webkit-transition: .3s ease-in-out;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
   line-height: 0.8;
   margin-top: 8px;
 }
-
 .footer-div h3 {
   font-size: 22px;
   letter-spacing: 1.3px;
   margin-block: 1rem;
   font-weight: bold;
 }
-
 .footer-div ul {
   list-style: none;
   padding: 0;
 }
-
 .footer-div ul a {
   color: white;
   text-decoration: none;
   line-height: 2;
 }
-
 .footer-div .social-icons img {
   width: 1.2rem;
   border: 1px solid white;
   border-radius: 10px;
   padding: 0.4rem;
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   margin-right: 0.5rem;
 }
-
 .footer-div .copy-right-div {
   border-top: 1px solid white;
   padding: 1rem 0;
 }
-
 .footer-div .copy-right-div p {
   margin-bottom: 0;
 }
-
 .footer-div .copy-right-div a {
   color: white;
   text-decoration: none;
+}
+
+.signup-both-div .h-custom,
+.login-div .h-custom {
+  min-height: 100vh;
 }
 
 @media (min-width: 1025px) {
@@ -518,9 +537,75 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .account-detail-page .img-size {
+    width: 180px;
+    height: 180px;
+  }
+}
+@media (max-width: 992px) {
+  .account-detail-page .custom-sm-btn {
+    font-size: 14px;
+  }
+}
+@media (max-width: 768px) {
+  .table-div td {
+    font-size: 14px;
+  }
+  .account-detail-page .img-size {
+    width: 160px;
+    height: 160px;
+  }
+  .common-signup-div .inner-card {
+    height: 14rem;
+    padding: 1.5rem;
+  }
+  .common-signup-div .inner-card img {
+    width: 5rem;
+  }
+}
+@media (max-width: 576px) {
+  .common-signup-div h2 {
+    font-size: 34px;
+    margin-top: 3.5rem;
+  }
+  .common-signup-div .inner-card {
+    height: auto;
+    padding: 1.5rem;
+  }
+  .common-signup-div .inner-card img {
+    width: 5rem;
+  }
+  .common-signup-div .a-btn {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+}
 @media (max-width: 430px) {
   .navbar-div .navbar-brand img {
     width: 14rem;
   }
 }
-/*# sourceMappingURL=App.css.map */
+.modal-header {
+  border-bottom: 0px !important;
+  padding: 3rem 1rem 0rem 1rem !important;
+  justify-content: center !important;
+}
+
+.modal-body {
+  padding: 0rem 1rem 1rem 1rem !important;
+}
+
+.modal-footer {
+  justify-content: center !important;
+  padding: 0rem 0rem 1.95rem 0rem !important;
+  border-top: 0px !important;
+}
+
+.job-submit-btn {
+  margin-top: 3rem !important;
+}
+
+.font-weight-bold {
+  font-weight: 800 !important;
+}/*# sourceMappingURL=App.css.map */

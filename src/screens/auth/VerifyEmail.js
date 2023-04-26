@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { userContext } from '../../context/UserContext';
 import { url } from '../../Helper/Helper';
 
 
 function VerifyEmail() {
 
     const [show, setShow] = useState(false)
+    const {setLoad} = useContext(userContext)
 
     function useQuery() {
         const { search } = useLocation();
@@ -17,10 +19,12 @@ function VerifyEmail() {
     const token = useQuery().get('token');
 
     async function fetchEmail() {
+        setLoad(true)
         const response = await fetch(url + "verifyemail/" + token, {
 
         })
         if (response.ok == true) {
+            setLoad(false)
             const data = await response.json()
             console.log(data)
             if (data.status == 200) {
@@ -29,6 +33,7 @@ function VerifyEmail() {
                 toast.error(data.message)
             }
         } else {
+            setLoad(false)
             toast.error("Internal Server Error")
         }
     }
@@ -36,6 +41,7 @@ function VerifyEmail() {
     useEffect(() => {
         if (token) {
             fetchEmail().catch(err => {
+                setLoad(false)
                 toast.error(err.message)
             })
         }

@@ -6,12 +6,13 @@ import { url } from '../../Helper/Helper'
 
 function Login() {
 
-  const { setUser } = useContext(userContext)
+  const { setUser, setLoad } = useContext(userContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [show, setShow] = useState(false)
 
   async function handleSubmit(e) {
+    setLoad(true)
     e.preventDefault()
 
     const formData = new FormData()
@@ -24,30 +25,35 @@ function Login() {
     });
 
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json();
 
       if (data.status == 200) {
         setUser(data?.user_data)
-        if (data.user_data.role == 4) {
+        if (data.user_data.role == 4 || data.user_data.role == 5) {
           window.location = window.location.origin + "/refugee-dashboard"
-        } else if (data.user_data.role == 3) {
+        } else if (data.user_data.role == 3 || data.user_data.role == 6) {
           window.location = window.location.origin + "/sponsor-dashboard"
         } else {
           window.location = window.location.origin + "/admin-dashboard"
         }
       } else if (data.status == 301) {
+        toast.success(data?.message)
         setShow(true)
       } else {
         toast.error(data?.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal Server Error")
     }
   }
 
   async function resendEmail(item) {
+    setLoad(true)
     const response = await fetch(url + "resendVerification/" + email)
     if (response.ok == true) {
+      setLoad(false)
       const data = await response.json()
       if (data.status == 200) {
         toast.success("Email has been sent")
@@ -55,6 +61,7 @@ function Login() {
         toast.error(data.message)
       }
     } else {
+      setLoad(false)
       toast.error("Internal Server Error")
     }
 
@@ -70,7 +77,10 @@ function Login() {
               <div className="card rounded-3">
 
                 <div className="card-body p-4 pb-0 p-md-5 pb-md-0">
-                  <h2 className='text-center mb-4'><a href="">ADMERK</a></h2>
+                  {/* <h2 className='text-center mb-4'><a href="">ADMERK</a></h2> */}
+                  <div className='d-flex align-items-center justify-content-center mb-5'>
+                    <img src='/assets/images/newLogo.png' style={{ width: '19rem' }} />
+                  </div>
 
                   <form onSubmit={(e) => handleSubmit(e)}>
                     <div className='row'>
