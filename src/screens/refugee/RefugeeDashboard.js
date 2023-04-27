@@ -5,6 +5,7 @@ import Pagination from '../../component/Pagination';
 import { node_url, url } from '../../Helper/Helper';
 import { userContext } from '../../context/UserContext'
 import { Link } from 'react-router-dom';
+import InviteContactsModal from '../../component/InviteContactsModal';
 
 function RefugeeDashboard() {
   const { user, setLoad } = useContext(userContext)
@@ -170,6 +171,7 @@ function RefugeeDashboard() {
 
   return (
     <div className='sponsor-dashboard-div container-lg px-3 my-5'>
+      <InviteContactsModal />
       <div className='row'>
         <div className='col-md-3 d-none d-md-block'>
           <h5>Filter By</h5>
