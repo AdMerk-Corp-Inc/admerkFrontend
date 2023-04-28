@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 let tokenClient = {};
-
-function LoadGAuth({ onClick, children }) {
+// The component lets you render a child, that onClicked authenticates google and fetches contacts
+// The onClick function is also passed the contacts
+function LoadGAuth({ onClick, children, isLoading }) {
   const CLIENT_ID =
     "380231205101-qhtnsmh4h866rvk2db2eppp20p05sfod.apps.googleusercontent.com";
   const API_KEY = "AIzaSyA5ofM9qPDCD4NIZD3AvJEf7KMOZYTY8ZE";
@@ -75,8 +76,8 @@ function LoadGAuth({ onClick, children }) {
       if (resp.error !== undefined) {
         throw resp;
       }
-      await listConnectionNames();
-      successCallback();
+      const contacts = await getContacts();
+      successCallback(contacts);
     };
 
     if (window.gapi.client.getToken() === null) {
@@ -89,7 +90,7 @@ function LoadGAuth({ onClick, children }) {
     }
   }
 
-  async function listConnectionNames() {
+  async function getContacts() {
     let response;
     try {
       // Fetch first 10 files
@@ -104,21 +105,25 @@ function LoadGAuth({ onClick, children }) {
     }
     const connections = response.result.connections;
     if (!connections || connections.length == 0) {
-      document.getElementById("content").innerText = "No connections found.";
-      return;
+      console.log("[getContacts] No connections found.");
+      return [];
     }
-    /*
-    // Flatten to string to display
-    const output = connections.reduce((str, person) => {
-      if (!person.names || person.names.length === 0) {
-        return `${str}Missing display name\n`;
-      }
-      return `${str}${person.names[0].displayName}\n`;
-    }, "Connections:\n");
-    */
-    console.log("[listConnectionNames]: ", connections);
+
+    // Name -> connections[0].names[0].displayName
+    // Email -> connections[0].emailAddresses[0].value
+    // Number -> connections[0].phoneNumbers[0].value
+
+    console.log("[getContatcs], contacts:  ", connections);
+    return connections;
   }
 
+  if (isLoading)
+    return (
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    );
+  // Recreates child element with new onClick method
   return React.cloneElement(children, {
     onClick: async () => {
       handleAuthClick({ successCallback: onClick });

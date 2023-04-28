@@ -6,11 +6,25 @@ import Modal from "react-bootstrap/Modal";
 import CloseButton from "react-bootstrap/CloseButton";
 import "./InviteContactsModal.css";
 import LoadGAuth from "./LoadGAuth";
+import { sendEmailInvites } from "../Helper/Helper";
+import { useContext, useState } from "react";
+import { userContext } from "../context/UserContext";
 
-function handleClose() {}
-const show = true;
+function InviteContactsModal({ show, handleClose }) {
 
-function InviteContactsModal() {
+    const { user } = useContext(userContext); 
+    const [isLoading, setIsLoading] = useState(false);
+
+    async function getEmailsAndInvite(contacts) {
+        setIsLoading(true);
+        let emails = contacts.map((contact) => {
+            return contact?.emailAddresses[0].value;
+        });
+        await sendEmailInvites(emails, user?.token);
+        setIsLoading(false);
+        handleClose();
+    }
+
   return (
     <Modal show={show} onHide={handleClose} className="" centered>
       <Container>
@@ -28,7 +42,7 @@ function InviteContactsModal() {
           </p>
         </Col>
         <Modal.Footer>
-          <LoadGAuth onClick={() => console.log("Fetched All Contacts, now send emails, let database know and close")}>
+          <LoadGAuth onClick={getEmailsAndInvite} isLoading={isLoading} >
             <Button variant="primary">
               Send Invite
             </Button>

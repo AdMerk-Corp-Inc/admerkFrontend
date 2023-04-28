@@ -22,6 +22,7 @@ function RefugeeDashboard() {
   const [cCountry, setCCountry] = useState("")
   const [search, setSearch] = useState("")
   const [gender, setGender] = useState("Both")
+  const [showInviteModal, setShowInviteModal] = useState(false);
 
   async function fetchSkill() {
     setLoad(true)
@@ -121,6 +122,7 @@ function RefugeeDashboard() {
       toast.error(err.message)
     })
 
+    setShowInviteModal(!user?.has_invited);
   }, [])
 
   async function fetchFeeds() {
@@ -167,11 +169,11 @@ function RefugeeDashboard() {
     setLoad(false)
   }, [page, gender, search, cskill, chobby, cCountry])
 
-
+  console.log("[RefugeeDashboard] User: ", user);
 
   return (
     <div className='sponsor-dashboard-div container-lg px-3 my-5'>
-      <InviteContactsModal />
+      <InviteContactsModal show={showInviteModal} handleClose={() => setShowInviteModal(false)} />
       <div className='row'>
         <div className='col-md-3 d-none d-md-block'>
           <h5>Filter By</h5>
