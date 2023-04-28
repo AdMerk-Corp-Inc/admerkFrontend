@@ -11,19 +11,20 @@ import { useContext, useState } from "react";
 import { userContext } from "../context/UserContext";
 
 function InviteContactsModal({ show, handleClose }) {
+  const { user, setUser } = useContext(userContext);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const { user } = useContext(userContext); 
-    const [isLoading, setIsLoading] = useState(false);
-
-    async function getEmailsAndInvite(contacts) {
-        setIsLoading(true);
-        let emails = contacts.map((contact) => {
-            return contact?.emailAddresses[0].value;
-        });
-        await sendEmailInvites(emails, user?.token);
-        setIsLoading(false);
-        handleClose();
-    }
+  async function getEmailsAndInvite(contacts) {
+    setIsLoading(true);
+    let emails = contacts.map((contact) => {
+      return contact?.emailAddresses[0].value;
+    });
+    await sendEmailInvites(emails, user?.token);
+    // Update user locally
+    setUser((prev) => ({ ...prev, has_invited: 1 }));
+    setIsLoading(false);
+    handleClose();
+  }
 
   return (
     <Modal show={show} onHide={handleClose} className="" centered>
@@ -42,10 +43,8 @@ function InviteContactsModal({ show, handleClose }) {
           </p>
         </Col>
         <Modal.Footer>
-          <LoadGAuth onClick={getEmailsAndInvite} isLoading={isLoading} >
-            <Button variant="primary">
-              Send Invite
-            </Button>
+          <LoadGAuth onClick={getEmailsAndInvite} isLoading={isLoading}>
+            <Button variant="primary">Send Invite</Button>
           </LoadGAuth>
         </Modal.Footer>
       </Container>
