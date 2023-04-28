@@ -539,11 +539,11 @@ function SignupCustomer() {
                                                     <div className="filter-form-MUI-input-text col-12 mt-2">
                                                         <p className='font-weight-bold'>Will you travel by yourself or with children under 18</p>
                                                         <div className="d-flex align-items-center">
-                                                            <input type="radio" name="travelby" id="form-checkbox-1" onChange={() => setTravelBy('1')} />
+                                                            <input type="radio" style={{width: 13, height: 13}} name="travelby" id="form-checkbox-1" onChange={() => setTravelBy('1')} />
                                                             <label className='ms-2' htmlFor="form-checkbox-1">Travelling by my self</label>
                                                         </div>
                                                         <div className="d-flex align-items-center mt-2">
-                                                            <input type="radio" name="travelby" id="form-checkbox-1" onChange={() => setTravelBy('2')} />
+                                                            <input type="radio" style={{width: 13, height: 13}} name="travelby" id="form-checkbox-1" onChange={() => setTravelBy('2')} />
                                                             <label className='ms-2' htmlFor="form-checkbox-1">If traveling with children under 18 or Traveling with others: You must fill out a form for each</label>
                                                         </div>
                                                     </div>
@@ -551,13 +551,13 @@ function SignupCustomer() {
                                                     <div className="filter-form-MUI-input-text col-12 mt-2">
                                                         <p className='font-weight-bold'>What Category of Sponsor do You Need?</p>
                                                         <div className="d-flex align-items-center">
-                                                            <input type="radio" name="sponsorCategory" id="form-checkbox-1" onChange={() => setSponsorCategory('1')} />
+                                                            <input type="radio" style={{width: 13, height: 13}} name="sponsorCategory" id="form-checkbox-1" onChange={() => setSponsorCategory('1')} />
                                                             <label className='ms-2' htmlFor="form-checkbox-1">
                                                                 Passive Sponsor: 0 Financial Commitment Needed from Sponsor. For Example, your family or friend in the United States does not have enough income to sponsor you. If you are approved, your family or friend in that country will take full responsibility for you including housing. The sponsor has no financial commitment or obligation toward you.
                                                             </label>
                                                         </div>
                                                         <div className="d-flex align-items-center mt-2">
-                                                            <input type="radio" name="sponsorCategory" id="form-checkbox-1" onChange={() => setSponsorCategory('2')} />
+                                                            <input type="radio" style={{width: 13, height: 13}} name="sponsorCategory" id="form-checkbox-1" onChange={() => setSponsorCategory('2')} />
                                                             <label className='ms-2' htmlFor="form-checkbox-1">
                                                                 Active Sponsor: A sponsor in host country willing to offer full accommodation to beneficiary in his home and help him integrate into the community where he lives to find a job and own living arrangement until the beneficiary can be self-sufficient. The sponsor will conduct an interview with you and make a decision.
                                                             </label>
@@ -591,6 +591,7 @@ function SignupCustomer() {
                                                         <div className='d-flex align-items-center'>
                                                             <input
                                                                 type='radio'
+                                                                style={{width: 13, height: 13}}
                                                                 checked={gender == "male" ? true : false}
                                                                 onChange={() => setGender("male")}
                                                             />
@@ -600,6 +601,7 @@ function SignupCustomer() {
                                                         <div className='d-flex align-items-center ms-4'>
                                                             <input
                                                                 type='radio'
+                                                                style={{width: 13, height: 13}}
                                                                 checked={gender == "female" ? true : false}
                                                                 onChange={() => setGender("female")}
                                                             />
