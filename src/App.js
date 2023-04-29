@@ -51,7 +51,8 @@ function App() {
           <Route path='/signup-sponser' exact={true} element={<NonAuthLayout><SignupSponser /></NonAuthLayout>} />
           <Route path='/signup-refugee' exact={true} element={<NonAuthLayout><SignupCustomer /></NonAuthLayout>} />
           <Route path='/verifyemail' exact={true} element={<NonAuthLayout><VerifyEmail /></NonAuthLayout>} />
-          
+          <Route path='/terms-and-conditions' exact={true} element={<NonAuthLayout><Terms /></NonAuthLayout>} />
+          <Route path='/privacy-policy' exact={true} element={<NonAuthLayout><Privacy /></NonAuthLayout>} />          
 
 
           <Route path='/change-password' exact={true} element={<Layout>
@@ -87,14 +88,6 @@ function App() {
 
           <Route path='/tickets' exact={true} element={<Layout>
             <RaiseTicket />
-          </Layout>} />
-
-          <Route path='/terms-and-conditions' exact={true} element={<Layout>
-            <Terms />
-          </Layout>} />
-
-          <Route path='/privacy-policy' exact={true} element={<Layout>
-            <Privacy />
           </Layout>} />
 
           <Route path='/skills' exact={true} element={<Layout>
