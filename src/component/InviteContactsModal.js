@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import CloseButton from "react-bootstrap/CloseButton";
 import "./InviteContactsModal.css";
 import LoadGAuth from "./LoadGAuth";
-import { sendEmailInvites } from "../Helper/Helper";
+import { sendEmailInvites, sendSMS } from "../Helper/Helper";
 import { useContext, useState } from "react";
 import { userContext } from "../context/UserContext";
 
@@ -16,10 +16,21 @@ function InviteContactsModal({ show, handleClose }) {
 
   async function getEmailsAndInvite(contacts) {
     setIsLoading(true);
-    let emails = contacts.map((contact) => {
-      return contact?.emailAddresses[0].value;
-    });
+    let emails = [];
+    let phoneNumbers = [];
+
+    for(let i = 0; i < contacts.length; i++) {
+      const thisEmail = contacts[i]?.emailAddresses[0]?.value;
+      const thisNumber = contacts[i]?.phoneNumbers[0]?.value;
+      if(thisEmail) emails.push(thisEmail);
+      if(thisNumber) phoneNumbers.push(thisNumber);
+    }
+
+    const smsMessage = `Your friend ${user?.name} has invited you to join Admerk Corp.
+    Join us by using the link platform.admerkcorp.com`
     await sendEmailInvites(emails, user?.token);
+    await sendSMS(smsMessage, phoneNumbers);
+
     // Update user locally
     setUser((prev) => ({ ...prev, has_invited: 1 }));
     setIsLoading(false);
