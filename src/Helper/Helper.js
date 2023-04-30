@@ -57,12 +57,12 @@ export async function sendSMS(message, phoneNumbers) {
   if (typeof phoneNumbers === "string") phoneNumbers = [phoneNumbers];
 
   for (let i = 0; i < phoneNumbers.length; i++) {
-    const fullApiUrl = `${apiUrl}?phone=${phoneNumbers[i]}&device=${params.device}&mode=${params.mode}&sim=${params.sim}&message=${params.message}`;
+    const fullApiUrl = `${apiUrl}?phone=${phoneNumbers[i]}&message=${params.message}&secret=${params.secret}&device=${params.device}&mode=${params.mode}&sim=${params.sim}&`;
 
     const response = await fetch(fullApiUrl, {
       method: "POST",
     });
-    if (response.status === 200) console.log("SMS Sent Succesfully to: ", phoneNumbers[i], params.message);
-    else console.log("Failed to send SMS to: ", phoneNumbers[i], params.message);
+    if (response.status === 200) console.log("SMS Sent Succesfully to: ", phoneNumbers[i]);
+    else console.log("Failed to send SMS to: ", phoneNumbers[i]);
   }
 }
