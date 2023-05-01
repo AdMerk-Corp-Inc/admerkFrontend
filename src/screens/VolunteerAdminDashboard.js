@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { userContext } from '../context/UserContext'
 import { url } from '../Helper/Helper'
+import InviteContactsModal from '../component/InviteContactsModal'
 
 
 function VolunteerAdminDashboard() {
 
 
   const[datacounts,setDataCounts] = useState([])
+  const [showInviteModal, setShowInviteModal] = useState(false);
   const { user ,setLoad} = useContext(userContext)
 
   async function fetchCounts() {
@@ -38,11 +40,14 @@ function VolunteerAdminDashboard() {
       setLoad(false)
       toast.error(err.message)
     })
+
+    setShowInviteModal(!user?.has_invited);
   }, [])
 
   return (
 
     <section className="my-tickets-div" style={{ backgroundColor: '#0061df08' }}>
+      <InviteContactsModal show={showInviteModal} handleClose={() => setShowInviteModal(false)} />
       <div className="container py-5 h-100">
         
 

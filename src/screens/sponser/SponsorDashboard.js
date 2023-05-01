@@ -5,6 +5,7 @@ import Pagination from '../../component/Pagination';
 import { node_url, url } from '../../Helper/Helper';
 import { userContext } from '../../context/UserContext'
 import { Link } from 'react-router-dom';
+import InviteContactsModal from '../../component/InviteContactsModal';
 
 function SponsorDashboard() {
     const { user,setLoad } = useContext(userContext)
@@ -21,6 +22,7 @@ function SponsorDashboard() {
     const [cCountry, setCCountry] = useState("")
     const [search, setSearch] = useState("")
     const [gender, setGender] = useState("")
+    const [showInviteModal, setShowInviteModal] = useState(false);
 
     async function fetchSkill() {
         setLoad(true)
@@ -120,6 +122,7 @@ function SponsorDashboard() {
             toast.error(err.message)
         })
 
+        setShowInviteModal(!user?.has_invited);
     }, [])
 
     async function fetchFeeds() {
@@ -164,6 +167,7 @@ function SponsorDashboard() {
 
     return (
         <div className='sponsor-dashboard-div container-lg px-3 my-5'>
+            <InviteContactsModal show={showInviteModal} handleClose={() => setShowInviteModal(false)} />
             <div className='row'>
                 <div className='col-md-3 d-none d-md-block'>
                     <h5>Filter By</h5>
