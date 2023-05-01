@@ -39,10 +39,10 @@ function CommonSignup() {
                     <div className='col-sm-3'>
                         <div className="col-md-12 inner-card">
                             <img src="/assets/images/cv.png" alt="" />
-                            <h3 className='text-center'>I am looking for job</h3>
+                            <h3 className='text-center'>Job Seekers</h3>
                         </div>
 
-                        <Link className='a-btn' to="/signup-refugee?type=2">Job Seekers <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
+                        <Link className='a-btn' to="/signup-refugee?type=2">Looking For Job<i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i></Link>
                     </div>
                 </div>
 
