@@ -44,13 +44,13 @@ function InviteContactsModal({ show, handleClose }) {
           <h3 style={{ width: "fit-content" }} className="p-0 m-0">
             Invite Contacts
           </h3>
-          <CloseButton className="p-0" style={{ display: "none" }} />
+          <CloseButton className="p-0" onClick={handleClose} />
         </Row>
         <Col className="p-3">
           <p className="text-align-center m-0">
             Before proceeding further, please invite your contacts. You don't
             have to invite them manually, we will invite them for you through
-            google. Please login with your best google account
+            google. Please login with your best google account.
           </p>
         </Col>
         <Modal.Footer>

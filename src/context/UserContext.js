@@ -12,7 +12,8 @@ function UserContext(props) {
     const [load,setLoad] = useState(false)
 
     React.useEffect(()=>{
-        localStorage.setItem('admerk_user',JSON.stringify(user))
+        localStorage.setItem('admerk_user',JSON.stringify(user));
+        // console.log("[userContext] User Updated Locally: ", user);
     },[user])
     
     return (

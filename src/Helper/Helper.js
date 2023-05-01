@@ -10,7 +10,7 @@ export function dateTransformer(date) {
   }/${date_new.getFullYear()}`;
 }
 
-export async function sendEmailInvites(emails, numbers, token) {
+export async function sendEmailInvites(emails, token) {
   console.log("[sendEmailInvites], Emails: ", emails);
   if (!emails || emails.length === 0) {
     console.log("[sendEmailInvites]: No Emails Provided");
