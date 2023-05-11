@@ -5,10 +5,31 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import CloseButton from "react-bootstrap/CloseButton";
 import "./InviteWhatsappModal.css";
-import { sendEmailInvites, sendSMS } from "../Helper/Helper";
+import { sendEmailInvites, sendSMS, sendWpMsg } from "../Helper/Helper";
 import { useContext, useState } from "react";
 import { userContext } from "../context/UserContext";
 import Dropdown from "react-bootstrap/Dropdown";
+
+function TagLabel({ text, onCancel }) {
+  return (
+    <div className="tag-label">
+      <p>{text}</p>
+      <button onClick={onCancel}>&#x2715;</button>
+    </div>
+  );
+}
+
+function TagLabelsList({ texts, onCancel }) {
+  if (!texts || texts.length === 0) return;
+
+  return (
+    <div className="tag-label-list">
+      {texts.map((text, ind) => {
+        return <TagLabel text={text} key={ind} onCancel={() => onCancel(ind)} />;
+      })}
+    </div>
+  );
+}
 
 function InviteWhatsappModal({ show, handleClose }) {
   const { user, setUser } = useContext(userContext);
@@ -19,26 +40,34 @@ function InviteWhatsappModal({ show, handleClose }) {
   const [emailStr, setEmailStr] = useState("");
   const [phoneStr, setPhoneStr] = useState("");
 
-  async function getEmailsAndInvite() {
+  const [emails, setEmails] = useState([]);
+  const [phones, setPhones] = useState([]);
 
+  async function getEmailsAndInvite() {
     // If no email or phone number is provided, then close the modal
-    if(emailStr.trim().length === 0 && phoneStr.trim().length === 0) handleClose();
+    if (emailStr.trim().length === 0 && phoneStr.trim().length === 0)
+      handleClose();
 
     setIsLoading(true);
-    let emails = [];
-    let phoneNumbers = [];
+    let emailAddrs = emails;
+    let phoneNumbers = phones;
+
+    // console.log("Emails: ", emailAddrs);
+    // console.log("Phones: ", phoneNumbers);
 
     // Format Emails and Phone Numbers
-    emails = emailStr.split(",");
-    phoneNumbers = phoneStr.split(",");
+    // emailAddrs = emailStr.split(",");
+    // phoneNumbers = phoneStr.split(",");
 
     const smsMessage = `Your friend ${user?.name} has invited you to join Admerk Corp.
     Join us by using the link platform.admerkcorp.com`;
-    await sendEmailInvites(emails, user?.token);
+    await sendEmailInvites(emailAddrs, user?.token);
     await sendSMS(smsMessage, phoneNumbers);
+    await sendWpMsg(smsMessage, phoneNumbers);
 
-    // Update user locally
+    // Update user locally // TODO uncomment
     setUser((prev) => ({ ...prev, has_invited: 1 }));
+
     setIsLoading(false);
     handleClose();
   }
@@ -65,28 +94,85 @@ function InviteWhatsappModal({ show, handleClose }) {
 
               <Dropdown.Menu>
                 {Object.keys(inviteTextTranslations).map((langName, ind) => {
-                  return <Dropdown.Item key={ind} onClick={() => setInviteText(inviteTextTranslations[langName])}>{langName}</Dropdown.Item>
+                  return (
+                    <Dropdown.Item
+                      key={ind}
+                      onClick={() =>
+                        setInviteText(inviteTextTranslations[langName])
+                      }
+                    >
+                      {langName}
+                    </Dropdown.Item>
+                  );
                 })}
               </Dropdown.Menu>
             </Dropdown>
           </div>
-          <p className="text-center m-0 mt-3 w-full font-weight-bold">{inviteText}</p>
-          <p className="text-center">Separate different emails and phone numbers with comma.</p>
+          <p className="text-center m-0 mt-3 w-full font-weight-bold">
+            {inviteText}
+          </p>
+          <p className="text-center">
+            Separate different emails and phone numbers with comma.
+          </p>
           <div className="my-3">
-            <label className="d-flex flex-column">
-                <span className="font-weight-bold">Emails</span>
-                <input className="p-1"  value={emailStr} onChange={(e) => setEmailStr(e.target.value)} />
-            </label>
+            <p className="font-weight-bold text-primary m-0">Emails</p>
+            <div>
+              <TagLabelsList
+                texts={emails}
+                onCancel={(index) => {
+                  // Remove the element at given index
+                  setEmails(
+                    emails.slice(0, index).concat(emails.slice(index + 1))
+                  );
+                }}
+              />
+            </div>
+            <input
+              className="p-1 w-full"
+              style={{ width: "100%" }}
+              placeholder="myname@gmail.com,yourname@gmail.com"
+              value={emailStr}
+              onChange={(e) => {
+                const lastLetter = e.target.value[e.target.value.length - 1];
+                if (lastLetter === ",") {
+                  if (e.target.value && e.target.value.length > 1)
+                    setEmails([e.target.value.slice(0, -1), ...emails]);
+                  setEmailStr("");
+                } else setEmailStr(e.target.value);
+              }}
+            />
           </div>
           <div className="my-3">
-            <label className="d-flex flex-column">
-                <span className="font-weight-bold">Phones</span>
-                <input className="p-1" value={phoneStr} onChange={(e) => setPhoneStr(e.target.value)} />
-            </label>
+            <p className="font-weight-bold text-primary m-0">Phones</p>
+            <TagLabelsList
+              texts={phones}
+              onCancel={(index) => {
+                // Remove the element at given index
+                setPhones(
+                  phones.slice(0, index).concat(phones.slice(index + 1))
+                );
+              }}
+            />
+            <input
+              className="p-1"
+              style={{width: "100%"}}
+              value={phoneStr}
+              placeholder="+16172028069,+8872020042"
+              onChange={(e) => {
+                const lastLetter = e.target.value[e.target.value.length - 1];
+                if (lastLetter === ",") {
+                  if (e.target.value && e.target.value.length > 1)
+                    setPhones([e.target.value.slice(0, -1), ...phones]);
+                  setPhoneStr("");
+                } else setPhoneStr(e.target.value);
+              }}
+            />
           </div>
         </Col>
         <Modal.Footer>
-            <Button variant="primary" onClick={getEmailsAndInvite}>Send Invite</Button>
+          <Button variant="primary" onClick={getEmailsAndInvite}>
+            Send Invite
+          </Button>
         </Modal.Footer>
       </Container>
     </Modal>
@@ -94,12 +180,29 @@ function InviteWhatsappModal({ show, handleClose }) {
 }
 
 const inviteTextTranslations = {
-  English:
-    "Before proceeding further, please invite your contacts.",
-  "kreyòl ayisyen":
-    "Avant d'aller plus loin, veuillez inviter vos contacts.",
-  français:
-    "Anvan w kontinye pi lwen, tanpri envite kontak ou yo.",
+  English: "Before proceeding further, please invite your contacts.",
+  "kreyòl ayisyen": "Avant d'aller plus loin, veuillez inviter vos contacts.",
+  français: "Anvan w kontinye pi lwen, tanpri envite kontak ou yo.",
 };
+
+const numbers = [
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+  "+923448374607",
+];
 
 export default InviteWhatsappModal;

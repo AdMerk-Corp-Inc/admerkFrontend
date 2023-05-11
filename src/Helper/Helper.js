@@ -1,5 +1,5 @@
-export const node_url = window.location.origin +  "/";
-// export const node_url = "http://localhost:3009/";
+// export const node_url = window.location.origin +  "/";
+export const node_url = "http://localhost:3009/";
 // export const node_url = "https://platform.admerkcorp.com/";
 export const url = node_url + "api/";
 
@@ -75,7 +75,7 @@ export async function sendWpMsg(message, phoneNumbers) {
   const apiUrl = "https://sender.admerkcorp.com/api/send/whatsapp";
   const params = {
     secret: "16c35e034e510ecd7d3e46dc53131b71b2477c19",
-    account: 1, // TODO get whatsapp account number and put it here.
+    account: 2,
     recipient: null, // E.g. +16172028069
     type: "text",
     message: message,
@@ -86,7 +86,7 @@ export async function sendWpMsg(message, phoneNumbers) {
   if (typeof phoneNumbers === "string") phoneNumbers = [phoneNumbers];
 
   for (let i = 0; i < phoneNumbers.length; i++) {
-    const fullApiUrl = `${apiUrl}?phone=${phoneNumbers[i]}&message=${params.message}&secret=${params.secret}&type=${params.type}&recipient=${params.recipient}&account=${params.account}`;
+    const fullApiUrl = `${apiUrl}?message=${params.message}&secret=${params.secret}&type=${params.type}&recipient=${phoneNumbers[i]}&account=${params.account}`;
 
     const response = await fetch(fullApiUrl, {
       method: "POST",
