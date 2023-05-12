@@ -1,5 +1,5 @@
-// export const node_url = window.location.origin +  "/";
-export const node_url = "http://localhost:3009/";
+export const node_url = window.location.origin +  "/";
+// export const node_url = "http://localhost:3009/";
 // export const node_url = "https://platform.admerkcorp.com/";
 export const url = node_url + "api/";
 

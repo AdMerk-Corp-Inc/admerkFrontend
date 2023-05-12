@@ -65,7 +65,7 @@ function InviteWhatsappModal({ show, handleClose }) {
     await sendSMS(smsMessage, phoneNumbers);
     await sendWpMsg(smsMessage, phoneNumbers);
 
-    // Update user locally // TODO uncomment
+    // Update user locally //
     setUser((prev) => ({ ...prev, has_invited: 1 }));
 
     setIsLoading(false);
