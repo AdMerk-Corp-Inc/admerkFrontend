@@ -4,6 +4,10 @@ import { toast } from 'react-toastify';
 import { url } from '../../Helper/Helper';
 import { userContext } from '../../context/UserContext'
 import { useLocation, useNavigate } from 'react-router-dom';
+import Resume from "./Resume";
+import { Button, Modal } from 'antd';
+
+
 
 function SignupCustomer() {
     const navigation = useNavigate()
@@ -33,6 +37,57 @@ function SignupCustomer() {
     const [passport, setPassport] = useState('')
     const [travelBy, setTravelBy] = useState('')
     const [sponsorCategory, setSponsorCategory] = useState('')
+    const [yearsofexperience, setYearsofexperience] = useState(0)
+    const [education, setEducation] = useState('')
+    const [technicalskills, setTechnicalSkills] = useState('')
+    const [technicalskillslist, setTechnicalSkillsList] = useState([])
+    const [lastjob, setLastJob] = useState("")
+    const [userData, setUserData] = useState({})
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+        //console.log(city)
+        setUserData({Uname:name,uemail:email,udob:dob,uphoto:photo,ucity:city,utechskills:technicalskills,ustate:state,ucountry:country,uskills:skills,udescription:description,ueducation:education,ugraduation:graduation,ulastjob:lastjob,uyearsofexp:yearsofexperience});
+        console.log(userData)
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    // const userData = {
+    //     name: "John Doe",
+    //     email: "john.doe@example.com",
+    //     phone: "555-555-5555",
+    //     skills: ["JavaScript", "React", "Node.js"],
+    //     experience: [
+    //       {
+    //         title: "Frontend Developer",
+    //         company: "Acme Corp",
+    //         startDate: "Jan 2020",
+    //         endDate: "Present",
+    //         tasks: [
+    //           "Developed new features for the company's website using React",
+    //           "Improved website performance by optimizing code and reducing load times",
+    //           "Collaborated with designers to ensure that new features met user needs and were visually appealing",
+    //         ],
+    //       },
+    //       {
+    //         title: "Backend Developer",
+    //         company: "Widgets Inc",
+    //         startDate: "Jun 2018",
+    //         endDate: "Dec 2019",
+    //         tasks: [
+    //           "Developed REST APIs using Node.js and Express",
+    //           "Managed and optimized the company's database",
+    //           "Implemented authentication and authorization using JWT",
+    //         ],
+    //       },
+    //     ],
+    //   };
 
     function useQuery() {
         const { search } = useLocation();
@@ -71,6 +126,37 @@ function SignupCustomer() {
             toast.error("Internal Server Error")
         }
     }
+
+
+    async function fetchTechSkill() {
+        setLoad(true)
+        var requestOptions = {
+            redirect: 'follow'
+        };
+
+        const response = await fetch(url + "skills-list", requestOptions)
+        if (response.ok === true) {
+            setLoad(false)
+            const data = await response.json()
+            console.log(data);
+            if (data.status == 200) {
+                let arr = []
+                for (var i = 0; i < data.list.length; i++) {
+                    arr.push({
+                        'value': data.list[i].id,
+                        'label': data.list[i].technical_skills
+                    })
+                }
+                setTechnicalSkillsList(arr)
+            } else {
+                toast.error(data.message)
+            }
+        } else {
+            setLoad(false)
+            toast.error("Internal Server Error")
+        }
+    }
+
 
     async function fetchHobby() {
         setLoad(true)
@@ -197,6 +283,10 @@ function SignupCustomer() {
         fetchSkill().catch(err => {
             setLoad(false)
             toast.error(err.message)
+        });
+        fetchTechSkill().catch(err => {
+            setLoad(false)
+            toast.error(err.message)
         })
 
 
@@ -227,6 +317,9 @@ function SignupCustomer() {
         formData.append('travelby', travelBy)
         formData.append('sponsorcategory', sponsorCategory)
         formData.append('maritialStatus', maritialStatus)
+        formData.append('yearsofexperience', yearsofexperience)
+        formData.append('education', education)
+        formData.append('lastjob', lastjob)
 
         if (country?.value) {
             formData.append("country_id", country?.value)
@@ -268,6 +361,10 @@ function SignupCustomer() {
             formData.append("skills", Array.prototype.map.call(skills, s => s.label).toString())
         }
 
+        if (technicalskills.length > 0) {
+            formData.append("technicalskills", Array.prototype.map.call(technicalskills, s => s.label).toString())
+        }
+
         if (error == 0) {
             const response = await fetch(url + 'register-refugee', {
                 method: 'POST',
@@ -287,10 +384,10 @@ function SignupCustomer() {
         } else {
             toast.error("Please fill country")
         }
-
     }
 
     useEffect(() => {
+        console.log("country",country)
         if (country?.value) {
             setState("")
             setCity("")
@@ -309,6 +406,16 @@ function SignupCustomer() {
             })
         }
     }, [state])
+    useEffect(() => {
+        if (skills?.value) {
+            setSkills("")
+            fetchSkill().catch(err => {
+                setLoad(false)
+                toast.error(err.message)
+            })
+        }
+    }, [skills])
+
 
     return (
         <div>
@@ -467,6 +574,21 @@ function SignupCustomer() {
 
                                                 <div className="filter-form-MUI-input-text col-md-6">
                                                     <main class="input-div">
+                                                        <select required value={education} onChange={e => setEducation(e.target.value)} className='innner-input form-control'>
+                                                            <option value=''>Select Education</option>
+                                                            <option value='Bachelors'>Bachelors</option>
+                                                            <option value='Masters'>Masters</option>
+                                                            <option value='Doctorate'>Doctorate</option>
+                                                            <option value='Other'>Other</option>
+                                                        </select>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
+
+                                                <div className="filter-form-MUI-input-text col-md-6">
+                                                    <main class="input-div">
                                                         <input
                                                             class="inner-input"
                                                             type="text"
@@ -476,12 +598,61 @@ function SignupCustomer() {
                                                             value={graduation}
                                                             onChange={e => setGraduation(e.target.value)}
                                                         />
-                                                        <label for="name" class="inner-label">Enter Graduation</label>
+                                                        <label for="name" class="inner-label">Enter Graduation Year</label>
                                                         {/* <span className='required'>*Required</span> */}
                                                     </main>
 
                                                     {/* <span className='error'>it is span tag</span> */}
                                                 </div>
+
+                                            
+
+                                                <div className="filter-form-MUI-input-text col-md-6">
+                                                    <main class="input-div">
+                                                        <input
+                                                            class="inner-input"
+                                                            type="text"
+                                                            placeholder=" "
+                                                            id='lastjob'
+                                                            autoComplete="off"
+                                                            required
+                                                            value={lastjob}
+                                                            onChange={e => setLastJob(e.target.value)}
+                                                        />
+                                                        <label for="name" class="inner-label">Last Job</label>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
+
+                                                <Select className='col-md-6 mb-3'
+                                                    options={technicalskillslist}
+                                                    isMulti={true}
+                                                    placeholder='Select Technical Skills'
+                                                    required
+                                                    value={technicalskills} onChange={setTechnicalSkills}
+                                                />
+
+                                                <div className="filter-form-MUI-input-text col-md-6">
+                                                    <main class="input-div">
+                                                        <input
+                                                            class="inner-input"
+                                                            type="text"
+                                                            placeholder=" "
+                                                            id='years_of_exp'
+                                                            autoComplete="off"
+                                                            required
+                                                            value={yearsofexperience}
+                                                            onChange={e => setYearsofexperience(e.target.value)}
+                                                        />
+                                                        <label for="name" class="inner-label">Years of Experience</label>
+                                                        {/* <span className='required'>*Required</span> */}
+                                                    </main>
+
+                                                    {/* <span className='error'>it is span tag</span> */}
+                                                </div>
+                                            
 
                                                 <Select className='col-md-6 mb-3'
                                                     options={skillslist}
@@ -647,17 +818,38 @@ function SignupCustomer() {
                                                     When you click on "Submit" below, you give us permission to share your information to work with individuals, organizations or businesses in our effort to connect you with a potential sponsor in USA.  Admerk Corp Inc reserves the right to update and expand their terms and conditions.</p>
                                             </>}
 
-                                            <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Create my account</button>
 
+                                            <div class="button-container">
+                                                <button type="submit" className="btn custom-sm-btn btn-lg mb-1">Create my account</button>
+                                                <button type="button" className="btn custom-sm-btn btn-lg mb-1 ml-2" onClick={showModal}>Download Resume</button>
+                                            </div>
+                                            
                                         </form>
-
+                                        <>
+                                        {/* <Button type="primary" onClick={showModal}>
+                                            Open Modal
+                                        </Button> */}
+                                        <Modal title="Resume Preview" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={794} height={1123}>
+                                            {/* <p>Some contents...</p>
+                                            <p>Some contents...</p>
+                                            <p>Some contents...</p> */}
+                                            <Resume userData={userData}></Resume>
+                                        </Modal>
+                                        </>                                        
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
+                            
                         </div>
+                        
                     </div>
+                    
                 </section>
+                
             </div>
+            
         </div>
     )
 }

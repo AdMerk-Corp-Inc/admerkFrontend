@@ -448,6 +448,14 @@ div#goog-gt-tt {
   align-items: center;
   margin: 0 1rem;
 }
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.technology {
+  margin-right: 10px; /* Adjust the value as per your preference */
+}
 
 .my-tickets-div .status-filter-div label,
 .all-jobs-div .status-filter-div label {
@@ -677,4 +685,53 @@ div#goog-gt-tt {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ml-2 {
+  margin-left: 0.5rem; /* Adjust the spacing as needed */
+}
+
+/* ========== PDF ========== */
+
+.font-bold{
+  font-size: 40px;
+  font-weight: 900;
+}
+.font-thin {
+  font-size: 40px;
+  font-weight: 100;
+}
+.firstname{
+  position: relative;
+  top: 20px;
+}
+.title{
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.bg-1 {
+  background-color: antiquewhite;
+}
+.bg-2 {
+  background-color: rgb(49, 49, 49);
+}
+.bg-3 {
+  background-color: rgb(77, 77, 77);
+}
+.pdf{
+  width: 210mm;
+  height: 297mm;
+}
+.pdf-profile-image {
+  height: 150px;
+  width: 150px;
+  border: 4px solid white;
+  object-fit: cover;
+  border-radius: 50%;
 }

@@ -1,5 +1,5 @@
-export const node_url = window.location.origin +  "/";
-// export const node_url = "http://localhost:3009/";
+//export const node_url = window.location.origin +  "/";
+export const node_url = "http://localhost:3009/";
 // export const node_url = "https://platform.admerkcorp.com/";
 export const url = node_url + "api/";
 
@@ -64,34 +64,5 @@ export async function sendSMS(message, phoneNumbers) {
     });
     if (response.status === 200) console.log("SMS Sent Succesfully to: ", phoneNumbers[i]);
     else console.log("Failed to send SMS to: ", phoneNumbers[i]);
-  }
-}
-
-
-export async function sendWpMsg(message, phoneNumbers) {
-  if (!message && !phoneNumbers)
-    return console.log("[sendWpMsg] message and phone number not provided!");
-
-  const apiUrl = "https://sender.admerkcorp.com/api/send/whatsapp";
-  const params = {
-    secret: "16c35e034e510ecd7d3e46dc53131b71b2477c19",
-    account: 2,
-    recipient: null, // E.g. +16172028069
-    type: "text",
-    message: message,
-    
-  };
-
-  // If a single phone number in a string is given, convert it into array
-  if (typeof phoneNumbers === "string") phoneNumbers = [phoneNumbers];
-
-  for (let i = 0; i < phoneNumbers.length; i++) {
-    const fullApiUrl = `${apiUrl}?message=${params.message}&secret=${params.secret}&type=${params.type}&recipient=${phoneNumbers[i]}&account=${params.account}`;
-
-    const response = await fetch(fullApiUrl, {
-      method: "POST",
-    });
-    if (response.status === 200) console.log("Whatsapp Message Sent Succesfully to: ", phoneNumbers[i]);
-    else console.log("Failed to send Whatsapp Message to: ", phoneNumbers[i]);
   }
 }
