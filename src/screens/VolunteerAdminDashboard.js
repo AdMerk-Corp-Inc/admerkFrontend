@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { userContext } from '../context/UserContext'
 import { url } from '../Helper/Helper'
-import InviteContactsModal from '../component/InviteContactsModal'
+import InviteWhatsappModal from '../component/InviteWhatsappModal'
 
 
 function VolunteerAdminDashboard() {
@@ -47,7 +47,7 @@ function VolunteerAdminDashboard() {
   return (
 
     <section className="my-tickets-div" style={{ backgroundColor: '#0061df08' }}>
-      <InviteContactsModal show={showInviteModal} handleClose={() => setShowInviteModal(false)} />
+      <InviteWhatsappModal show={showInviteModal} handleClose={() => setShowInviteModal(false)} />
       <div className="container py-5 h-100">
         
 
