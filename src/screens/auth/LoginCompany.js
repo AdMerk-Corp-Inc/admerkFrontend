@@ -78,13 +78,20 @@ function LoginCompany() {
                      <div className="card rounded-3">
                         <div className="card-body p-4 pb-0 p-md-5 pb-md-0">
                            {/* <h2 className='text-center mb-4'><a href="">ADMERK</a></h2> */}
-                           <div className="d-flex align-items-center justify-content-center mb-5">
+                           <div className="d-flex align-items-center justify-content-center mb-1">
                               <img
                                  alt="ganja"
                                  src="/assets/images/newLogo.png"
                                  style={{ width: "19rem" }}
                               />
                            </div>
+
+                           {/* <h3
+                              className="d-flex mb-3 align-items-center justify-content-center"
+                              // style={{ backgroundColor: "#000000" }}
+                           >
+                              Company Login
+                           </h3> */}
 
                            <form onSubmit={(e) => handleSubmit(e)}>
                               <div className="row">
@@ -129,7 +136,7 @@ function LoginCompany() {
                                  </div>
                               </div>
 
-                              {show && (
+                              {/* {show && (
                                  <div className=" mb-3 pt-1">
                                     <p className="mb-0">
                                        Have not verified email yet!{" "}
@@ -141,7 +148,7 @@ function LoginCompany() {
                                        </a>
                                     </p>
                                  </div>
-                              )}
+                              )} */}
 
                               <div className="d-flex justify-content-between align-items-center mt-3 forgot-pass-div">
                                  <button
@@ -150,16 +157,16 @@ function LoginCompany() {
                                  >
                                     Login
                                  </button>
-                                 <Link to="/forgot-password">
+                                 {/* <Link to="/forgot-password">
                                     Forgot Password?
-                                 </Link>
+                                 </Link> */}
                               </div>
                            </form>
 
                            <div className="d-flex justify-content-center mb-3 mt-4 pt-2">
                               <p className="mb-0">
-                                 Don't have an account?{" "}
-                                 <a href="/signup">Signup</a>
+                                 Don't have a company account?{" "}
+                                 <a href="/signup-company">Signup</a>
                               </p>
                            </div>
                         </div>

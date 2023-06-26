@@ -45,7 +45,14 @@ function CommonSignup() {
                   </div>
 
                   <Link className="a-btn" to="/signup-sponser?type=2">
-                     Lend A Helping Hand{" "}
+                     Sign up
+                     <i
+                        className="fa fa-long-arrow-right ms-3"
+                        aria-hidden="true"
+                     ></i>
+                  </Link>
+                  <Link className="a-btn" to="/login">
+                     Login{" "}
                      <i
                         className="fa fa-long-arrow-right ms-3"
                         aria-hidden="true"
@@ -60,7 +67,14 @@ function CommonSignup() {
                   </div>
 
                   <Link className="a-btn" to="/signup-refugee?type=1">
-                     looking For Sponsor{" "}
+                     Sign up
+                     <i
+                        className="fa fa-long-arrow-right ms-3"
+                        aria-hidden="true"
+                     ></i>
+                  </Link>
+                  <Link className="a-btn" to="/login">
+                     Login{" "}
                      <i
                         className="fa fa-long-arrow-right ms-3"
                         aria-hidden="true"
@@ -74,7 +88,14 @@ function CommonSignup() {
                   </div>
 
                   <Link className="a-btn" to="/signup-refugee?type=2">
-                     Looking For Job
+                     Sign up
+                     <i
+                        className="fa fa-long-arrow-right ms-3"
+                        aria-hidden="true"
+                     ></i>
+                  </Link>
+                  <Link className="a-btn" to="/login">
+                     Login{" "}
                      <i
                         className="fa fa-long-arrow-right ms-3"
                         aria-hidden="true"
@@ -83,12 +104,12 @@ function CommonSignup() {
                </div>
             </div>
 
-            <h6 className="font-weight-normal mt-4 text-center">
+            {/* <h6 className="font-weight-normal mt-4 text-center">
                Post Resume Free!{" "}
                <a style={{ textDecoration: "underline" }} href="/login">
                   Sign in
                </a>
-            </h6>
+            </h6> */}
          </div>
       </div>
    );

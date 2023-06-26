@@ -36,6 +36,12 @@ import NonAuthLayout from "./screens/NonAuthLayout";
 import SignupCompany from "./screens/auth/SignUpCompany";
 import LoginCompany from "./screens/auth/LoginCompany";
 import CompanyDashboard from "./screens/company/DashboardCompany";
+import AllCompanies from "./screens/company/AllCompanies";
+import MyJobs from "./screens/company/MyJobs";
+import MyBootcamps from "./screens/company/Bootcamps";
+import CreateBootcamp from "./screens/company/CreateBootcamp";
+import EditBootcamp from "./screens/company/EditBootcamp";
+import BootcampsMain from "./screens/refugee/BootcampsMain";
 
 function App() {
    const { load } = useContext(userContext);
@@ -115,6 +121,60 @@ function App() {
                   element={
                      <Layout>
                         <CompanyDashboard />
+                     </Layout>
+                  }
+               />
+               <Route
+                  path="/all-companies"
+                  exact={true}
+                  element={
+                     <Layout>
+                        <AllCompanies />
+                     </Layout>
+                  }
+               />
+               <Route
+                  path="/my-jobs"
+                  exact={true}
+                  element={
+                     <Layout>
+                        <MyJobs />
+                     </Layout>
+                  }
+               />
+               <Route
+                  path="/my-boots"
+                  exact={true}
+                  element={
+                     <Layout>
+                        <MyBootcamps />
+                     </Layout>
+                  }
+               />
+               <Route
+                  path="/create-boot"
+                  exact={true}
+                  element={
+                     <Layout>
+                        <CreateBootcamp />
+                     </Layout>
+                  }
+               />
+               <Route
+                  path="/edit-boot"
+                  exact={true}
+                  element={
+                     <Layout>
+                        <EditBootcamp />
+                     </Layout>
+                  }
+               />
+               <Route
+                  path="/boots-refugee"
+                  exact={true}
+                  element={
+                     <Layout>
+                        <BootcampsMain />
                      </Layout>
                   }
                />

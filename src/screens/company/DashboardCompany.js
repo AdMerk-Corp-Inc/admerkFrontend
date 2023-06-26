@@ -605,8 +605,9 @@ function CompanyDashboard() {
 
                               <div>
                                  <h5>{item?.name}</h5>
-                                 {/* <p>{item?.email}</p> */}
+                                 <p>{item?.email}</p>
                                  <span>{item?.country_name}</span>
+                                 {/* <p>{item?.skills}</p> */}
                               </div>
                            </div>
 

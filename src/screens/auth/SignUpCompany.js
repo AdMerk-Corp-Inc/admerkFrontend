@@ -4,19 +4,24 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import { userContext } from "../../context/UserContext";
 import { url } from "../../Helper/Helper";
+import TextEditor from "../../component/TextEditor";
 
 function SignupCompany() {
    const { setLoad } = useContext(userContext);
    const [name, setName] = useState("");
+   const [description, setDescription] = useState("");
    const [password, setPassword] = useState("");
    const [email, setEmail] = useState("");
+   const [logo, setLogo] = useState();
    const [country, setCountry] = useState("");
    const [state, setState] = useState("");
    const [city, setCity] = useState("");
    const [countrylist, setCountryList] = useState([]);
    const [statelist, setStateList] = useState([]);
    const [citylist, setCityList] = useState([]);
-   const [whatsappnum, setWhatsappNum] = useState("");
+   const [number, setNumber] = useState("");
+   const [officeLoc, setOfficeLoc] = useState("");
+   const [since, setSince] = useState("");
    const [adult, setAdult] = useState(false);
    const [citizen, setCitizen] = useState(false);
    const [sponsorGroup, setSponsorGroup] = useState("individual");
@@ -77,6 +82,7 @@ function SignupCompany() {
       formData.append("name", name);
       formData.append("email", email);
       formData.append("password", password);
+      formData.append("description", description);
       formData.append("role", 6); // for company
 
       // formData.append("whatsapp_number", whatsappnum);
@@ -103,7 +109,11 @@ function SignupCompany() {
          error = error + 1;
       }
 
+      formData.append("logo", logo);
       formData.append("zip_code", zipcode);
+      formData.append("since", since);
+      formData.append("number", number);
+      formData.append("office_location", officeLoc);
 
       // if (type === "2") {
       //    // formData.append("user_type", "2");
@@ -231,12 +241,29 @@ function SignupCompany() {
                         </div>
                         <div className="card-body p-4 p-md-5">
                            <h3 className="mb-4">
-                              Sign Up Made by Ahmad
-                              {type == "2" ? "As Sponsor" : "To Post Job"}
+                              Sign Up
+                              {type == "2" ? "As Sponsor" : " as a Company"}
                            </h3>
 
                            <form onSubmit={(e) => handleSubmit(e)}>
                               <div className="row">
+                                 <div className="filter-form-MUI-input-text col-md-6">
+                                    <main class="input-div">
+                                       <input
+                                          class="inner-input"
+                                          type="file"
+                                          placeholder=" "
+                                          id="name"
+                                          autoComplete="off"
+                                          onChange={(e) =>
+                                             setLogo(e.target.files[0])
+                                          }
+                                       />
+                                       <label for="name" class="inner-label">
+                                          Upload Company Logo
+                                       </label>
+                                    </main>
+                                 </div>
                                  <div className="filter-form-MUI-input-text col-md-6">
                                     <main className="input-div">
                                        <input
@@ -316,6 +343,83 @@ function SignupCompany() {
                                  <div className="filter-form-MUI-input-text col-md-6">
                                     <main className="input-div">
                                        <input
+                                          className="inner-input"
+                                          type="number"
+                                          placeholder=" "
+                                          id="number"
+                                          autoComplete="off"
+                                          required
+                                          value={number}
+                                          onChange={(e) =>
+                                             setNumber(e.target.value)
+                                          }
+                                       />
+                                       <label
+                                          for="name"
+                                          className="inner-label"
+                                       >
+                                          Contact Number
+                                       </label>
+                                       {/* <span className='required'>*Required</span> */}
+                                    </main>
+
+                                    {/* <span className='error'>it is span tag</span> */}
+                                 </div>
+
+                                 <div className="filter-form-MUI-input-text col-md-6">
+                                    <main className="input-div">
+                                       <input
+                                          className="inner-input"
+                                          type="text"
+                                          placeholder=" "
+                                          id="office location"
+                                          autoComplete="off"
+                                          required
+                                          value={officeLoc}
+                                          onChange={(e) =>
+                                             setOfficeLoc(e.target.value)
+                                          }
+                                       />
+                                       <label
+                                          for="name"
+                                          className="inner-label"
+                                       >
+                                          Office Location
+                                       </label>
+                                       {/* <span className='required'>*Required</span> */}
+                                    </main>
+
+                                    {/* <span className='error'>it is span tag</span> */}
+                                 </div>
+
+                                 <div className="filter-form-MUI-input-text col-md-6">
+                                    <main className="input-div">
+                                       <input
+                                          className="inner-input"
+                                          type="number"
+                                          placeholder=" "
+                                          id="since"
+                                          autoComplete="off"
+                                          value={since}
+                                          onChange={(e) =>
+                                             setSince(e.target.value)
+                                          }
+                                       />
+                                       <label
+                                          for="name"
+                                          className="inner-label"
+                                       >
+                                          Since
+                                       </label>
+                                       {/* <span className='required'>*Required</span> */}
+                                    </main>
+
+                                    {/* <span className='error'>it is span tag</span> */}
+                                 </div>
+
+                                 {/* <div className="filter-form-MUI-input-text col-md-6">
+                                    <main className="input-div">
+                                       <input
                                           class="inner-input"
                                           type="text"
                                           placeholder=" "
@@ -334,10 +438,10 @@ function SignupCompany() {
                                           WhatsApp Number
                                        </label>
                                        {/* <span className='required'>*Required</span> */}
-                                    </main>
+                                 {/* </main> */}
 
-                                    {/* <span className='error'>it is span tag</span> */}
-                                 </div>
+                                 {/* <span className='error'>it is span tag</span> */}
+                                 {/* </div> */}
 
                                  <Select
                                     className="col-md-6 mb-3"
@@ -386,6 +490,31 @@ function SignupCompany() {
 
                                     {/* <span className='error'>it is span tag</span> */}
                                  </div>
+
+                                 <div className="filter-form-MUI-input-text mt-3">
+                                    <main class="input-div h-100">
+                                       <textarea
+                                          class="inner-input position-relative pt-3"
+                                          type="text"
+                                          placeholder=" "
+                                          id="name"
+                                          autoComplete="off"
+                                          rows="8"
+                                          value={description}
+                                          onChange={(e) =>
+                                             setDescription(e.target.value)
+                                          }
+                                       />
+                                       <label for="name" class="inner-label">
+                                          Description
+                                       </label>
+                                       {/* <TextEditor
+                                          content={description}
+                                          setContent={setDescription}
+                                       /> */}
+                                    </main>
+                                 </div>
+
                                  {type == "2" && (
                                     <>
                                        <div className="filter-form-MUI-input-text col-md-6">
@@ -641,7 +770,7 @@ function SignupCompany() {
                                  )}
                               </div>
 
-                              <p className="mt-3 text-muted">
+                              <p className="mt-5 text-muted">
                                  By adding phone number you are agree to recieve
                                  periodic updates and communications from our
                                  strategic partner

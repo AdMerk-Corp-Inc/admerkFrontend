@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import Pagination from "../component/Pagination";
+import Pagination from "../../component/Pagination";
 import { toast } from "react-toastify";
-import { userContext } from "../context/UserContext";
-import { url } from "../Helper/Helper";
+import { userContext } from "../../context/UserContext";
+import { url } from "../../Helper/Helper";
 import { Link } from "react-router-dom";
-import DeleteModal from "../component/DeleteModal";
+import DeleteModal from "../../component/DeleteModal";
 
-function AllJobs() {
+function MyJobs() {
    const { user, setLoad } = useContext(userContext);
    const [allJobs, setAllJobs] = useState([]);
    const [status, setStatus] = useState("All");
@@ -239,4 +239,4 @@ function AllJobs() {
    );
 }
 
-export default AllJobs;
+export default MyJobs;

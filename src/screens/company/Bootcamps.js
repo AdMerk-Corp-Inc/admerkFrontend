@@ -1,23 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
-import Pagination from "../component/Pagination";
+import Pagination from "../../component/Pagination";
 import { toast } from "react-toastify";
-import { userContext } from "../context/UserContext";
-import { url } from "../Helper/Helper";
+import { userContext } from "../../context/UserContext";
+import { url } from "../../Helper/Helper";
 import { Link } from "react-router-dom";
-import DeleteModal from "../component/DeleteModal";
+import DeleteModal from "../../component/DeleteModal";
 
-function AllJobs() {
+function MyBootcamps() {
    const { user, setLoad } = useContext(userContext);
-   const [allJobs, setAllJobs] = useState([]);
+   const [allBoots, setAllBoots] = useState([]);
    const [status, setStatus] = useState("All");
    const [modalShow, setModalShow] = React.useState(false);
    const [currentId, setCurrentId] = useState("");
 
-   async function fetchJobs() {
+   async function fetchBoots() {
       setLoad(true);
-      let main_url = "v1/getAllJobs";
+      let main_url = "getMineBoots";
       if (status != "All") {
-         main_url = main_url + `?status=${status}`;
+         //  main_url = main_url + `?status=${status}`;
       }
       const response = await fetch(url + main_url, {
          headers: {
@@ -27,9 +27,9 @@ function AllJobs() {
       if (response.ok == true) {
          setLoad(false);
          const data = await response.json();
-         console.log(data);
          if (data.status == 200) {
-            setAllJobs(data?.list);
+            setAllBoots(data?.bootcamps);
+            console.log(data);
          } else {
             toast.error(data.message);
          }
@@ -40,7 +40,7 @@ function AllJobs() {
    }
 
    useEffect(() => {
-      fetchJobs().catch((err) => {
+      fetchBoots().catch((err) => {
          setLoad(false);
          toast.error(err.message);
       });
@@ -74,7 +74,7 @@ function AllJobs() {
 
             if (data.status == 200) {
                toast.success("Status updated successfully!");
-               fetchJobs().catch((err) => {
+               fetchBoots().catch((err) => {
                   toast.error(err.message);
                });
             } else {
@@ -85,14 +85,19 @@ function AllJobs() {
       }
    }
    async function deletedata() {
-      const response = await fetch(url + "delete-job/" + currentId);
+      const response = await fetch(url + "delete-bootcamp/" + currentId, {
+         method: "DELETE",
+         headers: {
+            Authorization: `Bearer ${user?.token}`,
+         },
+      });
       if (response.ok === true) {
          const data = await response.json();
          if (data?.status === 200) {
             toast.success(data?.message);
             setModalShow(false);
             setCurrentId("");
-            fetchJobs().catch((err) => {
+            fetchBoots().catch((err) => {
                setLoad(false);
                toast.error(err.message);
             });
@@ -117,6 +122,7 @@ function AllJobs() {
          <div>
             <DeleteModal
                show={modalShow}
+               job={false}
                onHide={() => setModalShow(false)}
                deletedata={deletedata}
             />
@@ -128,15 +134,15 @@ function AllJobs() {
                      <div className="me-4 ms-sm-4">
                         <a
                            type="button"
-                           href="/create-job"
+                           href="/create-boot"
                            class="btn btn-primary custom-sm-btn mb-4"
                         >
-                           Create Job
+                           Create Bootcamp
                         </a>
                      </div>
 
-                     <label className="me-3" htmlFor="">
-                        Job Status:
+                     {/* <label className="me-3" htmlFor="">
+                        Bootcamp Status:
                      </label>
                      <select
                         value={status}
@@ -145,9 +151,9 @@ function AllJobs() {
                         aria-label="Default select example"
                      >
                         <option value="All">All</option>
-                        <option value="1">Open</option>
-                        <option value="2">Closed</option>
-                     </select>
+                        <option value="1">Live</option>
+                        <option value="0">Down</option>
+                     </select> */}
                   </div>
 
                   <div className="table-responsive">
@@ -155,46 +161,60 @@ function AllJobs() {
                         <thead>
                            <tr>
                               <th scope="col">Sr No.</th>
-                              <th scope="col">Title</th>
-                              <th scope="col">Country</th>
+                              <th scope="col">Topic</th>
+                              <th scope="col">URL</th>
+                              <th scope="col">Payment</th>
                               <th scope="col">Created Date</th>
-                              <th scope="col">Total Applied</th>
                               <th scope="col">Status</th>
                               <th scope="col">Action</th>
                            </tr>
                         </thead>
                         <tbody>
-                           {allJobs?.length > 0 ? (
-                              allJobs.map((item, index) => (
+                           {allBoots?.length > 0 ? (
+                              allBoots.map((item, index) => (
                                  <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>
                                        <Link to={`/apply-job?id=${item?.id}`}>
-                                          {item?.title}
+                                          {item?.topic}
                                        </Link>
                                     </td>
-                                    <td>{item?.country_name}</td>
-                                    <td>{item?.created_date}</td>
-                                    <td>{item?.applied_count}</td>
-                                    <td onClick={() => changeStatus(item)}>
-                                       {item?.status == 1 ? (
+                                    <td>{item?.urls}</td>
+                                    <td
+                                    // onClick={() => changeStatus(item)}
+                                    >
+                                       {item?.free == 1 ? (
                                           <span className="bg-primary px-2 py-1 rounded text-white">
-                                             Open
+                                             Free
                                           </span>
                                        ) : (
                                           <span className="bg-danger px-2 py-1 rounded text-white">
-                                             Closed
+                                             Paid
+                                          </span>
+                                       )}
+                                    </td>
+                                    <td>{item?.created_date}</td>
+                                    <td
+                                    // onClick={() => changeStatus(item)}
+                                    >
+                                       {item?.status == 1 ? (
+                                          <span className="bg-primary px-2 py-1 rounded text-white">
+                                             Live
+                                          </span>
+                                       ) : (
+                                          <span className="bg-danger px-2 py-1 rounded text-white">
+                                             Down
                                           </span>
                                        )}
                                     </td>
                                     <td>
-                                       <a href={`edit-job?id=${item?.id}`}>
+                                       <a href={`edit-boot?id=${item?.id}`}>
                                           <i
                                              class="fa fa-pencil"
                                              aria-hidden="true"
                                           ></i>
                                        </a>
-                                       <a
+                                       {/* <a
                                           href={`job-applicant-list?id=${item?.id}`}
                                        >
                                           <i
@@ -203,7 +223,7 @@ function AllJobs() {
                                              data-bs-placement="bottom"
                                              title="Applicants Detail"
                                           ></i>
-                                       </a>
+                                       </a> */}
                                        <a
                                           href="javascript:void(0)"
                                           onClick={() =>
@@ -224,7 +244,7 @@ function AllJobs() {
                               <tr>
                                  <td colSpan={7}>
                                     <div className="not-found">
-                                       No Jobs Found
+                                       No Bootcamps Found
                                     </div>
                                  </td>
                               </tr>
@@ -239,4 +259,4 @@ function AllJobs() {
    );
 }
 
-export default AllJobs;
+export default MyBootcamps;
